@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { styled } from '@mui/material/styles';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -43,7 +43,7 @@ const ServiceCard = ({ item, isLoading }) => {
               <Grid container direction="column" justifyContent='space-between'>
                 <Grid item>
                   <Grid container >
-                    <Grid item  sx={{width:'100%',display:'flex',justifyContent:'center'}}>
+                    <Grid item  sx={{width:'100%',display:'flex',justifyContent:'center',color:'#61c0fa'}}>
                       {item.Icon}
                     </Grid>
                   </Grid>
@@ -51,7 +51,7 @@ const ServiceCard = ({ item, isLoading }) => {
                 <Grid item>
                   <Grid container alignItems="center">
                     <Grid item>
-                      {item.name}
+                     <Typography variant='h3' component='div' fontSize={{xs:'12px',sm:'14px',md:'16px'}} marginTop={{xl:'20px',md:'15px',sm:'15px',xs:'15px'}} color='#807d7d'> {item.name}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -12,8 +12,10 @@ import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 // import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 import ServiceCard from './ServiceCard';
-
-import { IconCash,IconDeviceMobileCharging,IconChartHistogram,IconBusinessplan } from '@tabler/icons-react';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import SavingsIcon from '@mui/icons-material/Savings';
 
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -27,20 +29,21 @@ const Dashboard = () => {
   const Icons=[
     {
     name:'Send Money',
-    Icon:<IconCash size={30}/>
+    Icon:<LocalAtmIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
     },
     {
       name:'Recharge',
-      Icon:<IconDeviceMobileCharging/>
+      Icon:<SmartphoneIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
     },
+    
    
     {
       name:'Mutual Funds',
-      Icon:<IconChartHistogram/>
+      Icon:<TrendingUpIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
     },
     {
       name:'Digi gold',
-      Icon:<IconBusinessplan/>
+      Icon:<SavingsIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
     },
 ]
 
@@ -70,11 +73,11 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container spacing={gridSpacing} justifyContent='space-between'>
+        <Grid container spacing={gridSpacing} rowGap={0} justifyContent={{xl:'start',md:'start',sm:'start'}}>
           
           
             {Icons.map((item,index)=>(
-               <Grid item xl={2} lg={2} md={2} sm={4} xs={4} key={index}> <ServiceCard item={item}/></Grid>
+               <Grid item xl={1.5} lg={2} md={3} sm={4} xs={4} key={index}> <ServiceCard item={item}/></Grid>
             ))}
           
           
