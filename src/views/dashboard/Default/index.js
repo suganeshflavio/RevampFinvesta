@@ -70,11 +70,11 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
+        <Grid container spacing={gridSpacing} justifyContent='space-between'>
           
           
             {Icons.map((item,index)=>(
-               <Grid item xl={3} lg={4} md={6} sm={6} xs={12} key={index}> <ServiceCard item={item}/></Grid>
+               <Grid item xl={2} lg={2} md={2} sm={4} xs={4} key={index}> <ServiceCard item={item}/></Grid>
             ))}
           
           
