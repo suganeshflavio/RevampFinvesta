@@ -11,6 +11,10 @@ import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 // import TotalIncomeLightCard from './TotalIncomeLightCard';
 // import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import ServiceCard from './ServiceCard';
+
+import { IconCash,IconDeviceMobileCharging,IconChartHistogram,IconBusinessplan } from '@tabler/icons-react';
+
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -20,6 +24,27 @@ const Dashboard = () => {
     setLoading(false);
   }, []);
 
+  const Icons=[
+    {
+    name:'Send Money',
+    Icon:<IconCash size={30}/>
+    },
+    {
+      name:'Recharge',
+      Icon:<IconDeviceMobileCharging/>
+    },
+   
+    {
+      name:'Mutual Funds',
+      Icon:<IconChartHistogram/>
+    },
+    {
+      name:'Digi gold',
+      Icon:<IconBusinessplan/>
+    },
+]
+
+
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
@@ -27,6 +52,7 @@ const Dashboard = () => {
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <EarningCard isLoading={isLoading} />
           </Grid>
+         
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <TotalOrderLineChartCard isLoading={isLoading} />
           </Grid>
@@ -42,6 +68,19 @@ const Dashboard = () => {
           </Grid> */}
         </Grid>
       </Grid>
+
+      <Grid item xs={12}>
+        <Grid container spacing={gridSpacing}>
+          
+          
+            {Icons.map((item,index)=>(
+               <Grid item xl={3} lg={4} md={6} sm={6} xs={12} key={index}> <ServiceCard item={item}/></Grid>
+            ))}
+          
+          
+        </Grid>
+      </Grid>
+      
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12} md={8}>
