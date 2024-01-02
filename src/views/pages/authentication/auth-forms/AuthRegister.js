@@ -230,7 +230,6 @@ const FirebaseRegister = ({ ...others }) => {
               <FormControl  fullWidth error={Boolean(touched.otp && errors.otp)} sx={{marginBottom:'30px',display:otpState.mobile}}>
                 <TextField
                   error={errors.otp&&touched.otp}
-                
                   id="outlined-error"
                   type='text'
                   size='small'
