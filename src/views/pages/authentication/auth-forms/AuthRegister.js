@@ -56,7 +56,7 @@ const FirebaseRegister = ({ ...others }) => {
   const handleStateChange=(e)=>{
     if(e==='Otp'){
       setotpState({...otpState,mobile:'flex'})
-      console.log(otpState);
+      console.log(scriptedRef.current.valueOf("phone"));
     }
     else{
       setotpState({...otpState,email:'flex'})
@@ -239,7 +239,6 @@ const FirebaseRegister = ({ ...others }) => {
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
-                    changePassword(e.target.value);
                   }}
 
                   inputProps={{}}
