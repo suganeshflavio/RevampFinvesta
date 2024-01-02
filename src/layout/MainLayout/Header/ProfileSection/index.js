@@ -33,11 +33,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
-import UpgradePlanCard from './UpgradePlanCard';
+// import UpgradePlanCard from './UpgradePlanCard';
 import User1 from 'assets/images/users/user-round.svg';
 
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
+import { IconLogout, IconSearch, IconSettings,IconShare, IconMessage, IconStar, IconUpload, IconDialpad } from '@tabler/icons';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -154,7 +154,7 @@ const ProfileSection = () => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                  <Box sx={{ p: 2 }}>
+                  <Box sx={{ p: 2,pb:0 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4">Good Morning,</Typography>
@@ -184,8 +184,8 @@ const ProfileSection = () => {
                   </Box>
                   <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                     <Box sx={{ p: 2 }}>
-                      <UpgradePlanCard />
-                      <Divider />
+                      {/* <UpgradePlanCard /> */}
+                      {/* <Divider /> */}
                       <Card
                         sx={{
                           bgcolor: theme.palette.primary.light,
@@ -255,33 +255,56 @@ const ProfileSection = () => {
                           </ListItemIcon>
                           <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
                         </ListItemButton>
+                        
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
-                          selected={selectedIndex === 1}
-                          onClick={(event) => handleListItemClick(event, 1, '#')}
+                          selected={selectedIndex === 4}
+                          onClick={handleLogout}
                         >
                           <ListItemIcon>
-                            <IconUser stroke={1.5} size="1.3rem" />
+                            <IconUpload stroke={1.5} size="1.3rem" />
                           </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Grid container spacing={1} justifyContent="space-between">
-                                <Grid item>
-                                  <Typography variant="body2">Social Profile</Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Chip
-                                    label="02"
-                                    size="small"
-                                    sx={{
-                                      bgcolor: theme.palette.warning.dark,
-                                      color: theme.palette.background.default
-                                    }}
-                                  />
-                                </Grid>
-                              </Grid>
-                            }
-                          />
+                          <ListItemText primary={<Typography variant="body2">Upload Documents (KYC)</Typography>} />
+                        </ListItemButton>
+                        <ListItemButton
+                          sx={{ borderRadius: `${customization.borderRadius}px` }}
+                          selected={selectedIndex === 4}
+                          onClick={handleLogout}
+                        >
+                          <ListItemIcon>
+                            <IconMessage stroke={1.5} size="1.3rem" />
+                          </ListItemIcon>
+                          <ListItemText primary={<Typography variant="body2">Contact Us</Typography>} />
+                        </ListItemButton>
+                        <ListItemButton
+                          sx={{ borderRadius: `${customization.borderRadius}px` }}
+                          selected={selectedIndex === 4}
+                          onClick={handleLogout}
+                        >
+                          <ListItemIcon>
+                            <IconDialpad stroke={1.5} size="1.3rem" />
+                          </ListItemIcon>
+                          <ListItemText primary={<Typography variant="body2">Change Email & Mobile No</Typography>} />
+                        </ListItemButton>
+                        <ListItemButton
+                          sx={{ borderRadius: `${customization.borderRadius}px` }}
+                          selected={selectedIndex === 4}
+                          onClick={handleLogout}
+                        >
+                          <ListItemIcon>
+                            <IconShare stroke={1.5} size="1.3rem" />
+                          </ListItemIcon>
+                          <ListItemText primary={<Typography variant="body2">Share app</Typography>} />
+                        </ListItemButton>
+                        <ListItemButton
+                          sx={{ borderRadius: `${customization.borderRadius}px` }}
+                          selected={selectedIndex === 4}
+                          onClick={handleLogout}
+                        >
+                          <ListItemIcon>
+                            <IconStar stroke={1.5} size="1.3rem" />
+                          </ListItemIcon>
+                          <ListItemText primary={<Typography variant="body2">Rate Us</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
