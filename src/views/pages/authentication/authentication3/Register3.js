@@ -37,14 +37,12 @@ const Register = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Grid container direction={matchDownSM ? 'column-reverse' : 'row'} alignItems="center" justifyContent="center">
-                      <Grid item mb={1}>
+                      <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
-                          <Typography fontSize="14px" color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                          Enter your credentials to Signup!!!
+                          <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
+                            Hi, Welcome to Fia network
                           </Typography>
-                          {/* <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                            Enter your credentials to Signup
-                          </Typography> */}
+                          
                         </Stack>
                       </Grid>
                     </Grid>

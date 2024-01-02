@@ -48,7 +48,20 @@ const FirebaseRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(true);
+  const [otpState,setotpState]=useState({
+    mobile:'none',
+    email:'none'
+  })
 
+  const handleStateChange=(e)=>{
+    if(e==='Otp'){
+      setotpState({...otpState,mobile:'flex'})
+      console.log(otpState);
+    }
+    else{
+      setotpState({...otpState,email:'flex'})
+    }
+  }
   
 
   // const [strength, setStrength] = useState(0);
@@ -155,7 +168,7 @@ const FirebaseRegister = ({ ...others }) => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values}) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             {/* <Grid container spacing={matchDownSM ? 0 : 2}>
               <Grid item xs={12} sm={6}>
@@ -181,7 +194,7 @@ const FirebaseRegister = ({ ...others }) => {
                 />
               </Grid>
             </Grid> */}
-              <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} sx={{marginTop:'10px'}}>
+              <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} sx={{marginTop:'25px'}}>
                 {/* <InputLabel htmlFor="outlined-adornment-email-register">Mobile Number</InputLabel> */}
                 <TextField
                   error={touched.phone&&errors.phone}
@@ -210,13 +223,14 @@ const FirebaseRegister = ({ ...others }) => {
                 </Box>
                 <Box width='100%' display='flex' flexDirection='row' alignItems='end' >
                   <div style={{width:'50%'}}></div>
-                    <Button size='small' sx={{width:'50%'}}>Send Otp</Button>
+                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('Otp')}>Send Otp</Button>
                 </Box>
               </Stack>
 
-              <FormControl fullWidth error={Boolean(touched.otp && errors.otp)} sx={{marginBottom:'30px'}}>
+              <FormControl  fullWidth error={Boolean(touched.otp && errors.otp)} sx={{marginBottom:'30px',display:otpState.mobile}}>
                 <TextField
                   error={errors.otp&&touched.otp}
+                
                   id="outlined-error"
                   type='text'
                   size='small'
@@ -269,11 +283,11 @@ const FirebaseRegister = ({ ...others }) => {
                 </Box>
                 <Box width={{xl:'100%',xs:'70%'}} display='flex' flexDirection='row' alignItems='end' >
                   <div style={{width:'50%'}}></div>
-                    <Button size='small' sx={{width:'50%'}}>Send Code</Button>
+                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('email')}>Send Code</Button>
                 </Box>
               </Stack>
 
-              <FormControl fullWidth error={Boolean(touched.code && errors.code)} >
+              <FormControl fullWidth error={Boolean(touched.code && errors.code)} sx={{display:otpState.email}}>
                 <TextField
                   error={errors.code&&touched.code}
                   id="outlined-error"
