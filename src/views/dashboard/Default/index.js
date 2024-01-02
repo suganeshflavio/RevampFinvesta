@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 // project imports
+import SubCard from 'ui-component/cards/SubCard';
+
 import EarningCard from './EarningCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
@@ -26,26 +28,26 @@ const Dashboard = () => {
     setLoading(false);
   }, []);
 
-  const Icons=[
+  const Icons = [
     {
-    name:'Send Money',
-    Icon:<LocalAtmIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
+      name: 'Send Money',
+      Icon: <LocalAtmIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
     {
-      name:'Recharge',
-      Icon:<SmartphoneIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
+      name: 'Recharge',
+      Icon: <SmartphoneIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
-    
-   
+
+
     {
-      name:'Mutual Funds',
-      Icon:<TrendingUpIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
+      name: 'Mutual Funds',
+      Icon: <TrendingUpIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
     {
-      name:'Digi gold',
-      Icon:<SavingsIcon sx={{fontSize:{md:'50px',xs:'30px'}}}/>
+      name: 'Digi gold',
+      Icon: <SavingsIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
-]
+  ]
 
 
   return (
@@ -55,7 +57,7 @@ const Dashboard = () => {
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <EarningCard isLoading={isLoading} />
           </Grid>
-         
+
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <TotalOrderLineChartCard isLoading={isLoading} />
           </Grid>
@@ -73,17 +75,25 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container spacing={gridSpacing} rowGap={0} justifyContent={{xl:'start',md:'start',sm:'start'}}>
+        <SubCard title="Popular Services">
+          <Grid container spacing={gridSpacing}>
+           
+              
+
+
+                  {Icons.map((item, index) => (
+                    <Grid item xl={1.5} lg={2} md={3} sm={4} xs={4} key={index}> <ServiceCard item={item} /></Grid>
+                  ))}
+
+
+                
           
-          
-            {Icons.map((item,index)=>(
-               <Grid item xl={1.5} lg={2} md={3} sm={4} xs={4} key={index}> <ServiceCard item={item}/></Grid>
-            ))}
-          
-          
-        </Grid>
+          </Grid>
+        </SubCard>
       </Grid>
-      
+
+
+
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12} md={8}>
