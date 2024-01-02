@@ -260,7 +260,7 @@ const FirebaseRegister = ({ ...others }) => {
                   value={values.email}
                   name="email"
                   size='small'
-                  label="email"
+                  label="Email"
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
