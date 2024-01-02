@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -13,13 +13,15 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
+  // IconButton,
+  // InputAdornment,
+  // InputLabel,
+  // OutlinedInput,
   TextField,
+  // TextField,
   Typography,
-  useMediaQuery
+  
+  // useMediaQuery
 } from '@mui/material';
 
 // third party
@@ -30,50 +32,66 @@ import { Formik } from 'formik';
 import useScriptRef from 'hooks/useScriptRef';
 // import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import { strengthColor, strengthIndicator } from 'utils/password-strength';
+// import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import { Stack } from '@mui/system';
 
 // assets
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import Visibility from '@mui/icons-material/Visibility';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const scriptedRef = useScriptRef();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+  // const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   // const customization = useSelector((state) => state.customization);
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(true);
+  const [otpState,setotpState]=useState({
+    mobile:'none',
+    email:'none'
+  })
 
-  const [strength, setStrength] = useState(0);
-  const [level, setLevel] = useState();
+  const handleStateChange=(e)=>{
+    if(e==='Otp'){
+      setotpState({...otpState,mobile:'flex'})
+      console.log(otpState);
+    }
+    else{
+      setotpState({...otpState,email:'flex'})
+    }
+  }
+  
+
+  // const [strength, setStrength] = useState(0);
+  // const [level, setLevel] = useState();
 
   // const googleHandler = async () => {
   //   console.error('Register');
   // };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  // const handleClickShowPassword = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (event) => {
+  //   event.preventDefault();
+  // };
 
-  const changePassword = (value) => {
-    const temp = strengthIndicator(value);
-    setStrength(temp);
-    setLevel(strengthColor(temp));
-  };
+  // const changePassword = (value) => {
+  //   const temp = strengthIndicator(value);
+  //   setStrength(temp);
+  //   setLevel(strengthColor(temp));
+  // };
 
-  useEffect(() => {
-    changePassword('123456');
-  }, []);
+  // useEffect(() => {
+  //   changePassword('123456');
+  // }, []);
 
   return (
     <>
-      <Grid container direction="column" justifyContent="center" spacing={2}>
+      <Grid container direction="column" justifyContent="center" spacing={3}>
         {/* <Grid item xs={12}>
           <AnimateButton>
             <Button
@@ -117,22 +135,22 @@ const FirebaseRegister = ({ ...others }) => {
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
           </Box>
         </Grid> */}
-        <Grid item xs={12} container alignItems="center" justifyContent="center">
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">Sign up with Email address</Typography>
-          </Box>
-        </Grid>
+        
       </Grid>
 
       <Formik
         initialValues={{
           email: '',
-          password: '',
+          phone: '',
+          otp:'',
+          code:'',
           submit: null
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          phone: Yup.string('Must be a number').min(10,'Phone number must have min 10 digit ').max(10,'Phone number must have max 10 digit').required('Phone number is required'),
+          otp:Yup.string().required('Otp is required'),
+          code:Yup.string().required('Code is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -150,9 +168,9 @@ const FirebaseRegister = ({ ...others }) => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values}) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Grid container spacing={matchDownSM ? 0 : 2}>
+            {/* <Grid container spacing={matchDownSM ? 0 : 2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -175,61 +193,125 @@ const FirebaseRegister = ({ ...others }) => {
                   sx={{ ...theme.typography.customInput }}
                 />
               </Grid>
-            </Grid>
-            <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="email"
-                value={values.email}
-                name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.email && errors.email && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.email}
-                </FormHelperText>
-              )}
-            </FormControl>
+            </Grid> */}
+              <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} sx={{marginTop:'25px'}}>
+                {/* <InputLabel htmlFor="outlined-adornment-email-register">Mobile Number</InputLabel> */}
+                <TextField
+                  error={touched.phone&&errors.phone}
+                  id="outlined-error"
+                  type="text"
+                  label='Mobile Number'
+                  value={values.phone}
+                  size='small'
+                  name="phone"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  
+                  inputProps={{}}
+                  
+                />
+                {touched.phone && errors.phone && (
+                  <FormHelperText error id="standard-weight-helper-text--register">
+                    {errors.phone}
+                  </FormHelperText>
+                )}
+              </FormControl>
 
-            <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password-register"
-                type={showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                label="Password"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                inputProps={{}}
-              />
-              {touched.password && errors.password && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.password}
-                </FormHelperText>
-              )}
-            </FormControl>
+              <Stack direction='row'>
+                <Box width='100%'>
 
-            {strength !== 0 && (
+                </Box>
+                <Box width='100%' display='flex' flexDirection='row' alignItems='end' >
+                  <div style={{width:'50%'}}></div>
+                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('Otp')}>Send Otp</Button>
+                </Box>
+              </Stack>
+
+              <FormControl  fullWidth error={Boolean(touched.otp && errors.otp)} sx={{marginBottom:'30px',display:otpState.mobile}}>
+                <TextField
+                  error={errors.otp&&touched.otp}
+                  id="outlined-error"
+                  type='text'
+                  size='small'
+                  value={values.otp}
+                  name="otp"
+                  label="Otp"
+                  onBlur={handleBlur}
+                  onChange={(e) => {
+                    handleChange(e);
+                    changePassword(e.target.value);
+                  }}
+
+                  inputProps={{}}
+                />
+                {touched.otp && errors.otp && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.otp}
+                  </FormHelperText>
+                )}
+              </FormControl>
+              
+              <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
+                {/* <InputLabel htmlFor="outlined-adornment-password-register">Email</InputLabel> */}
+                <TextField
+                error={errors.email&&touched.email}
+                id="outlined-error"
+                  type='email'
+                  value={values.email}
+                  name="email"
+                  size='small'
+                  label="Email"
+                  onBlur={handleBlur}
+                  onChange={(e) => {
+                    handleChange(e);
+                    changePassword(e.target.value);
+                  }}
+
+                  inputProps={{}}
+                />
+                {touched.email && errors.email && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.email}
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+              <Stack direction='row'>
+                <Box width={{xl:'100%',xs:'30%'}}>
+
+                </Box>
+                <Box width={{xl:'100%',xs:'70%'}} display='flex' flexDirection='row' alignItems='end' >
+                  <div style={{width:'50%'}}></div>
+                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('email')}>Send Code</Button>
+                </Box>
+              </Stack>
+
+              <FormControl fullWidth error={Boolean(touched.code && errors.code)} sx={{display:otpState.email}}>
+                <TextField
+                  error={errors.code&&touched.code}
+                  id="outlined-error"
+                  type='text'
+                  value={values.code}
+                  name="code"
+                  size='small'
+                  label="code"
+                  onBlur={handleBlur}
+                  onChange={(e) => {
+                    handleChange(e);
+                    
+                  }}
+
+                  inputProps={{}}
+                />
+                {touched.code && errors.code && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.code}
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+            
+            {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -244,7 +326,7 @@ const FirebaseRegister = ({ ...others }) => {
                   </Grid>
                 </Box>
               </FormControl>
-            )}
+            )} */}
 
             <Grid container alignItems="center" justifyContent="space-between">
               <Grid item>
