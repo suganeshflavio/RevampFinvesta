@@ -122,7 +122,7 @@ export default function componentStyleOverrides(theme) {
           '&.MuiInputBase-inputSizeSmall': {
             padding: '10px 14px',
             '&.MuiInputBase-inputAdornedStart': {
-              paddingLeft: 0
+              paddingLeft: 2
             }
           }
         },
