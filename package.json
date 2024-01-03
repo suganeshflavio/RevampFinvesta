@@ -2,7 +2,7 @@
   "name": "finvesta",
   "version": "3.3.2",
   "private": true,
-  "homepage": "localhost:3000/free",
+  "homepage": "https://berrydashboard.io/free",
   "dependencies": {
     "@emotion/cache": "^11.9.3",
     "@emotion/react": "^11.11.3",

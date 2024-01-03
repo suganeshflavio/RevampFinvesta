@@ -77,17 +77,12 @@ const Dashboard = () => {
       <Grid item xs={12}>
         <SubCard title="Popular Services">
           <Grid container spacing={gridSpacing}>
-           
-              
 
 
                   {Icons.map((item, index) => (
                     <Grid item xl={1.5} lg={2} md={3} sm={4} xs={4} key={index}> <ServiceCard item={item} /></Grid>
                   ))}
-
-
-                
-          
+        
           </Grid>
         </SubCard>
       </Grid>

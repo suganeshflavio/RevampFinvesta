@@ -1,5 +1,5 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet } from '@tabler/icons';
+import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet,IconFileCertificate } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -8,7 +8,8 @@ const icons = {
   IconShadow,
   IconWindmill,
   IconBuildingBank,
-  IconWallet
+  IconWallet,
+  IconFileCertificate
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -40,6 +41,14 @@ const utilities = {
       type: 'item',
       url: '/dashboard/default',
       icon: icons.IconBuildingBank,
+      breadcrumbs: false
+    },
+    {
+      id: 'util-service',
+      title: 'Request Services',
+      type: 'item',
+      url: '/dashboard/servicerequest',
+      icon: icons.IconFileCertificate,
       breadcrumbs: false
     },
     {

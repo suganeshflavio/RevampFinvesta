@@ -28,7 +28,7 @@ const Register = () => {
               <AuthCardWrapper>
                 <Grid container spacing={2} alignItems="center" justifyContent="center" xl={12}>
                   <Grid item sx={{ mb: 0.1 }}>
-                    <Link to="#">
+                    <Link to="/dashboard/default">
                       {/* <Logo /> */}
                       <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
                             Finvesta
@@ -39,7 +39,7 @@ const Register = () => {
                     <Grid container direction={matchDownSM ? 'column-reverse' : 'row'} alignItems="center" justifyContent="center">
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
-                          <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
+                          <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h4' : 'h4'}>
                             Hi, Welcome to Fia network
                           </Typography>
                           
@@ -55,7 +55,7 @@ const Register = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Grid item container direction="column" alignItems="center" xs={12}>
-                      <Typography component={Link} to="/pages/login/login3" variant="subtitle1" sx={{ textDecoration: 'none' }}>
+                      <Typography component={Link} to="/Login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                         Already have an account?
                       </Typography>
                     </Grid>

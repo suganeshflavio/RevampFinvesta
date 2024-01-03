@@ -6,7 +6,7 @@ import { Divider, List, Typography } from '@mui/material';
 
 // project imports
 import NavItem from '../NavItem';
-import NavCollapse from '../NavCollapse';
+// import NavCollapse from '../NavCollapse';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -17,7 +17,8 @@ const NavGroup = ({ item }) => {
   const items = item.children?.map((menu) => {
     switch (menu.type) {
       case 'collapse':
-        return <NavCollapse key={menu.id} menu={menu} level={1} />;
+        // return <NavCollapse key={menu.id} menu={menu} level={1} />;
+        break
       case 'item':
         return <NavItem key={menu.id} item={menu} level={1} />;
       default:
@@ -38,7 +39,7 @@ const NavGroup = ({ item }) => {
               {item.title}
               {item.caption && (
                 <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
-                  {item.caption}
+                  {/* {item.caption} */}
                 </Typography>
               )}
             </Typography>
