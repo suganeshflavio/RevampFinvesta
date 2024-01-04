@@ -11,7 +11,7 @@ import React from 'react'
 // import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
 import goldIcon from '../../assets/images/icons/goldIcon.png'
-import fundIcon from '../../assets/images/icons/fund.png'
+import fundIcon from '../../assets/images/icons/raise.png'
 import mobileIcon from '../../assets/images/icons/mobile.png'
 import moneyIcon from '../../assets/images/icons/moneyIcon.png'
 // import EarningCard from 'ui-component/cards/Skeleton/EarningCard';
@@ -54,7 +54,7 @@ const PopularServices = () => {
 
 
     const BannerStyle = {
-        background: '#264180',
+        background: '#f7f7f7',
         paddingBlock: '30px',
         paddingBottom: '60px',
         borderRadius:'0px',
@@ -109,7 +109,7 @@ const PopularServices = () => {
 
     return (
         <Card sx={{backgroundColor:'#dfe6f7',padding:'20px',height:'100vh'}}>
-        <Card sx={{ backgroundColor: '#fff', height: '95vh',borderRadius:'20px' }}>
+        <Card sx={{ backgroundColor: '#f7f7f7', height: '95vh',borderRadius:'20px' }}>
             <MainCard sx={BannerStyle}>
            
                 {/* edit */}
@@ -119,7 +119,7 @@ const PopularServices = () => {
                        
                             <Stack justifyContent='center' alignItems='center'>
                                 <span style={{ color: '#fff' }}>{item.Icon}</span>
-                                <Typography color='#fff'>{item.name}</Typography>
+                                <Typography color='#252525'>{item.name}</Typography>
                             </Stack>
                            
                         </Grid>
@@ -127,7 +127,7 @@ const PopularServices = () => {
 
                 </Grid>
             </MainCard>
-                <Grid container  xl={12} width='100%' justifyContent='center'>
+                <Grid container  xl={12} width='100%' justifyContent='flex-start'>
                     <Grid item xl={4} margin='30px'>
                         <SubCard title="Money Transfer" style={CardStyle} bo>
                             <Stack direction='column' spacing={3}>
