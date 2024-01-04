@@ -72,11 +72,10 @@ const ServiceRequest = () => {
                                 <Stack direction='row' justifyContent='start' spacing={3}>
                                 {item.body.map((sub,subIndex)=>(
                                    
-                                    <Stack key={subIndex}  direction='column' spacing={1} justifyContent='center' alignItems='center' sx={{cursor:'pointer',textAlign:'center'}}>
-                                        <Avatar sx={{bgcolor:'#dee0df',width:55,height:55}}/>
+                                    <Stack key={subIndex}  direction='column' spacing={2} justifyContent='center' alignItems='center' sx={{cursor:'pointer',textAlign:'center'}}>
+                                        <Avatar sx={{bgcolor:'#dfd8e3'}}/>
                                         <Typography color='#252525' variant='h6' component='div'>{sub.name}</Typography>
                                     </Stack>
-                                   
                                 ))}
                                 </Stack>
                             </SubCard>

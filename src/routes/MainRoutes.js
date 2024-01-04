@@ -15,6 +15,7 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialI
 const UtilsServicerequest = Loadable(lazy(() => import('views/utilities/Servicerequest')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 
+
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -92,10 +93,13 @@ const MainRoutes = {
       children: [
         {
           path: 'servicerequest',
-          element: <UtilsServicerequest />
+          element: <UtilsServicerequest />,
+          breadcrumbs: true
+
         }
       ]
     },
+    
   ]
 };
 

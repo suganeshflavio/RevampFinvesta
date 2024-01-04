@@ -7,7 +7,7 @@ import { Box, Grid, Typography } from '@mui/material';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
-
+import { useNavigate } from 'react-router';
 // assets
 
 
@@ -30,6 +30,7 @@ const CardWrapper = styled(MainCard)(() => ({
 
 const ServiceCard = ({ item, isLoading }) => {
 
+  const Nav=useNavigate()
 
 
   return (
@@ -39,7 +40,7 @@ const ServiceCard = ({ item, isLoading }) => {
       ) :
         (
 
-          <CardWrapper border={false} content={false}>
+          <CardWrapper border={false} content={false} onClick={()=>Nav('/recharge')}>
             <Box sx={{ width: 'fit-content', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
               <Grid container direction="column" justifyContent='space-between'>
                 <Grid item>

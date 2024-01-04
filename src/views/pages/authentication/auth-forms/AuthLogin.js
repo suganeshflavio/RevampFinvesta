@@ -32,6 +32,7 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router';
 
 // import Google from 'assets/images/icons/social-google.svg';
 
@@ -43,6 +44,7 @@ const FirebaseLogin = ({ ...others }) => {
   // const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   // const customization = useSelector((state) => state.customization);
   const [checked, setChecked] = useState(true);
+  const Navigate=useNavigate()
 
   // const googleHandler = async () => {
   //   console.error('Login');
@@ -133,6 +135,7 @@ const FirebaseLogin = ({ ...others }) => {
             if (scriptedRef.current) {
               setStatus({ success: true });
               setSubmitting(false);
+              Navigate('/dashboard/default')
             }
           } catch (err) {
             console.error(err);
