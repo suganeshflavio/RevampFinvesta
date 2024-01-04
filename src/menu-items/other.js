@@ -1,8 +1,8 @@
 // assets
-import { IconBrandChrome, IconHelp } from '@tabler/icons';
+import { IconBrandChrome, IconHelp, IconShieldLock } from '@tabler/icons';
 
 // constant
-const icons = { IconBrandChrome, IconHelp };
+const icons = { IconBrandChrome, IconHelp, IconShieldLock };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
@@ -12,20 +12,20 @@ const other = {
   children: [
     {
       id: 'sample-page',
-      title: 'Sample Page',
+      title: 'Reset transcation pin',
       type: 'item',
-      url: '/sample-page',
+      url: '/dashboard/default',
       icon: icons.IconBrandChrome,
       breadcrumbs: false
     },
     {
       id: 'documentation',
-      title: 'Documentation',
+      title: 'Finvesta Security Shied',
       type: 'item',
-      url: 'https://codedthemes.gitbook.io/berry/',
-      icon: icons.IconHelp,
+      url: '/dashboard/default',
+      icon: icons.IconShieldLock,
       external: true,
-      target: true
+      // target: true
     }
   ]
 };

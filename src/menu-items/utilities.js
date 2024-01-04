@@ -1,5 +1,5 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet } from '@tabler/icons';
+import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet, IconLock } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -8,18 +8,19 @@ const icons = {
   IconShadow,
   IconWindmill,
   IconBuildingBank,
-  IconWallet
+  IconWallet,
+  IconLock
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 const utilities = {
   id: 'utilities',
-  title: 'My Account (Payout Detaild)',
+  title: 'My Account (Payout Details)',
   type: 'group',
   children: [
     {
-      id: 'util-color',
+      id: 'Savings A/C',
       title: 'Savings A/C',
       type: 'item',
       url: '/dashboard/default',
@@ -44,23 +45,25 @@ const utilities = {
     },
     {
       id: 'icons',
-      title: 'Icons',
+      title: 'Personal Details',
       type: 'collapse',
-      icon: icons.IconWindmill,
+      icon: icons.IconLock,
       children: [
         {
           id: 'tabler-icons',
-          title: 'Tabler Icons',
+          title: 'Basic & Address Details',
           type: 'item',
+          icon: icons.IconShieldLock,
           url: '/dashboard/default',
           breadcrumbs: false
         },
         {
           id: 'material-icons',
-          title: 'Material Icons',
+          title: 'KYC Details',
           type: 'item',
           external: true,
-          target: '_blank',
+          icon: icons.IconShieldLock,
+          // target: '_blank',
           url: '/dashboard/default',
           breadcrumbs: false
         }
