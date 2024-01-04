@@ -112,9 +112,9 @@ const FirebaseLogin = ({ ...others }) => {
           </Box>
         </Grid> */}
         <Grid item xs={12} container alignItems="center" justifyContent="center">
-          <Box sx={{ mb: 2 }}>
+          {/* <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1">Sign in with Email address</Typography>
-          </Box>
+          </Box> */}
         </Grid>
       </Grid>
 
@@ -166,7 +166,7 @@ const FirebaseLogin = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-login">OTP</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-login"
                 type={showPassword ? 'text' : 'password'}

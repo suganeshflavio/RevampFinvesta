@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 
 // assets
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import IconBrandSpeedtest from '@mui/icons-material/TableChartOutlined';
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -55,7 +55,7 @@ function LinearProgressWithLabel({ value, ...others }) {
   const theme = useTheme();
 
   return (
-    <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
+    <Grid container direction="column" spacing={1}>
       <Grid item>
         <Grid container justifyContent="space-between">
           <Grid item>
@@ -102,21 +102,21 @@ const MenuCard = () => {
                   marginRight: '12px'
                 }}
               >
-                <TableChartOutlinedIcon fontSize="inherit" />
+                <IconBrandSpeedtest fontSize="inherit" />
               </Avatar>
             </ListItemAvatar>
             <ListItemText
               sx={{ mt: 0 }}
               primary={
                 <Typography variant="subtitle1" sx={{ color: theme.palette.primary[800] }}>
-                  Get Extra Space
+                  Credit Score
                 </Typography>
               }
-              secondary={<Typography variant="caption"> 28/23 GB</Typography>}
+              secondary={<Typography variant="caption">Check now</Typography>}
             />
           </ListItem>
-        </List>
         <LinearProgressWithLabel value={80} />
+        </List>
       </CardContent>
     </CardStyle>
   );

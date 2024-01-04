@@ -14,9 +14,9 @@ import { gridSpacing } from 'store/constant';
 // assets
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import { IconCreditCardPay,   } from '@tabler/icons-react';
+// import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+// import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import { IconCreditCardPay, IconCreditCardRefund  } from '@tabler/icons-react';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading }) => {
@@ -102,7 +102,7 @@ const PopularCard = ({ isLoading }) => {
                             </Avatar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Typography variant="subtitle1" color="inherit">
                       {/* <IconCreditCardPay/> */}
-                      Money sent to Xxxxxxxx9878
+                      Money add to Xxxxxxxx9878
                         </Typography>
                       </Grid>
                       <Grid item>
@@ -112,7 +112,21 @@ const PopularCard = ({ isLoading }) => {
                             ₹1839.00
                             </Typography>
                           </Grid>
-                          
+                          {/* <Grid item>
+                            <Avatar
+                              variant="rounded"
+                              sx={{
+                                width: 16,
+                                height: 16,
+                                borderRadius: '5px',
+                                backgroundColor: theme.palette.success.light,
+                                color: theme.palette.success.dark,
+                                marginLeft: 1.875
+                              }}
+                            >
+                              <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
+                            </Avatar>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -127,10 +141,23 @@ const PopularCard = ({ isLoading }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
+                      <Grid item sx={{display:"flex"}}>
+                      <Avatar
+                              variant="rounded"
+                              sx={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: '5px',
+                                backgroundColor: theme.palette.error.light,
+                                color: theme.palette.error.dark,  
+                                ml: 2
+                              }}
+                            >
+                              <IconCreditCardRefund fontSize="small" />
+                            </Avatar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Typography variant="subtitle1" color="inherit">
                         {/* <IconCreditCardRefund /> */}
-                        Money Add to Xxxxxxxx9878
+                        Money sent to Xxxxxxxx9878
                         </Typography>
                       </Grid>
                       <Grid item>
@@ -140,7 +167,7 @@ const PopularCard = ({ isLoading }) => {
                             ₹100.00
                             </Typography>
                           </Grid>
-                          <Grid item>
+                          {/* <Grid item>
                             <Avatar
                               variant="rounded"
                               sx={{
@@ -154,7 +181,7 @@ const PopularCard = ({ isLoading }) => {
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
                             </Avatar>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -169,19 +196,32 @@ const PopularCard = ({ isLoading }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
+                      <Grid item sx={{display:"flex"}}>
+                      <Avatar
+                              variant="rounded"
+                              sx={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: '5px',
+                                backgroundColor: theme.palette.success.light,
+                                color: theme.palette.success.dark,
+                                ml: 2
+                              }}
+                            >
+                              <IconCreditCardPay fontSize="small" />
+                            </Avatar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Typography variant="subtitle1" color="inherit">
-                        Money sent to Xxxxxxxx9878
+                        Money Add to Xxxxxxxx9878
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
-                          <Grid item>
+                          <Grid item >
                             <Typography variant="subtitle1" color="inherit">
                               ₹200.00
                             </Typography>
                           </Grid>
-                          <Grid item>
+                          {/* <Grid item>
                             <Avatar
                               variant="rounded"
                               sx={{
@@ -195,7 +235,7 @@ const PopularCard = ({ isLoading }) => {
                             >
                               <KeyboardArrowUpOutlinedIcon fontSize="small" color="inherit" />
                             </Avatar>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -210,7 +250,20 @@ const PopularCard = ({ isLoading }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
+                      <Grid item sx={{display:"flex"}}>
+                      <Avatar
+                              variant="rounded"
+                              sx={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: '5px',
+                                backgroundColor: theme.palette.error.light,
+                                color: theme.palette.error.dark,
+                                ml: 2
+                              }}
+                            >
+                              <IconCreditCardPay fontSize="small" />
+                            </Avatar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Typography variant="subtitle1" color="inherit">
                         Money sent to Xxxxxxxx9878
                         </Typography>
@@ -222,7 +275,7 @@ const PopularCard = ({ isLoading }) => {
                               ₹189.00
                             </Typography>
                           </Grid>
-                          <Grid item>
+                          {/* <Grid item>
                             <Avatar
                               variant="rounded"
                               sx={{
@@ -236,7 +289,7 @@ const PopularCard = ({ isLoading }) => {
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
                             </Avatar>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -251,7 +304,20 @@ const PopularCard = ({ isLoading }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
+                      <Grid item sx={{display:"flex"}}>
+                      <Avatar
+                              variant="rounded"
+                              sx={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: '5px',
+                                backgroundColor: theme.palette.error.light,
+                                color: theme.palette.error.dark,
+                                ml: 2
+                              }}
+                            >
+                              <IconCreditCardPay fontSize="small" />
+                            </Avatar>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Typography variant="subtitle1" color="inherit">
                         Money sent to Xxxxxxxx9878
                         </Typography>
@@ -263,7 +329,7 @@ const PopularCard = ({ isLoading }) => {
                               ₹189.00
                             </Typography>
                           </Grid>
-                          <Grid item>
+                          {/* <Grid item>
                             <Avatar
                               variant="rounded"
                               sx={{
@@ -277,7 +343,7 @@ const PopularCard = ({ isLoading }) => {
                             >
                               <KeyboardArrowDownOutlinedIcon fontSize="small" color="inherit" />
                             </Avatar>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
