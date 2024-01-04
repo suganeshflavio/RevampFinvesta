@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback } from 'react';
 // import { useSelector } from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -19,14 +19,15 @@ import {
   FormHelperText,
   Grid,
   Paper,
-  // Paper,
   // IconButton,
   // InputAdornment,
   // InputLabel,
   // OutlinedInput,
   TextField,
+  // TextField,
   Typography,
-  useMediaQuery
+  
+  // useMediaQuery
 } from '@mui/material';
 
 // third party
@@ -44,7 +45,6 @@ import { Stack } from '@mui/system';
 import { FiUserPlus } from 'react-icons/fi';
 // import { Image } from '@mui/icons-material';
 // import { strengthColor, strengthIndicator } from 'utils/password-strength';
-
 // assets
 // import Visibility from '@mui/icons-material/Visibility';
 // import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -52,16 +52,15 @@ import { FiUserPlus } from 'react-icons/fi';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const scriptedRef = useScriptRef();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+  // const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
 
   // security section
   // const [personName, setPersonName] = React.useState([]);
-
   // const handleChange = (event) => {
   //   if (event?.target.value) setPersonName(event?.target.value);
   //   console.log("dfghjk", personName);
@@ -168,7 +167,6 @@ const FirebaseRegister = ({ ...others }) => {
   //   setStrength(temp);
   //   setLevel(strengthColor(temp));
   // };
-
   // useEffect(() => {
   //   changePassword('123456');
   // }, []);
@@ -180,18 +178,22 @@ const FirebaseRegister = ({ ...others }) => {
           <Box sx={{}}>
             <Typography variant="h4">General</Typography>
           </Box>
-        </Grid>
+        </Grid
       </Grid>
 
       <Formik
         initialValues={{
           email: '',
-          password: '',
+          phone: '',
+          otp:'',
+          code:'',
           submit: null
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          phone: Yup.string('Must be a number').min(10,'Phone number must have min 10 digit ').max(10,'Phone number must have max 10 digit').required('Phone number is required'),
+          otp:Yup.string().required('Otp is required'),
+          code:Yup.string().required('Code is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -467,42 +469,77 @@ const FirebaseRegister = ({ ...others }) => {
               )}
             </FormControl>
 
-            <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password-register"
-                type={showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                label="Password"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                inputProps={{}}
-              />
-              {touched.password && errors.password && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.password}
-                </FormHelperText>
-              )}
-            </FormControl>
 
-            {strength !== 0 && (
+                  inputProps={{}}
+                />
+                {touched.otp && errors.otp && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.otp}
+                  </FormHelperText>
+                )}
+              </FormControl>
+              
+              <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
+                {/* <InputLabel htmlFor="outlined-adornment-password-register">Email</InputLabel> */}
+                <TextField
+                error={errors.email&&touched.email}
+                id="outlined-error"
+                  type='email'
+                  value={values.email}
+                  name="email"
+                  size='small'
+                  label="Email"
+                  onBlur={handleBlur}
+                  onChange={(e) => {
+                    handleChange(e);
+                    changePassword(e.target.value);
+                  }}
+
+                  inputProps={{}}
+                />
+                {touched.email && errors.email && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.email}
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+              <Stack direction='row'>
+                <Box width={{xl:'100%',xs:'30%'}}>
+
+                </Box>
+                <Box width={{xl:'100%',xs:'70%'}} display='flex' flexDirection='row' alignItems='end' >
+                  <div style={{width:'50%'}}></div>
+                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('email')}>Send Code</Button>
+                </Box>
+              </Stack>
+
+              <FormControl fullWidth error={Boolean(touched.code && errors.code)} sx={{display:otpState.email}}>
+                <TextField
+                  error={errors.code&&touched.code}
+                  id="outlined-error"
+                  type='text'
+                  value={values.code}
+                  name="code"
+                  size='small'
+                  label="code"
+                  onBlur={handleBlur}
+                  onChange={(e) => {
+                    handleChange(e);
+                    
+                  }}
+
+                  inputProps={{}}
+                />
+                {touched.code && errors.code && (
+                  <FormHelperText error id="standard-weight-helper-text-password-register">
+                    {errors.code}
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+            
+            {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
