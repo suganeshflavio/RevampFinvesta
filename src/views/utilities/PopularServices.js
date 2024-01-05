@@ -1,5 +1,5 @@
 // import { styled } from '@mui/material/styles';
-import { Card, Grid, Typography, TextField, Button } from '@mui/material';
+import {  Grid, TextField, Button } from '@mui/material';
 
 import { Stack } from '@mui/system';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,12 +10,11 @@ import React from 'react'
 // project imports
 // import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
-import goldIcon from '../../assets/images/icons/goldIcon.png'
-import fundIcon from '../../assets/images/icons/raise.png'
-import mobileIcon from '../../assets/images/icons/mobile.png'
-import moneyIcon from '../../assets/images/icons/moneyIcon.png'
+// import goldIcon from '../../assets/images/icons/goldIcon.png'
+// import fundIcon from '../../assets/images/icons/raise.png'
+// import mobileIcon from '../../assets/images/icons/mobile.png'
+// import moneyIcon from '../../assets/images/icons/moneyIcon.png'
 // import EarningCard from 'ui-component/cards/Skeleton/EarningCard';
-import MainCard from 'ui-component/cards/MainCard';
 
 // ============================|| MATERIAL ICONS ||============================ //
 
@@ -38,7 +37,7 @@ const PopularServices = () => {
             label: 'Account Holder Name'
         },
         {
-            type: 'number',
+            type: 'text',
             label: 'Account Number'
         },
         {
@@ -47,25 +46,27 @@ const PopularServices = () => {
         },
         {
             type: 'button',
-            label: 'Save'
+            label: 'Make Payment'
         },
 
     ]
 
 
-    const BannerStyle = {
-        background: '#f7f7f7',
-        paddingBlock: '30px',
-        paddingBottom: '60px',
-        borderRadius:'0px',
-        display: {
-            xs: 'none',
-            sm: 'block',
-            md: 'block',
-            lg: 'block',
-            xl: 'block'
-        }
-    }
+
+    // const BannerStyle = {
+    //     backgroundColor: 'red',
+    //     paddingBlock: ' 0px',
+    //     height: '100%',
+    //     width: '50%',
+    //     borderRadius: '0px',
+    //     display: {
+    //         xs: 'none',
+    //         sm: 'block',
+    //         md: 'block',
+    //         lg: 'block',
+    //         xl: 'block'
+    //     }
+    // }
 
     // const itemStyle={
     //     backgroundColor:'#fff',
@@ -81,99 +82,79 @@ const PopularServices = () => {
         backgroundColor: '#fff',
         zIndex: 2,
         width: '100%',
-        margin: '15px',
-        marginTop: '-80px'
+       
+        marginTop: '0%'
     }
 
-    const Icons = [
-        {
-            name: 'Send Money',
-            Icon: <img src={moneyIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
-        },
-        {
-            name: 'Recharge',
-            Icon: <img src={mobileIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
-        },
+    // const Icons = [
+    //     {
+    //         name: 'Send Money',
+    //         Icon: <img src={moneyIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
+    //     },
+    //     {
+    //         name: 'Recharge',
+    //         Icon: <img src={mobileIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
+    //     },
 
 
-        {
-            name: 'Mutual Funds',
-            Icon: <img src={fundIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
-        },
-        {
-            name: 'Digi gold',
-            Icon: <img src={goldIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
-        },
-    ]
+    //     {
+    //         name: 'Mutual Funds',
+    //         Icon: <img src={fundIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
+    //     },
+    //     {
+    //         name: 'Digi gold',
+    //         Icon: <img src={goldIcon} alt='icon' style={{ width: '40px', height: '40px' }} />
+    //     },
+    // ]
 
 
     return (
-        <Card sx={{backgroundColor:'#dfe6f7',padding:'20px',height:'100vh'}}>
-        <Card sx={{ backgroundColor: '#f7f7f7', height: '95vh',borderRadius:'20px' }}>
-            <MainCard sx={BannerStyle}>
-           
-                {/* edit */}
-                <Grid container xl={12}>
-                    {Icons.map((item, index) => (
-                        <Grid item key={index} xl={2} lg={3} md={3} sm={3} xs={4} >
-                       
-                            <Stack justifyContent='center' alignItems='center'>
-                                <span style={{ color: '#fff' }}>{item.Icon}</span>
-                                <Typography color='#252525'>{item.name}</Typography>
-                            </Stack>
-                           
+                    <Grid container xl={12} width='100%' height='100%' justifyContent='center' alignItems='center'>
+                        <Grid item xl={6} sm={8} xs={12} >
+                            <SubCard title="Money Transfer" style={CardStyle}>
+                                <Stack direction='column' spacing={4}>
+                                    {fields.map((item, index) => (
+                                        item.type === 'select' ?
+                                            <FormControl fullWidth key={index} sx={{ m: 1, minWidth: 120 }} size="small">
+                                                <InputLabel id="demo-select-small-label">{item.label}</InputLabel>
+                                                <Select
+                                                    labelId="demo-select-small-label"
+                                                    id="demo-select-small"
+                                                    value={age}
+                                                    label={item.label}
+
+                                                    onChange={handleChange}
+                                                >
+                                                    {item.data.map((sub, subIndex) => (
+                                                        <MenuItem key={subIndex} value={sub}>{sub}</MenuItem>
+                                                    ))}
+
+
+                                                </Select>
+                                            </FormControl>
+
+                                            : item.type !== "button" ?
+
+                                                <TextField
+
+                                                    key={index}
+                                                    id="outlined-error"
+                                                    type={item.type}
+                                                    label={item.label}
+                                                    size='small'
+                                                    name="phone"
+                                                    inputProps={{}}
+
+                                                />
+                                                :
+                                                <Button key={index} variant='contained' >{item.label}</Button>
+                                    ))}
+
+                                </Stack>
+                            </SubCard>
                         </Grid>
-                    ))}
-
-                </Grid>
-            </MainCard>
-                <Grid container  xl={12} width='100%' justifyContent='flex-start'>
-                    <Grid item xl={4} margin='30px'>
-                        <SubCard title="Money Transfer" style={CardStyle} bo>
-                            <Stack direction='column' spacing={3}>
-                                {fields.map((item, index) => (
-                                    item.type === 'select' ?
-                                        <FormControl fullWidth key={index} sx={{ m: 1, minWidth: 120 }} size="small">
-                                            <InputLabel id="demo-select-small-label">{item.label}</InputLabel>
-                                            <Select
-                                                labelId="demo-select-small-label"
-                                                id="demo-select-small"
-                                                value={age}
-                                                label={item.label}
-
-                                                onChange={handleChange}
-                                            >
-                                                {item.data.map((sub, subIndex) => (
-                                                    <MenuItem key={subIndex} value={sub}>{sub}</MenuItem>
-                                                ))}
-
-
-                                            </Select>
-                                        </FormControl>
-
-                                        :item.type!=="button"?
-
-                                        <TextField
-
-                                            key={index}
-                                            id="outlined-error"
-                                            type={item.type}
-                                            label={item.label}
-                                            size='small'
-                                            name="phone"
-                                            inputProps={{}}
-
-                                        />
-                                        :
-                                        <Button variant='contained' >{item.label}</Button>
-                                ))}
-
-                            </Stack>
-                        </SubCard>
                     </Grid>
-                </Grid>
-        </Card>
-        </Card>
+                
     );
 }
 

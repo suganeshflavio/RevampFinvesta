@@ -3,6 +3,8 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+ import PopularServices from 'views/utilities/PopularServices';
+//  import MoneyTransfer from 'views/utilities/MoneyTransfer';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -14,7 +16,8 @@ const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsServicerequest = Loadable(lazy(() => import('views/utilities/Servicerequest')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-
+const UtilsServices=Loadable(lazy(() => import('views/utilities/MoneyTransfer')));
+// const UtilsMoneyTransfer=Loadable(lazy(() => import('views/utilities/PopularServices')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
@@ -94,6 +97,28 @@ const MainRoutes = {
         {
           path: 'servicerequest',
           element: <UtilsServicerequest />,
+          breadcrumbs: true
+
+        }
+      ]
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
+          path: 'Services/:id',
+          element: <UtilsServices/>,
+          breadcrumbs: true
+
+        }
+      ]
+    },
+    {
+      path: 'dashboard/Services/:id',
+      children: [
+        {
+          path: 'MoneyTransfer',
+          element: <PopularServices/>,
           breadcrumbs: true
 
         }
