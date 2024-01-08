@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+// import { useEffect } from 'react';
 
 // material-ui
 import { Grid } from '@mui/material';
@@ -9,44 +9,17 @@ import { Grid } from '@mui/material';
 // import TotalIncomeLightCard from './TotalIncomeLightCard';
 // import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import SavingsIcon from '@mui/icons-material/Savings';
 
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
-  const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+  // const [isLoading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, []);
 
-  const Icons = [
-    {
-      id:1,
-      name: 'Send Money',
-      Icon: <LocalAtmIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
-    },
-    {
-      id:2,
-      name: 'Recharge',
-      Icon: <SmartphoneIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
-    },
-
-
-    {
-      id:3,
-      name: 'Mutual Funds',
-      Icon: <TrendingUpIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
-    },
-    {
-      id:4,
-      name: 'Digi gold',
-      Icon: <SavingsIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
-    },
-  ]
+ 
 
 
   return (
