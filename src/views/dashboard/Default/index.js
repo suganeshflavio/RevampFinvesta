@@ -30,20 +30,24 @@ const Dashboard = () => {
 
   const Icons = [
     {
+      id:1,
       name: 'Send Money',
       Icon: <LocalAtmIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
     {
+      id:2,
       name: 'Recharge',
       Icon: <SmartphoneIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
 
 
     {
+      id:3,
       name: 'Mutual Funds',
       Icon: <TrendingUpIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
     {
+      id:4,
       name: 'Digi gold',
       Icon: <SavingsIcon sx={{ fontSize: { md: '50px', xs: '30px' } }} />
     },
