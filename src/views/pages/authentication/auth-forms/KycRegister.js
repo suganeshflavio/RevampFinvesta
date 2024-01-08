@@ -18,14 +18,14 @@ import {
   // FormControlLabel,
   FormHelperText,
   Grid,
-  Paper,
+  // Paper,
   // Paper,
   // IconButton,
   // InputAdornment,
   // InputLabel,
   // OutlinedInput,
   TextField,
-  Typography,
+  // Typography,
   // useMediaQuery
 } from '@mui/material';
 
@@ -36,7 +36,7 @@ import Webcam from "react-webcam";
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
-import Upload from 'assets/images/Image upload-bro.svg';
+// import Upload from 'assets/images/Image upload-bro.svg';
 // import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { Stack } from '@mui/system';
@@ -51,7 +51,7 @@ import { FiUserPlus } from 'react-icons/fi';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
-const FirebaseRegister = ({ ...others }) => {
+const KycRegister = ({ ...others }) => {
   // const theme = useTheme();
   const scriptedRef = useScriptRef();
   // const matchDownSM = useMediaQuery(theme.breakpoints.down('md','sm','lg','xs','xl'));
@@ -71,9 +71,9 @@ const FirebaseRegister = ({ ...others }) => {
     const [open, setOpen] = useState(false);
     // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+    // const handleClickOpen = () => {
+    //   setOpen(true);
+    // };
     
     const handleClose = () => {
       setOpen(false);
@@ -95,7 +95,7 @@ const FirebaseRegister = ({ ...others }) => {
       };
       
       const webcamRef = useRef(null);
-      const [url, setUrl] = useState(null);
+      // const [url, setUrl] = useState(null);
     
       const capturePhoto = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -125,30 +125,6 @@ const FirebaseRegister = ({ ...others }) => {
     setOpen(false);
 
   };
-
-// security question
-  // const status = [
-  //   {
-  //     value: 'all',
-  //     label: 'Questions'
-  //   },
-  //   {
-  //     value: 'new',
-  //     label: 'What is your 1st school name?'
-  //   },
-  //   {
-  //     value: 'unread',
-  //     label: 'What is your pet name?'
-  //   },
-  //   {
-  //     value: 'other',
-  //     label: 'What is your mothers Hometown name?'
-  //   },
-  //   {
-  //     value: 'other',
-  //     label: 'What is your 10th percentage?'
-  //   }
-  // ];
 
   // const [strength, setStrength] = useState(0);
   // const [level, setLevel] = useState();
@@ -212,38 +188,69 @@ const FirebaseRegister = ({ ...others }) => {
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
-              <Grid item xs={12} sm={8}>
+              <Grid item xs={12} sm={12}>
                 <Grid container spacing={1}>
-                  <Grid item xs={12} sm={12}>
+                  <Grid item xs={12} lg={12} md={8} sm={8}>
                     <TextField
                       fullWidth
-                      label="Aadhaar Card Number*"
+                      label="House Address*"
+                      margin="normal"
+                      rows={4}
+                      name="fname"
+                      type="text"
+                      defaultValue=""
+                      // sx={{ height="50px" }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <TextField
+                      fullWidth
+                      label="Pincode*"
+                      margin="normal"
+                      name="mname"
+                      type="text"
+                      defaultValue=""
+                      // sx={{ ...theme.typography.customInput }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <TextField
+                      fullWidth
+                      label="City/Village"
                       margin="normal"
                       name="fname"
                       type="text"
                       defaultValue=""
                       // sx={{ ...theme.typography.customInput }}
                     />
-                    <Button variant="outlined" color="secondary" size="small">
-                      Verify
-                    </Button>
                   </Grid>
-                  <Grid item xs={12} sm={12}>
+                </Grid>
+                <Grid container spacing={1}>
+                  
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
                     <TextField
                       fullWidth
-                      label="Pan Card Number"
+                      label="District"
                       margin="normal"
                       name="mname"
-                      required
                       type="text"
                       defaultValue=""
                       // sx={{ ...theme.typography.customInput }}
                     />
-                    <Button variant="outlined" color="secondary" size="small">
-                      Verify
-                    </Button>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <TextField
+                      fullWidth
+                      label="State*"
+                      margin="normal"
+                      name="lname"
+                      type="text"
+                      defaultValue=""
+                      // sx={{ ...theme.typography.customInput }}
+                    />
                   </Grid>
                 </Grid>
+                {/* Address section end */}
                 {/* <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
               <OutlinedInput
@@ -336,34 +343,8 @@ const FirebaseRegister = ({ ...others }) => {
                   </Box>
                 )}
               </Grid>
-              {/* <br/> */}
-              <Grid item sm={3} md={2} lg={4} xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={3} sm={3}>
-                  <Grid container direction="column" spacing={1}>
-                    <Box sx={{ m: 2 }}>
-                      <Typography variant="h4" width="100px">Upload Photo</Typography>
-                    </Box>
-                  </Grid>
-                  <Box
-                    sx={{
-                      // display: 'flex',
-                      // justifyContent: 'space-around',
-                      cursor:"pointer",
-                        width: 128,
-                        // height: 128
-                      // '& > :not(style)': {
-                      //   m: 1,
-                      // }
-                    }}
-                  >
-                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit:"cover", overflow:"hidden"}} onClick={handleClickOpen}>
-                      <img id="file-input" alt="ImageUpload" src={url?url:Upload?Upload:url} width="100%"/>
-                    </Paper>
-                  </Box>
-                </Grid>
-              </Grid>
             </Stack>
-            <Grid item sm={6} xs={6} >
+            <Grid item sm={12} xs={12} >
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
@@ -442,4 +423,4 @@ const FirebaseRegister = ({ ...others }) => {
   );
 };
 
-export default FirebaseRegister;
+export default KycRegister;

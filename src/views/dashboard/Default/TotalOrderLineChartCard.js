@@ -148,7 +148,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                             color: theme.palette.primary[200]
                           }}
                         >
-                          Total Amount Gross
+                          Gross Amount
                         </Typography>
                       </Grid>
                     </Grid>

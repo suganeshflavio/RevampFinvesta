@@ -86,7 +86,7 @@ const PopularCard = ({ isLoading }) => {
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item sx={{display:"flex"}}>
+                      <Grid item xs={8} sx={{display:"flex"}}>
                       <Avatar
                               variant="rounded"
                               sx={{
@@ -137,11 +137,11 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid> */}
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
+                <Divider sx={{ mb: 1.5 }} />
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item sx={{display:"flex"}}>
+                      <Grid item xs={8} sx={{display:"flex"}}>
                       <Avatar
                               variant="rounded"
                               sx={{
@@ -192,11 +192,11 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid> */}
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
+                <Divider sx={{ mb: 1.5 }} />
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item sx={{display:"flex"}}>
+                      <Grid item xs={8} sx={{display:"flex"}}>
                       <Avatar
                               variant="rounded"
                               sx={{
@@ -246,11 +246,11 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid> */}
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
+                <Divider sx={{ mb: 1.5 }} />
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item sx={{display:"flex"}}>
+                      <Grid item xs={8} sx={{display:"flex"}}>
                       <Avatar
                               variant="rounded"
                               sx={{
@@ -300,11 +300,11 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid> */}
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
+                <Divider sx={{ mb: 1.5 }} />
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item sx={{display:"flex"}}>
+                      <Grid item xs={8} sx={{display:"flex"}}>
                       <Avatar
                               variant="rounded"
                               sx={{

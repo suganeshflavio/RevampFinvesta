@@ -11,7 +11,7 @@ import MainCard from 'ui-component/cards/MainCard';
 const SignupCardWrapper = ({ children, ...other }) => (
   <MainCard
     sx={{
-      maxWidth: { xs: 500, lg: 1000 },
+      maxWidth: { xs: 400, md: 800, sm: 900, lg: 600 },
       margin: { xs: 2.5, md: 3 },
       '& > *': {
         flexGrow: 1,
