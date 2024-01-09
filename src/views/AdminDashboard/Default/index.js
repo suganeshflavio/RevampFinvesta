@@ -1,7 +1,7 @@
 // import { useEffect } from 'react';
 
 // material-ui
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 // project imports
 
@@ -9,6 +9,13 @@ import { Grid } from '@mui/material';
 // import TotalIncomeLightCard from './TotalIncomeLightCard';
 // import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import SubCard from 'ui-component/cards/SubCard';
+import FormIcon from 'assets/images/icons/formIcon.png'
+import FieldIcon from 'assets/images/icons/fieldIcon .png'
+import AccessIcon from 'assets/images/icons/accessIcon.png'
+import { useNavigate } from 'react-router';
+import { Stack } from '@mui/system';
+ 
 
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -19,30 +26,47 @@ const Dashboard = () => {
   //   setLoading(false);
   // }, []);
 
- 
+  const navigate=useNavigate()
+
+ const style={
+  textAlign:'center',
+  borderRadius:'20px',
+  backgroundColor:'#fff',
+  cursor:'pointer',
+  
+ }
 
 
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
-         
-          
-          {/* <Grid item lg={4} md={12} sm={12} xs={12}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeDarkCard isLoading={isLoading} />
-              </Grid>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeLightCard isLoading={isLoading} />
-              </Grid>
-            </Grid>
-          </Grid> */}
+          <Grid item xl={4} md={6} sm={12}>
+            <SubCard sx={style} onClick={()=>navigate('/Admin/ProductMaster')}>
+              <Stack direction='row' alignItems='center' justifyContent='space-evenly'>
+                <img src={FormIcon} alt='' style={{width:'25%',aspectRatio:1}}/>
+                <Typography variant='h4' component='div' color='#252525' sx={{mt:0}}>Product Master</Typography>
+              </Stack>
+            </SubCard>
+          </Grid>
+          <Grid item xl={4} md={6} sm={12}>
+          <SubCard sx={style} onClick={()=>navigate('/Admin/AddDP')}>
+              <Stack direction='row' alignItems='center' justifyContent='space-evenly'>
+                <img src={FieldIcon} alt='' style={{width:'25%',aspectRatio:1}}/>
+                <Typography variant='h4' component='div' color='#252525' sx={{mt:0}}>Field Master</Typography>
+              </Stack>
+            </SubCard>
+          </Grid>
+          <Grid item xl={4} md={6} sm={12}>
+          <SubCard sx={style} onClick={()=>navigate('/Admin/ProductMaster')}>
+              <Stack direction='row' alignItems='center' justifyContent='space-evenly'>
+                <img src={AccessIcon} alt='' style={{width:'25%',aspectRatio:1}}/>
+                <Typography variant='h4' component='div' color='#252525' sx={{mt:0}}>Access Management</Typography>
+              </Stack>
+            </SubCard>
+          </Grid>
         </Grid>
       </Grid>
-
-      
-
 
 
       <Grid item xs={12}>

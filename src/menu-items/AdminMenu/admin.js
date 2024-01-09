@@ -23,7 +23,7 @@ const AdminUtils = {
       id: 'util-color',
       title: 'Add data point',
       type: 'item',
-      url: '/dashboard/default',
+      url: '/dashboard/AddDP',
       icon: icons.IconBuildingBank,
       breadcrumbs: false
     },

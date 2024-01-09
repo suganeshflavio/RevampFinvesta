@@ -3,7 +3,6 @@ import { lazy } from 'react';
 // project imports
 // import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
- import PopularServices from 'views/utilities/PopularServices';
 import AdminLayout from 'layout/AdminLayout';
 //  import MoneyTransfer from 'views/utilities/MoneyTransfer';
 
@@ -11,17 +10,14 @@ import AdminLayout from 'layout/AdminLayout';
 const DashboardDefault = Loadable(lazy(() => import('views/AdminDashboard/Default')));
 
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-const UtilsServicerequest = Loadable(lazy(() => import('views/utilities/Servicerequest')));
-const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
-const UtilsServices=Loadable(lazy(() => import('views/utilities/MoneyTransfer')));
+
+const UtilsAddDataPoints = Loadable(lazy(() => import('views/utilities/DataPoints')));
+const UtilsProductMaster = Loadable(lazy(() => import('views/utilities/ProductMaster')));
+const UtilsAddProduct = Loadable(lazy(() => import('views/utilities/AddProduct')));
+
 // const UtilsMoneyTransfer=Loadable(lazy(() => import('views/utilities/PopularServices')));
 
 // sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -45,33 +41,33 @@ const AdminRoute = {
     },
     
     {
-      path: 'dashboard',
+      path: 'Admin',
       children: [
         {
-          path: 'servicerequest',
-          element: <UtilsServicerequest />,
+          path: 'AddDP',
+          element: <UtilsAddDataPoints />,
           breadcrumbs: true
 
         }
       ]
     },
     {
-      path: 'dashboard',
+      path: 'Admin',
       children: [
         {
-          path: 'Services/:id',
-          element: <UtilsServices/>,
+          path: 'ProductMaster',
+          element: <UtilsProductMaster/>,
           breadcrumbs: true
 
         }
       ]
     },
     {
-      path: 'dashboard/Services/:id',
+      path: 'Admin',
       children: [
         {
-          path: 'MoneyTransfer',
-          element: <PopularServices/>,
+          path: 'AddProduct',
+          element: <UtilsAddProduct/>,
           breadcrumbs: true
 
         }
