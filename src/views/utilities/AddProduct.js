@@ -3,11 +3,33 @@ import { Grid, Button, Stack, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
-import { IconEye } from '@tabler/icons';
+import { IconEye, IconPlus } from '@tabler/icons';
 import { IconPencil } from '@tabler/icons';
 import { IconTrash } from '@tabler/icons'
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height:'100%',
+  bgcolor: 'background.paper',
+  border: 'none',
+  boxShadow: 24,
+  p: 4,
+};
 
 const AddProduct = () => {
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'productName', headerName: 'Product name', width: 130 },
@@ -54,6 +76,24 @@ const AddProduct = () => {
 
   return (
     <SubCard title="Add Product">
+       <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h3" component="h2">
+            Add Fields
+          </Typography>
+          <Grid container xl={12} mt={2}>
+            <Grid item xl={4}>
+              <TextField label='Field Name' fullWidth/>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
+
       <Grid container xl={12}>
         <Grid item xl={6} md={6} xs={12}>
           <TextField size="large" label="Product Name" fullWidth onChange={(e) => handleDataChange('Name', e.target.value, null)} />
@@ -67,6 +107,9 @@ const AddProduct = () => {
               fullWidth
               onChange={(e) => handleDataChange('Name', e.target.value, null)}
             />
+            <Stack direction='row' justifyContent='flex-end' width='100%'>
+                <Button endIcon={IconPlus} sx={{width:'fit-content'}} onClick={handleOpen}>Add fields</Button>
+            </Stack>
           </Grid>
             <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
             <Stack direction="column" justifyContent="flex-end" height="100%">
