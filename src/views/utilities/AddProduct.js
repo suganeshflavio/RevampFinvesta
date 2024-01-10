@@ -3,7 +3,7 @@ import { Grid, Button, Stack, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
-import { IconEye, IconPlus, IconPencil, IconTrash } from '@tabler/icons';
+import { IconEye, IconPencil, IconTrash } from '@tabler/icons';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -18,6 +18,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CloseIcon from '@mui/icons-material/Close';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
 const top100Films = [
   { label: 'Name', type: 'Text' },
@@ -28,18 +33,6 @@ const top100Films = [
   { label: "Phone Number", type: 'text' },
   { label: 'Age', type: 'text' },
 ]
-import CloseIcon from '@mui/icons-material/Close';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const style = {
   position: 'absolute',
@@ -64,6 +57,7 @@ const AddProduct = () => {
 
   const [open, setOpen] = React.useState(false);
   const [post, setPost] = React.useState([])
+  const [TableRows, setTableRows] = React.useState([])
   const [Data, setData] = React.useState({
     field: '',
     type: '',
@@ -81,16 +75,16 @@ const AddProduct = () => {
     setEditOpen(false);
   };
 
-  function createData(name, calories, fat, carbs, protein) {
+  function createTableData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
 
   const editrows = [
-    createData('Text', 'email', 'true', 24, 4.0),
-    createData('Number', 'number', 'true', 37, 4.3),
-    createData('Date', 'date', 'false', 24, 6.0),
-    createData('Email', 'email', 'true', 67, 4.3),
-    createData('Age', 'number', 'false', 3.9, ),
+    createTableData('Text', 'email', 'true', 24, 4.0),
+    createTableData('Number', 'number', 'true', 37, 4.3),
+    createTableData('Date', 'date', 'false', 24, 6.0),
+    createTableData('Email', 'email', 'true', 67, 4.3),
+    createTableData('Age', 'number', 'false', 3.9, ),
   ];
 
   const columns = [
