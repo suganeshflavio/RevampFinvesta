@@ -27,7 +27,6 @@ const AddProduct = () => {
                             fullWidth
                             onChange={(e) => handleDataChange('Name', e.target.value, null)}
                         />
-
                     </Grid>
                     <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '20vh', xl: '30vh', xs: '10vh' } }} >
                     <Stack direction='column' justifyContent='flex-end' height='100%' >
@@ -36,14 +35,8 @@ const AddProduct = () => {
                         </Stack>
                     </Stack>
                 </Grid>
-
                 </Grid>
-
-
-
-                
             </Grid>
-
         </SubCard>
     )
 }
