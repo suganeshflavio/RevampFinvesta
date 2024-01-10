@@ -72,8 +72,8 @@ const MoneyTransfer = () => {
 
                                     </FormControl>
 
-                                    <TextField 
-                                    label="Amount"  
+                                    <TextField
+                                    label="Amount"
                                     fullWidth
                                     size='small'
                                         InputProps={{
