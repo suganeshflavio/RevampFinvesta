@@ -22,7 +22,7 @@ const UtilsAddProduct = Loadable(lazy(() => import('views/utilities/AddProduct')
 // ==============================|| MAIN ROUTING ||============================== //
 
 const AdminRoute = {
-  
+
   path: '/',
   element: <AdminLayout />,
   children: [
@@ -39,7 +39,7 @@ const AdminRoute = {
         }
       ]
     },
-    
+
     {
       path: 'Admin',
       children: [
@@ -73,7 +73,7 @@ const AdminRoute = {
         }
       ]
     },
-    
+
   ]
 };
 
