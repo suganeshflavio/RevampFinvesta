@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Grid } from '@mui/material'
-
+import Swal from 'sweetalert2';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -220,10 +220,23 @@ const DataPoints = () => {
     // // delete
     const handleDelete = (index) => {
         let data = [...Selected];
+        
         data.splice(index, 1);
         setSelected(data)
         console.log(data);
 
+    }
+
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        Swal.fire({
+            title: "Field added!",
+            icon: "success",
+            timer:2000,
+            backdrop:false,
+            background:'#EDE7F6',
+            showConfirmButton:false
+          });
     }
 
 
@@ -277,6 +290,7 @@ const DataPoints = () => {
         // console.log(Data);
     }
     return (
+        <form onSubmit={handleSubmit}>
         <SubCard title='Add data point'>
 
             <Grid container sx={{ mt: 1 }} xl={12} justifyContent='space-between'>
@@ -366,13 +380,13 @@ const DataPoints = () => {
 
             <Grid container xl={12} justifyContent='flex-end' sx={{mt:3}}>
                 <Grid item>
-                    <Button color='secondary' variant='contained'>Submit</Button>
+                    <Button color='secondary' variant='contained' type='submit'>Submit</Button>
                 </Grid>
             </Grid>
 
 
         </SubCard>
-
+        </form>
     )
 }
 

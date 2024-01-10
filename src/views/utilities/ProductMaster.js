@@ -9,10 +9,24 @@ import { useNavigate } from 'react-router';
 
 
 function ProductMaster() {
-    const [age, setAge] = React.useState('');
+    const [Data, setData] = React.useState({
+        name:'',
+        field:'',
+        mandatory:''
+    });
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
+    const handleChange = (name,value) => {
+        if(name==='name'){
+            setData({...Data,name:value});
+        }
+        else if(name==='field'){
+            setData({...Data,field:value});
+        }
+        else if(name==='mandatory'){
+            setData({...Data,mandatory:value});
+
+        }
+        console.log(Data);
     };
 
     const Navigate=useNavigate()
@@ -27,14 +41,14 @@ function ProductMaster() {
                         <Select
                             labelId="demo-select-label"
                             id="demo-select"
-                            value={age}
+                            value={Data.name}
                             label="Product Name"
-                            onChange={handleChange}
+                            onChange={(e)=>handleChange("name",e.target.value)}
                         >
 
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={'10'}>Ten</MenuItem>
+                            <MenuItem value={'20'}>Twenty</MenuItem>
+                            <MenuItem value={'30'}>Thirty</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl sx={{ m: 2, minWidth: '100%' }} size="large">
@@ -42,14 +56,14 @@ function ProductMaster() {
                         <Select
                             labelId="demo-select-small-label"
                             id="demo-select-small"
-                            value={age}
+                            value={Data.field}
                             label="Product Field"
-                            onChange={handleChange}
+                            onChange={(e)=>handleChange("field",e.target.value)}
                         >
 
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={'10'}>Ten</MenuItem>
+                            <MenuItem value={'20'}>Twenty</MenuItem>
+                            <MenuItem value={'30'}>Thirty</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -58,18 +72,18 @@ function ProductMaster() {
                         <Select
                             labelId="demo-select-label"
                             id="demo-select"
-                            value={age}
+                            value={Data.mandatory}
                             label="Mandatory"
-                            onChange={handleChange}
+                            onChange={(e)=>handleChange("mandatory",e.target.value)}
                         >
 
-                            <MenuItem value={10}>Yes</MenuItem>
+                            <MenuItem value={true}>Yes</MenuItem>
 
-                            <MenuItem value={30}>No</MenuItem>
+                            <MenuItem value={false}>No</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xl={6} height='60vh'>
+                <Grid item xl={7} height={{xl:'60vh',md:'60vh',sm:'50vh',xs:'20vh'}}>
                     <Stack direction='column' justifyContent='flex-end' height='100%'>
                     <Stack direction='row' justifyContent='flex-end' alignItems='flex-end' spacing={2}>
                         <Button variant='outlined' color='secondary' onClick={()=>Navigate('/Admin/AddProduct')}>Add Product</Button>
