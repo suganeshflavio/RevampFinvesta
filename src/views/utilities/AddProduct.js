@@ -8,6 +8,28 @@ import { IconPencil } from '@tabler/icons';
 import { IconTrash } from '@tabler/icons'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Autocomplete from '@mui/material/Autocomplete';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+const top100Films = [
+  { label: 'Name', type: 'Text' },
+  { label: 'Email', type: 'email' },
+  { label: 'Address', type: 'Text' },
+  { label: 'Aadhar No', type: 'Text' },
+  { label: 'Pan No', type: 'text' },
+  { label: "Phone Number", type: 'text' },
+  { label: 'Age', type: 'text' },
+]
 
 
 const style = {
@@ -16,19 +38,32 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '90%',
-  height:'100%',
-  bgcolor: 'background.paper',
+  height: '100%',
+  bgcolor: 'whitesmoke',
   border: 'none',
   boxShadow: 24,
   p: 4,
 };
 
+function createData(name, type, required, icon) {
+  return { name, type, required, icon };
+}
+
+
+
 const AddProduct = () => {
 
   const [open, setOpen] = React.useState(false);
+  const [post, setPost] = React.useState([])
+  const [Data, setData] = React.useState({
+    field: '',
+    type: '',
+    required: ''
+  })
+  const dataref = React.useRef()
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [TableRows, setTableRows] = React.useState([]);
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -39,16 +74,16 @@ const AddProduct = () => {
       headerName: 'Action',
       type: 'number',
       width: 90,
-      padding:"2px",
+      padding: "2px",
       renderCell: () => (
         <IconButton
           aria-label="view"
-        // {/* onClick={() => handleDelete(params.row.id)} */}
-        sx={{padding:"2px"}}
-       > <IconPencil
-       onClick={() => {
+          // {/* onClick={() => handleDelete(params.row.id)} */}
+          sx={{ padding: "2px" }}
+        > <IconPencil
+            onClick={() => {
 
-       }}/> <IconEye/> <IconTrash/>
+            }} /> <IconEye /> <IconTrash />
         </IconButton>
       )
     },
@@ -63,20 +98,63 @@ const AddProduct = () => {
   ];
 
   const rows = [
-    { id: 1, productName: 'Snow', displayName: 'Jon',  },
-    { id: 2, productName: 'Lannister', displayName: 'Cersei',  },
-    { id: 3, productName: 'Lannister', displayName: 'Jaime',  },
-    { id: 4, productName: 'Stark', displayName: 'Arya',  },
-    { id: 5, productName: 'Targaryen', displayName: 'Daenerys',  },
-    { id: 6, productName: 'Melisandre', displayName: "Stark",  },
-    { id: 7, productName: 'Clifford', displayName: 'Ferrara',  },
-    { id: 8, productName: 'Frances', displayName: 'Rossini',  },
-    { id: 9, productName: 'Roxie', displayName: 'Harvey',  }
+    { id: 1, productName: 'Snow', displayName: 'Jon', },
+    { id: 2, productName: 'Lannister', displayName: 'Cersei', },
+    { id: 3, productName: 'Lannister', displayName: 'Jaime', },
+    { id: 4, productName: 'Stark', displayName: 'Arya', },
+    { id: 5, productName: 'Targaryen', displayName: 'Daenerys', },
+    { id: 6, productName: 'Melisandre', displayName: "Stark", },
+    { id: 7, productName: 'Clifford', displayName: 'Ferrara', },
+    { id: 8, productName: 'Frances', displayName: 'Rossini', },
+    { id: 9, productName: 'Roxie', displayName: 'Harvey', }
   ];
+
+  const handleChange = (type, value) => {
+    if (type === 'field') {
+      console.log(value);
+      setData({ ...Data, field: value.label, type: value.type })
+      console.log(Data);
+    }
+    else {
+      console.log(value);
+
+      setData({ ...Data, required: value })
+      console.log(Data);
+
+    }
+  }
+
+  const deleteAddedData = (index) => {
+    console.log(index);
+    
+
+    const updatedPost = [...post.slice(0, index), ...post.slice(index + 1)]
+    const updatedTable = [...TableRows.slice(0, index), ...TableRows.slice(index + 1)];
+
+
+    setPost(updatedPost)
+    setTableRows(updatedTable)
+
+    console.log(post);
+  }
+
+  const handleAddData = (e) => {
+    e.preventDefault()
+    const updataedData = [...post, Data]
+
+    setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')])
+    console.log(TableRows);
+
+    setData({ ...Data, field: '', type: '', required: '' })
+    dataref.current.value = null
+
+    setPost(updataedData)
+    console.log( post);
+  }
 
   return (
     <SubCard title="Add Product">
-       <Modal
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -86,9 +164,66 @@ const AddProduct = () => {
           <Typography id="modal-modal-title" variant="h3" component="h2">
             Add Fields
           </Typography>
-          <Grid container xl={12} mt={2}>
-            <Grid item xl={4}>
-              <TextField label='Field Name' fullWidth/>
+          <Grid container xl={12} mt={2} justifyContent='space-between'>
+            <Grid item xl={4} md={12} xs={12}>
+              <Autocomplete
+                value={Data.field}
+                ref={dataref}
+                disablePortal
+                id="combo-box-demo"
+                options={top100Films}
+                renderInput={(params) => <TextField {...params} label="Field" />}
+                fullWidth
+                onChange={(event, newValue) => {
+                  handleChange('field', newValue);
+                }} />
+              <FormControl sx={{ mt: 2, minWidth: '100%' }} size="large">
+                <InputLabel id="demo-select-label">Mandatory</InputLabel>
+                <Select
+                  value={Data.required}
+                  ref={dataref}
+                  labelId="demo-select-label"
+                  id="demo-select"
+                  label="Mandatory"
+                  onChange={(e) => handleChange("mandatory", e.target.value)}
+                >
+
+                  <MenuItem value={true}>Yes</MenuItem>
+
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+              <Button variant='contained' color='secondary' fullWidth sx={{ mt: 2 }} onClick={handleAddData}>Add</Button>
+            </Grid>
+            <Grid item xl={6}  md={12} xs={12} sx={{mt:{xl:0,xs:1}}}>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Field</TableCell>
+                      <TableCell align="right">Type</TableCell>
+                      <TableCell align="right">Required</TableCell>
+                      <TableCell align="right">Delelte</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {TableRows.map((row, index) => (
+                      <TableRow
+                        key={row.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="right">{row.type}</TableCell>
+                        <TableCell align="right">{row.required === true ? 'true' : 'false'}</TableCell>
+                        <TableCell align="right" onClick={()=>deleteAddedData(index)} sx={{color:'red'}}>{<IconTrash />}</TableCell>
+
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Grid>
           </Grid>
         </Box>
@@ -108,19 +243,19 @@ const AddProduct = () => {
               onChange={(e) => handleDataChange('Name', e.target.value, null)}
             />
             <Stack direction='row' justifyContent='flex-end' width='100%'>
-                <Button endIcon={IconPlus} sx={{width:'fit-content'}} onClick={handleOpen}>Add fields</Button>
+              <Button endIcon={IconPlus} sx={{ width: 'fit-content' }} onClick={handleOpen}>Add fields</Button>
             </Stack>
           </Grid>
-            <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
+          <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
             <Stack direction="column" justifyContent="flex-end" height="100%">
-                <Stack direction="row" justifyContent="flex-end" alignItems="flex-end" spacing={2}>
-                  <Button variant="contained" color="secondary">
-                    Submit
-                  </Button>
-                </Stack>
+              <Stack direction="row" justifyContent="flex-end" alignItems="flex-end" spacing={2}>
+                <Button variant="contained" color="secondary" onClick={()=>console.log(post)}>
+                  Submit
+                </Button>
               </Stack>
+            </Stack>
 
-            </Grid>
+          </Grid>
         </Grid>
         {/* Product list start */}
         <Typography variant="h4" m={2}>Product List</Typography>
