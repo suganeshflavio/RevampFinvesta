@@ -203,7 +203,7 @@ const AddProduct = () => {
                       <TableCell>Field</TableCell>
                       <TableCell align="right">Type</TableCell>
                       <TableCell align="right">Required</TableCell>
-                      <TableCell align="right">Delelte</TableCell>
+                      <TableCell align="right">Delete</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
