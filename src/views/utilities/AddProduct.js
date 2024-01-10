@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Grid, Button, Stack, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
-import { IconEye, IconPlus } from '@tabler/icons';
-import { IconPencil } from '@tabler/icons';
-import { IconTrash } from '@tabler/icons'
+import { IconEye, IconPlus, IconPencil, IconTrash } from '@tabler/icons';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-
+import CloseIcon from '@mui/icons-material/Close';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const style = {
   position: 'absolute',
@@ -25,33 +34,76 @@ const style = {
 
 const AddProduct = () => {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+//   edit Modal
+  const [editOpen, setEditOpen] = useState(false)
+  const handleClickOpen = () => {
+    setEditOpen(true);
+  };
+  const handleviewClose = () => {
+    setEditOpen(false);
+  };
 
+  function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+
+  const editrows = [
+    createData('Text', 'email', 'true', 24, 4.0),
+    createData('Number', 'number', 'true', 37, 4.3),
+    createData('Date', 'date', 'false', 24, 6.0),
+    createData('Email', 'email', 'true', 67, 4.3),
+    createData('Age', 'number', 'false', 3.9, ),
+  ];
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'productName', headerName: 'Product name', width: 130 },
-    { field: 'displayName', headerName: 'Display name', width: 130 },
+    { field: 'productName', headerName: 'Product name', width: 230 },
+    { field: 'displayName', headerName: 'Display name', width: 230 },
     {
-      field: 'action',
-      headerName: 'Action',
+      field: 'edit',
+      headerName: '',
       type: 'number',
-      width: 90,
-      padding:"2px",
+      width: 30,
       renderCell: () => (
         <IconButton
-          aria-label="view"
-        // {/* onClick={() => handleDelete(params.row.id)} */}
-        sx={{padding:"2px"}}
-       > <IconPencil
-       onClick={() => {
-
-       }}/> <IconEye/> <IconTrash/>
+          aria-label="edit"
+          onClick={handleClickOpen}
+          color="info"
+       > <IconPencil/>
         </IconButton>
       )
     },
+    {
+        field: 'view',
+        headerName: 'Action',
+        type: 'number',
+        width: 55,
+        renderCell: () => (
+          <IconButton
+            aria-label="view"
+          // {/* onClick={() => handleDelete(params.row.id)} */}
+          color="success"
+         >  <IconEye/>
+          </IconButton>
+        )
+      },
+      {
+        field: 'delete',
+        headerName: '',
+        type: 'number',
+        width: 30,
+        renderCell: () => (
+          <IconButton
+            aria-label="delete"
+         onClick={(params) => handleDelete(params.row.id)}
+        color='error'
+         >   <IconTrash/>
+          </IconButton>
+        )
+      },
     // {
     //   field: 'fullName',
     //   headerName: 'Full name',
@@ -73,6 +125,8 @@ const AddProduct = () => {
     { id: 8, productName: 'Frances', displayName: 'Rossini',  },
     { id: 9, productName: 'Roxie', displayName: 'Harvey',  }
   ];
+
+
 
   return (
     <SubCard title="Add Product">
@@ -139,6 +193,71 @@ const AddProduct = () => {
         </Grid>
         {/* Product list end */}
       </Grid>
+      {/* // dialog start */}
+    {/* <BootstrapDialog
+    onClose={handleviewClose}
+    aria-labelledby="customized-dialog-title"
+    open={open}
+  > */}
+  <Dialog open={editOpen} onClose={handleviewClose}>
+
+    <DialogTitle variant='h3' sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+      Product title (Product display name)
+    </DialogTitle>
+    <IconButton
+      aria-label="close"
+      onClick={handleviewClose}
+      sx={{
+        position: 'absolute',
+        right: 8,
+        top: 8,
+        color: (theme) => theme.palette.grey[500],
+      }}
+    >
+      <CloseIcon />
+    </IconButton>
+    <DialogContent dividers>
+    <Stack direction='row' justifyContent='flex-end' width='100%'>
+                <Button sx={{width:'fit-content'}} onClick={handleOpen}>Add fields</Button>
+            </Stack>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Field Name</TableCell>
+            <TableCell align="right">Type</TableCell>
+            <TableCell align="right">Required</TableCell>
+            <TableCell align="right">Delete</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {editrows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right" sx={{color:'#D84646'}}>{<IconTrash />}</TableCell>
+              {/* <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell> */}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </DialogContent>
+    <DialogActions>
+      <Button autoFocus onClick={handleviewClose}>
+        Save changes
+      </Button>
+    </DialogActions>
+    </Dialog>
+  {/* </BootstrapDialog> */}
+{/* //   Dialog end */}
     </SubCard>
   );
 };
