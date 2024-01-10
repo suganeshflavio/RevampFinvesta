@@ -30,10 +30,10 @@ function ProductMaster() {
     };
 
     const Navigate=useNavigate()
-    
+
     return (
         <SubCard title='Product Master'>
-          
+
             <Grid container xl={12} >
                 <Grid item xl={5}>
                     <FormControl sx={{ m: 2, minWidth: '100%' }} size="large">
