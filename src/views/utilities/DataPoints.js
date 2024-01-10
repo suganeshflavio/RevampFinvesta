@@ -63,11 +63,7 @@ const DataPoints = () => {
         {
             type: 'Number',
             fields: [
-                [{
-                    id: 'Regex',
-                    name: "Regex",
-                    type: "text"
-                },
+                [
                 {
                     id: 'minValue',
                     name: "Min Value",
@@ -324,7 +320,7 @@ const DataPoints = () => {
                             labelId="demo-select-small-label"
                             id="demo-select-small"
                             // value=""
-                            label="Age"
+                            label="Type"
                             onChange={
                                 (e) => {
                                     handleDataChange('type', e.target.value, null);
@@ -342,7 +338,7 @@ const DataPoints = () => {
                 </Grid>
 
             </Grid>
-            <FormControl sx={{mt:3}}>
+            <FormControl sx={{mt:3,display:Data.type==="Text"?'block':'none'}} >
                 <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
@@ -364,11 +360,11 @@ const DataPoints = () => {
                                     size='large'
                                     label={subItem.name || ''}
                                     fullWidth
-                                    sx={{ display: subItem.type === "button" ? 'none' : 'block' }}
+                                    sx={{ display: subItem.type === "button" ? 'none' : 'block' ,mt:2}}
                                     onChange={(e) => handleDataChange(subItem.id, e.target.value, subIndex, OptionIndex)}
                                 />
 
-                                <Button onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)} size='small' variant='outlined' sx={{ display: subItem.type !== "button" ? 'none' : 'block' }}
+                                <Button onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)} size='small' variant='outlined' sx={{ display: subItem.type !== "button" ? 'none' : 'block' ,mt:3}}
                                 >{subIndex == Selected.length - 1 ? subItem.name : <IconTrash />}</Button>
 
                             </Grid>

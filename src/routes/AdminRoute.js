@@ -4,12 +4,16 @@ import { lazy } from 'react';
 // import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import AdminLayout from 'layout/AdminLayout';
+// import CreateGroup from 'views/utilities/CreateGroup';
+// import AccessManagement from 'views/utilities/AccessManagement';
 //  import MoneyTransfer from 'views/utilities/MoneyTransfer';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/AdminDashboard/Default')));
 
 // utilities routing
+const UtilsAccessManagement = Loadable(lazy(() => import('views/utilities/AccessManagement')));
+const UtilsCreateGroup = Loadable(lazy(() => import('views/utilities/CreateGroup')));
 
 const UtilsAddDataPoints = Loadable(lazy(() => import('views/utilities/DataPoints')));
 const UtilsProductMaster = Loadable(lazy(() => import('views/utilities/ProductMaster')));
@@ -68,6 +72,30 @@ const AdminRoute = {
         {
           path: 'AddProduct',
           element: <UtilsAddProduct/>,
+          breadcrumbs: true
+
+        }
+      ]
+    },
+
+    {
+      path: 'Admin',
+      children: [
+        {
+          path: 'AccessManagement',
+          element: <UtilsAccessManagement/>,
+          breadcrumbs: true
+
+        }
+      ]
+    },
+
+    {
+      path: 'Admin',
+      children: [
+        {
+          path: 'CreateGroup',
+          element: <UtilsCreateGroup/>,
           breadcrumbs: true
 
         }
