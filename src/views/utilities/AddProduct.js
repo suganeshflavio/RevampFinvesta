@@ -3,7 +3,7 @@ import { Grid, Button, Stack, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
-import { IconEye, IconPlus } from '@tabler/icons';
+import { IconEye } from '@tabler/icons';
 import { IconPencil } from '@tabler/icons';
 import { IconTrash } from '@tabler/icons'
 import Box from '@mui/material/Box';
@@ -243,7 +243,7 @@ const AddProduct = () => {
               onChange={(e) => handleDataChange('Name', e.target.value, null)}
             />
             <Stack direction='row' justifyContent='flex-end' width='100%'>
-              <Button endIcon={IconPlus} sx={{ width: 'fit-content' }} onClick={handleOpen}>Add fields</Button>
+              <Button sx={{ width: 'fit-content' }} onClick={handleOpen}>Add fields</Button>
             </Stack>
           </Grid>
           <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
