@@ -25,13 +25,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
 const top100Films = [
-  { label: 'Name', type: 'Text' },
-  { label: 'Email', type: 'email' },
-  { label: 'Address', type: 'Text' },
-  { label: 'Aadhar No', type: 'Text' },
-  { label: 'Pan No', type: 'text' },
-  { label: "Phone Number", type: 'text' },
-  { label: 'Age', type: 'text' },
+  {id:1, label: 'Name', type: 'Text' },
+  {id:2, label: 'Email', type: 'email' },
+  {id:3, label: 'Address', type: 'Text' },
+  {id:4, label: 'Aadhar No', type: 'Text' },
+  {id:5, label: 'Pan No', type: 'text' },
+  {id:6, label: "Phone Number", type: 'text' },
+  {id:7, label: 'Age', type: 'text' },
 ]
 
 const style = {
@@ -62,6 +62,7 @@ const AddProduct = () => {
   const [selectedCellParams, setSelectedCellParams] = useState(null);
   const [cellModesModel, setCellModesModel] = useState({});
   const [Data, setData] = useState({
+    id:'',
     field: '',
     type: '',
     required: ''
@@ -224,7 +225,7 @@ const AddProduct = () => {
   const handleChange = (type, value) => {
     if (type === 'field') {
       console.log(value);
-      setData({ ...Data, field: value.label, type: value.type })
+      setData({ ...Data, field: value.label, type: value.type,id:value.id })
       console.log(Data);
     }
     else {
@@ -259,7 +260,7 @@ const AddProduct = () => {
 
   const handleAddData = (e) => {
     e.preventDefault()
-    const updataedData = [...post, Data]
+    const updataedData = [...post,Data]
 
     setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')])
     console.log(TableRows);

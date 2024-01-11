@@ -43,7 +43,7 @@ const Dashboard = () => {
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xl={4} md={6} sm={12}>
-            <SubCard sx={style} onClick={()=>navigate('/Admin/ProductMaster')}>
+            <SubCard sx={style} onClick={()=>navigate('/Admin/AddProduct')}>
               <Stack direction='row' alignItems='center' justifyContent='space-evenly'>
                 <img src={FormIcon} alt='' style={{width:'25%',aspectRatio:1}}/>
                 <Typography variant='h4' component='div' color='#252525' sx={{mt:0}}>Product Master</Typography>
