@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, } from 'react'
 import { Grid } from '@mui/material'
 import Swal from 'sweetalert2';
 import InputLabel from '@mui/material/InputLabel';
@@ -18,6 +18,7 @@ const DataPoints = () => {
 
     const [Selected, setSelected] = useState()
 
+    // const [PostData,setPostData]=useState({})
 
     const [Data, setData] = useState({
         Name: '',
@@ -37,6 +38,22 @@ const DataPoints = () => {
     })
 
     console.log(Data);
+
+    const handlePost=()=>{
+        const filteredObject={}
+        for(const[key,value] of Object.entries(Data)){
+            if(value!==""){
+                filteredObject[key]=value
+            }
+        }
+        // if(Data.options.length<2){
+            
+        // }
+
+        console.log(filteredObject);
+    }
+
+    handlePost()
 
     const dataType = [
         {
@@ -141,8 +158,6 @@ const DataPoints = () => {
                     name: "Max Size",
                     type: "text"
                 },
-
-                
             
             ]
 
@@ -250,7 +265,8 @@ const DataPoints = () => {
             setData({ ...Data, Displayname: data })
         }
         if (id === "type") {
-            setData({ ...Data, type: dataType[data].type })
+            setData({ ...Data, type: dataType[data].type,Regex:'',minLength:'',maxLength:'',minValue:'',maxValue:'' })
+
         }
         if (id === "Regex") {
             setData({ ...Data, Regex: data })
