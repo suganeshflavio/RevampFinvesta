@@ -5,48 +5,11 @@ import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
 import { IconEye, IconPencil, IconTrash } from '@tabler/icons';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import CloseIcon from '@mui/icons-material/Close';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 
-const top100Films = [
-  {id:1, label: 'Name', type: 'Text' },
-  {id:2, label: 'Email', type: 'email' },
-  {id:3, label: 'Address', type: 'Text' },
-  {id:4, label: 'Aadhar No', type: 'Text' },
-  {id:5, label: 'Pan No', type: 'text' },
-  {id:6, label: "Phone Number", type: 'text' },
-  {id:7, label: 'Age', type: 'text' },
-]
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '90%',
-  height: '80%',
-  borderRadius: '20px',
-  bgcolor: 'whitesmoke',
-  border: 'none',
-  boxShadow: 24,
-  p: 4,
-};
+import FieldModal from './Components/AddProduct/FieldModal';
+import EditModal from './Components/AddProduct/EditModal';
+
 
 function createData(name, type, required, icon) {
   return { name, type, required, icon };
@@ -62,7 +25,7 @@ const AddProduct = () => {
   const [selectedCellParams, setSelectedCellParams] = useState(null);
   const [cellModesModel, setCellModesModel] = useState({});
   const [Data, setData] = useState({
-    id:'',
+    id: '',
     field: '',
     type: '',
     required: ''
@@ -106,7 +69,7 @@ const AddProduct = () => {
     return cellModesModel[id]?.[field]?.mode || "view";
   }, [cellModesModel, selectedCellParams]);
 
-    const handleCellKeyDown = React.useCallback(
+  const handleCellKeyDown = React.useCallback(
     (params, event) => {
       if (cellMode === "edit") {
         // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
@@ -225,7 +188,7 @@ const AddProduct = () => {
   const handleChange = (type, value) => {
     if (type === 'field') {
       console.log(value);
-      setData({ ...Data, field: value.label, type: value.type,id:value.id })
+      setData({ ...Data, field: value.label, type: value.type, id: value.id })
       console.log(Data);
     }
     else {
@@ -260,7 +223,7 @@ const AddProduct = () => {
 
   const handleAddData = (e) => {
     e.preventDefault()
-    const updataedData = [...post,Data]
+    const updataedData = [...post, Data]
 
     setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')])
     console.log(TableRows);
@@ -281,92 +244,19 @@ const AddProduct = () => {
 
   return (
     <SubCard title="Add Product">
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h3" component="h2">
-            Add Fields
-          </Typography>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-          <Grid container xl={12} mt={2} justifyContent='space-between'>
-            <Grid item xl={4} md={12} xs={12}>
-              <Autocomplete
-                value={Data.field}
-                ref={dataref}
-                disablePortal
-                id="combo-box-demo"
-                options={top100Films}
-                renderInput={(params) => <TextField {...params} label="Field" />}
-                fullWidth
-                onChange={(event, newValue) => {
-                  handleChange('field', newValue);
-                }} />
-              <FormControl sx={{ mt: 2, minWidth: '100%' }} size="large">
-                <InputLabel id="demo-select-label">Mandatory</InputLabel>
-                <Select
-                  value={Data.required}
-                  ref={dataref}
-                  labelId="demo-select-label"
-                  id="demo-select"
-                  label="Mandatory"
-                  onChange={(e) => handleChange("mandatory", e.target.value)}
-                >
 
-                  <MenuItem value={true}>Yes</MenuItem>
+      {/* Add field modal */}
 
-                  <MenuItem value={false}>No</MenuItem>
-                </Select>
-              </FormControl>
-              <Button variant='contained' color='secondary' fullWidth sx={{ mt: 2 }} onClick={handleAddData}>Add</Button>
-            </Grid>
-            <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
-              <TableContainer component={Paper} sx={{height:400,overflowY:'scroll'}}>
-                <Table sx={{ minWidth: 600}} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Field</TableCell>
-                      <TableCell align="right">Type</TableCell>
-                      <TableCell align="right">Required</TableCell>
-                      <TableCell align="right">Delete</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {TableRows.map((row, index) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.type}</TableCell>
-                        <TableCell align="right">{row.required === true ? 'true' : 'false'}</TableCell>
-                        <TableCell align="right" onClick={() => deleteAddedData(index)} sx={{ color: 'red' }}>{<IconTrash />}</TableCell>
+      <FieldModal open={open}
+        handleChange={handleChange}
+        deleteAddedData={deleteAddedData}
+        handleAddData={handleAddData}
+        handleClose={handleClose}
+        Data={Data} setData={setData}
+        dataref={dataref}
+        TableRows={TableRows} />
 
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid>
-          </Grid>
-        </Box>
-      </Modal>
+      {/* End of add field modal */}
 
       <Grid container xl={12}>
         <Grid item xl={6} md={6} xs={12}>
@@ -399,41 +289,41 @@ const AddProduct = () => {
         {/* Product list start */}
         <Typography variant="h4" m={2}>Product List</Typography>
         <Grid item style={{ height: 400, width: '100%' }}>
-        <Box
-      sx={{
-        borderBottom: 1,
-        borderColor: "divider",
-        p: 1,
-      }}
-    >
-      <Button
-        onClick={handleClickedit}
-        onMouseDown={handleMouseDown}
-        disabled={!selectedCellParams}
-        variant="outlined"
-      >
-        {cellMode === "edit" ? "Save" : "Edit"}
-      </Button>
-      <Button
-        onClick={handleClose}
-        onMouseDown={handleMouseDown}
-        disabled={cellMode === "view"}
-        variant="outlined"
-        sx={{ ml: 1 }}
-      >
-        Cancel
-      </Button>
-    </Box>
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              p: 1,
+            }}
+          >
+            <Button
+              onClick={handleClickedit}
+              onMouseDown={handleMouseDown}
+              disabled={!selectedCellParams}
+              variant="outlined"
+            >
+              {cellMode === "edit" ? "Save" : "Edit"}
+            </Button>
+            <Button
+              onClick={handleClose}
+              onMouseDown={handleMouseDown}
+              disabled={cellMode === "view"}
+              variant="outlined"
+              sx={{ ml: 1 }}
+            >
+              Cancel
+            </Button>
+          </Box>
           <DataGrid
             rows={rows}
             columns={columns}
             onCellKeyDown={handleCellKeyDown}
-        cellModesModel={cellModesModel}
-        onCellEditStop={handleCellEditStop}
-        onCellModesModelChange={(model) => setCellModesModel(model)}
-        // slots={{
-        //   toolbar: EditToolbar,
-        // }}
+            cellModesModel={cellModesModel}
+            onCellEditStop={handleCellEditStop}
+            onCellModesModelChange={(model) => setCellModesModel(model)}
+            // slots={{
+            //   toolbar: EditToolbar,
+            // }}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 }
@@ -455,73 +345,14 @@ const AddProduct = () => {
             }}
           />
         </Grid>
-        {/* Product list end */}
       </Grid>
-      {/* // dialog start */}
-      {/* <BootstrapDialog
-    onClose={handleviewClose}
-    aria-labelledby="customized-dialog-title"
-    open={open}
-  > */}
-      <Dialog open={editOpen} onClose={handleviewClose}>
 
-        <DialogTitle variant='h3' sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Product title (Product display name)
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleviewClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          <Stack direction='row' justifyContent='flex-end' width='100%'>
-            <Button sx={{ width: 'fit-content' }} onClick={handleOpen}>Add fields</Button>
-          </Stack>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Field Name</TableCell>
-                  <TableCell align="right">Type</TableCell>
-                  <TableCell align="right">Required</TableCell>
-                  <TableCell align="right">Delete</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {editrows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right" sx={{ color: '#D84646' }}>{<IconTrash />}</TableCell>
-                    {/* <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell> */}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleviewClose}>
-            Save changes
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {/* </BootstrapDialog> */}
-      {/* //   Dialog end */}
+
+
+     {/* Edit Modal */}
+     
+      <EditModal editOpen={editOpen} handleviewClose={handleviewClose} editrows={editrows} handleOpen={handleOpen}/>
+      
     </SubCard>
   );
 };
