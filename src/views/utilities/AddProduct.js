@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Grid, Button, Stack, TextField, Typography } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridCellModes } from '@mui/x-data-grid';
 import SubCard from 'ui-component/cards/SubCard';
 import IconButton from '@mui/material/IconButton';
 import { IconEye, IconPencil, IconTrash } from '@tabler/icons';
@@ -56,12 +56,11 @@ function createData(name, type, required, icon) {
 
 const AddProduct = () => {
 
-
-
-
   const [open, setOpen] = useState(false);
   const [post, setPost] = useState([])
   const [TableRows, setTableRows] = useState([])
+  const [selectedCellParams, setSelectedCellParams] = useState(null);
+  const [cellModesModel, setCellModesModel] = useState({});
   const [Data, setData] = useState({
     id:'',
     field: '',
@@ -86,6 +85,10 @@ const AddProduct = () => {
     fields: ''
   })
 
+  const handleCellEditStop = React.useCallback((params, event) => {
+    event.defaultMuiPrevented = true;
+  }, []);
+
   const handleDataChange = (field, value) => {
     if (field === 'Name') {
       setPostData({ ...PostData, Name: value })
@@ -94,6 +97,49 @@ const AddProduct = () => {
       setPostData({ ...PostData, display_name: value })
     }
   }
+
+  const cellMode = useMemo(() => {
+    if (!selectedCellParams) {
+      return "view";
+    }
+    const { id, field } = selectedCellParams;
+    return cellModesModel[id]?.[field]?.mode || "view";
+  }, [cellModesModel, selectedCellParams]);
+
+    const handleCellKeyDown = React.useCallback(
+    (params, event) => {
+      if (cellMode === "edit") {
+        // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
+        event.defaultMuiPrevented = true;
+      }
+    },
+    [cellMode]
+  );
+
+
+  const handleClickedit = () => {
+    if (!selectedCellParams) {
+      return;
+    }
+    const { id, field } = selectedCellParams;
+    if (cellMode === "edit") {
+      setCellModesModel({
+        ...cellModesModel,
+        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.View } },
+      });
+    } else {
+      setCellModesModel({
+        ...cellModesModel,
+        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.Edit } },
+      });
+    }
+  };
+
+  const handleMouseDown = (event) => {
+    // Keep the focus in the cell
+    event.preventDefault();
+  };
+
 
   function createTableData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -115,11 +161,12 @@ const AddProduct = () => {
       field: 'edit',
       headerName: '',
       type: 'number',
+      editable: "false",
       width: 30,
       renderCell: () => (
         <IconButton
           aria-label="edit"
-          onClick={handleClickOpen}
+          // onClick={handleClickedit}
           color="info"
         > <IconPencil />
         </IconButton>
@@ -133,7 +180,7 @@ const AddProduct = () => {
       renderCell: () => (
         <IconButton
           aria-label="view"
-          // {/* onClick={() => handleDelete(params.row.id)} */}
+          onClick={handleClickOpen}
           color="success"
         >  <IconEye />
         </IconButton>
@@ -203,6 +250,13 @@ const AddProduct = () => {
     setPostData({ ...PostData, fields: post })
     console.log(PostData);
   }
+
+  const handleCellFocus = useCallback((event) => {
+    const row = event.currentTarget.parentElement;
+    const id = row.dataset.id;
+    const field = event.currentTarget.dataset.field;
+    setSelectedCellParams({ id, field });
+  }, []);
 
   const handleAddData = (e) => {
     e.preventDefault()
@@ -345,9 +399,41 @@ const AddProduct = () => {
         {/* Product list start */}
         <Typography variant="h4" m={2}>Product List</Typography>
         <Grid item style={{ height: 400, width: '100%' }}>
+        <Box
+      sx={{
+        borderBottom: 1,
+        borderColor: "divider",
+        p: 1,
+      }}
+    >
+      <Button
+        onClick={handleClickedit}
+        onMouseDown={handleMouseDown}
+        disabled={!selectedCellParams}
+        variant="outlined"
+      >
+        {cellMode === "edit" ? "Save" : "Edit"}
+      </Button>
+      <Button
+        onClick={handleClose}
+        onMouseDown={handleMouseDown}
+        disabled={cellMode === "view"}
+        variant="outlined"
+        sx={{ ml: 1 }}
+      >
+        Cancel
+      </Button>
+    </Box>
           <DataGrid
             rows={rows}
             columns={columns}
+            onCellKeyDown={handleCellKeyDown}
+        cellModesModel={cellModesModel}
+        onCellEditStop={handleCellEditStop}
+        onCellModesModelChange={(model) => setCellModesModel(model)}
+        // slots={{
+        //   toolbar: EditToolbar,
+        // }}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 }
@@ -355,6 +441,18 @@ const AddProduct = () => {
             }}
             pageSizeOptions={[5, 10]}
             checkboxSelection
+            slotProps={{
+              toolbar: {
+                cellMode,
+                selectedCellParams,
+                setSelectedCellParams,
+                cellModesModel,
+                setCellModesModel,
+              },
+              cell: {
+                onFocus: handleCellFocus,
+              },
+            }}
           />
         </Grid>
         {/* Product list end */}
