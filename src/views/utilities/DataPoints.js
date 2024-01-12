@@ -1,5 +1,5 @@
-import {  Button, TextField,Snackbar } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Button, TextField, Snackbar } from '@mui/material'
+import React, { useRef, useState } from 'react'
 import { Grid } from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +12,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import SubCard from 'ui-component/cards/SubCard';
 import MuiAlert from '@mui/material/Alert';
+import axios from 'axios';
+
+
 
 const DataPoints = () => {
 
@@ -20,22 +23,17 @@ const DataPoints = () => {
 
     const [PostData, setPostData] = useState({})
 
+    const ref = useRef()
+
     const [Data, setData] = useState({
-        Name: '',
-        Displayname: '',
+        name: '',
+        display_name: '',
         type: '',
-        Regex: '',
-        minLength: '',
-        maxLength: '',
-        unique:'',
-        minValue: '',
-        maxValue: '',
-        options: [
-            {
-                Displayname: '',
-                type: '',
-            }
-        ]
+
+        details: {
+
+        },
+
     })
 
     console.log(Data);
@@ -46,38 +44,23 @@ const DataPoints = () => {
     const handleClick = () => {
         setOpenAlert(true);
     };
-  
+
     const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpenAlert(false);
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenAlert(false);
     };
 
 
-    useEffect(() => {
-        handlePost()
-    }, [Data])
+    console.log(setPostData);
 
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-      });
+    });
 
-    const handlePost = () => {
-        const filteredObject = {}
-        for (const [key, value] of Object.entries(Data)) {
-            if (value !== "") {
-                filteredObject[key] = value
-                setPostData(filteredObject)
-            }
-        }
-        // if(Data.options.length<2){
 
-        // }
-
-        console.log(filteredObject);
-    }
 
 
     const dataType = [
@@ -263,10 +246,37 @@ const DataPoints = () => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        handleClick()
-                console.log(PostData);
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API}/fields`, PostData)
+                .then(res => {
+                    if (res.status === 200) {
+                        handleClick()
+                        // window.location.reload()
+                        ref.current.value = null
+                        setData({
+                            name: '',
+                            display_name: '',
+                            type: '',
+                            details: {
+
+                            },
+                        })
+                    }
+                })
+
+            console.log(PostData);
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+
+
+
     }
 
 
@@ -278,32 +288,63 @@ const DataPoints = () => {
     const handleDataChange = (id, data, index) => {
         console.log(index, +" " + id);
         if (id === "Name") {
-            setData({ ...Data, Name: data })
+            setData({ ...Data, name: data })
         }
         if (id === "Displayname") {
-            setData({ ...Data, Displayname: data })
+            setData({ ...Data, display_name: data })
         }
         if (id === "type") {
             setData({ ...Data, type: dataType[data].type, Regex: '', minLength: '', maxLength: '', minValue: '', maxValue: '' })
 
         }
         if (id === "Regex") {
-            setData({ ...Data, Regex: data })
+            setData({
+                ...Data, details: {
+                    ...Data.details,
+                    Regex: data,
+                },
+            })
         }
         if (id === "minLength") {
-            setData({ ...Data, minLength: data })
+            setData({
+                ...Data, details: {
+                    ...Data.details,
+                    minLength: data,
+                },
+            })
         }
         if (id === "maxLength") {
-            setData({ ...Data, maxLength: data })
+            setData({
+                ...Data, details: {
+                    ...Data.details,
+                    maxLength: data,
+                },
+            })
         }
         if (id === "unique") {
-            setData({ ...Data, unique: data==="True"?true:false })
+            setData({
+                ...Data,
+                details: {
+                    ...Data.details,
+                    unique: data === "True" ? true : false,
+                },
+            })
         }
         if (id === "minValue") {
-            setData({ ...Data, minValue: data })
+            setData({
+                ...Data, details: {
+                    ...Data.details,
+                    minValue: data,
+                },
+            })
         }
         if (id === "maxValue") {
-            setData({ ...Data, maxValue: data })
+            setData({
+                ...Data, details: {
+                    ...Data.details,
+                    maxValue: data,
+                },
+            })
         }
         if (id === "optionDisplayName" && index !== null) {
             console.log(index);
@@ -327,7 +368,7 @@ const DataPoints = () => {
         <form onSubmit={handleSubmit}>
             <SubCard title='Add data point'>
 
-                <Snackbar anchorOrigin={{vertical: 'top',horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
+                <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                         Field Added
                     </Alert>
@@ -339,7 +380,7 @@ const DataPoints = () => {
                         <TextField
                             size='large'
                             label='Name'
-                            
+                            value={Data.name}
                             fullWidth
                             onChange={(e) => handleDataChange('Name', e.target.value, null)}
                         />
@@ -351,6 +392,7 @@ const DataPoints = () => {
                         <TextField
                             size='large'
                             label='Display Name'
+                            value={Data.display_name}
                             fullWidth
                             onChange={(e) => handleDataChange('Displayname', e.target.value, null)}
 
@@ -365,7 +407,8 @@ const DataPoints = () => {
                             <Select
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
-                                // value=""
+                                ref={ref}
+                                
                                 label="Type"
                                 onChange={
                                     (e) => {
@@ -392,14 +435,15 @@ const DataPoints = () => {
                         name="radio-buttons-group"
                         row
                         onChange={(e) => {
-                            handleDataChange('unique', e.target.value, null)}}
+                            handleDataChange('unique', e.target.value, null)
+                        }}
                     >
                         <FormControlLabel value="True" control={<Radio />} label="True" />
                         <FormControlLabel value="False" control={<Radio />} label="False" />
                     </RadioGroup>
                 </FormControl>
                 <div style={{ width: '100%' }}>
-                    {Array.isArray(Selected) && Selected.map((subFields, subIndex) => (
+                    {(Data.type !== "" && Data.type !== null) && Array.isArray(Selected) && Selected.map((subFields, subIndex) => (
                         <Grid container justifyContent='space-between' xl={12} sx={{ mt: 3 }} key={subIndex}>
                             {subFields.map((subItem, OptionIndex) => (
                                 <Grid item xl={3} key={OptionIndex}>
@@ -424,7 +468,7 @@ const DataPoints = () => {
 
                 <Grid container xl={12} justifyContent='flex-end' sx={{ mt: 3 }}>
                     <Grid item>
-                        <Button color='secondary' variant='contained' type='submit' onClick={handleSubmit}>Submit</Button>
+                        <Button color='secondary' variant='contained' type='submit'>Submit</Button>
                     </Grid>
                 </Grid>
 
