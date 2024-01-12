@@ -25,7 +25,7 @@ import {
   // InputLabel,
   // OutlinedInput,
   TextField,
-  Typography,
+  Typography
   // useMediaQuery
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
@@ -33,7 +33,7 @@ import MuiAlert from '@mui/material/Alert';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import Webcam from "react-webcam";
+import Webcam from 'react-webcam';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -64,58 +64,55 @@ const FirebaseRegister = ({ ...others }) => {
   // const [personName, setPersonName] = React.useState([]);
 
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
 
-    // image upload dialog section
-    const [open, setOpen] = useState(false);
-    const [isCameraAvailable, setIsCameraAvailable] = useState(true);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // image upload dialog section
+  const [open, setOpen] = useState(false);
+  const [isCameraAvailable, setIsCameraAvailable] = useState(true);
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClose = () => {
-      setOpen(false);
-      // setClicked(true)
-    };
+  const handleClose = () => {
+    setOpen(false);
+    // setClicked(true)
+  };
 
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+  // webcam ui
+  const [clicked, setClicked] = useState(false);
 
-    // webcam ui
-      const [clicked, setClicked] = useState(false);
+  const onWebcam = () => {
+    setClicked(true);
+  };
 
-      const onWebcam = () => {
-        setClicked(true);
+  const videoConstraints = {
+    width: 700,
+    height: 1000,
+    facingMode: 'environment'
+  };
 
-      };
+  const webcamRef = useRef(null);
+  const [url, setUrl] = useState(null);
 
-      const videoConstraints = {
-        width: 700,
-        height:1000,
-        facingMode: "environment"
-      };
+  const capturePhoto = useCallback(async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setUrl(imageSrc);
+    handleClose();
+    setClicked(false);
+  }, [webcamRef]);
 
-      const webcamRef = useRef(null);
-      const [url, setUrl] = useState(null);
-
-      const capturePhoto = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setUrl(imageSrc);
-        handleClose()
-        setClicked(false)
-
-      }, [webcamRef]);
-
-      const onUserMedia = (e) => {
-        console.log(e);
-        setClicked(true)
-      };
+  const onUserMedia = (e) => {
+    console.log(e);
+    setClicked(true);
+  };
 
   const fileInputRef = useRef(null);
 
@@ -130,8 +127,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
       try {
         await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setIsCameraAvailable(true);
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Error accessing camera:', error);
         setIsCameraAvailable(false);
       }
@@ -142,11 +138,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
   const handleFileChange = (e) => {
     // Handle the selected file here, you can upload it to a server or process it in some way
-    const selectedFile = (e.target.files[0]);
+    const selectedFile = e.target.files[0];
     console.log('Selected File:', selectedFile);
-    setUrl(selectedFile)
+    setUrl(selectedFile);
     setOpen(false);
-
   };
 
   // security question
@@ -234,7 +229,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
           //  touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{ xs: "column", xl: "row", lg: "row", md: "row", sm: "row" }}>
+            <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={8}>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
@@ -245,7 +240,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                       name="fname"
                       type="text"
                       defaultValue=""
-                    // sx={{ ...theme.typography.customInput }}
+                      // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -260,7 +255,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                       required
                       type="text"
                       defaultValue=""
-                    // sx={{ ...theme.typography.customInput }}
+                      // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -364,29 +359,35 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                 <Grid item xs={3} sm={3}>
                   <Grid container direction="column" spacing={1}>
                     <Box sx={{ m: 2 }}>
-                      <Typography variant="h4" width="100px">Upload Photo</Typography>
+                      <Typography variant="h4" width="100px">
+                        Upload Photo
+                      </Typography>
                     </Box>
                   </Grid>
                   <Box
                     sx={{
                       // display: 'flex',
                       // justifyContent: 'space-around',
-                      cursor: "pointer",
-                      width: 128,
+                      cursor: 'pointer',
+                      width: 128
                       // height: 128
                       // '& > :not(style)': {
                       //   m: 1,
                       // }
                     }}
                   >
-                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit: "cover", overflow: "hidden" }} onClick={handleClickOpen}>
+                    <Paper
+                      elevation={0}
+                      sx={{ bgcolor: url ? '#ffff' : '#AD9FD6', objectFit: 'cover', overflow: 'hidden' }}
+                      onClick={handleClickOpen}
+                    >
                       <img id="file-input" alt="ImageUpload" src={url ? url : Upload ? Upload : url} width="100%" />
                     </Paper>
                   </Box>
                 </Grid>
               </Grid>
             </Stack>
-            <Grid item sm={6} xs={6} >
+            <Grid item sm={6} xs={6}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
@@ -398,7 +399,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                     variant="contained"
                     color="secondary"
                     onClick={() => {
-                      window.location.href = "dashboard/default"
+                      window.location.href = 'dashboard/default';
                     }}
                   >
                     Next
@@ -411,62 +412,55 @@ const Alert = React.forwardRef(function Alert(props, ref) {
       </Formik>
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
-        {
-        clicked ?
-        (
+        {clicked ? (
           <>
-          {isCameraAvailable ? (
-
-            <Webcam
-             ref={webcamRef}
-             audio={false}
-             screenshotFormat="image/jpeg"
-             videoConstraints={videoConstraints}
-             onUserMedia={onUserMedia}
-           />
-          ):
-          (
-            <Alert severity="error" sx={{m:2}}>Camera not available or access denied.</Alert>
-          )
-          }
-     <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
-     <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
-     <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
-     </Grid>
-     {/* {url && (
+            {isCameraAvailable ? (
+              <Webcam
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                onUserMedia={onUserMedia}
+              />
+            ) : (
+              <Alert severity="error" sx={{ m: 2 }}>
+                Camera access denied / Please enable the access.
+              </Alert>
+            )}
+            <Grid item m={2} sx={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Button variant="contained" color="secondary" onClick={capturePhoto}>
+                Capture
+              </Button>
+              <Button variant="contained" color="secondary" onClick={() => setUrl(null)}>
+                Refresh
+              </Button>
+            </Grid>
+            {/* {url && (
        <div>
          <img src={url} alt="Screenshot" />
        </div>
      )}  */}
-              </>
-            )
-            :
-            //  webcam access
-            (
-              <>
-                <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
-                  <FiUserPlus style={{ fontSize: '3rem' }} />
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
-                </DialogContent>
-                <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
-                    Upload
-                  </Button>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                  />
-                  <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
-                    Capture
-                  </Button>
-                </DialogActions>
-              </>
-            )
-        }
+          </>
+        ) : (
+          //  webcam access
+          <>
+            <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
+              <FiUserPlus style={{ fontSize: '3rem' }} />
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
+                Upload
+              </Button>
+              <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+              <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
+                Capture
+              </Button>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </>
   );
