@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
@@ -28,6 +28,7 @@ import {
   Typography,
   // useMediaQuery
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 // third party
 import * as Yup from 'yup';
@@ -58,64 +59,86 @@ const FirebaseRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
     //   if (event?.target.value) setPersonName(event?.target.value);
     //   console.log("dfghjk", personName);
     // };
-    
+
     // image upload dialog section
     const [open, setOpen] = useState(false);
+    const [isCameraAvailable, setIsCameraAvailable] = useState(true);
     // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
+
     const handleClickOpen = () => {
       setOpen(true);
     };
-    
+
     const handleClose = () => {
       setOpen(false);
       // setClicked(true)
     };
-    
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
     // webcam ui
       const [clicked, setClicked] = useState(false);
-    
+
       const onWebcam = () => {
         setClicked(true);
-    
+
       };
-    
+
       const videoConstraints = {
         width: 700,
         height:1000,
         facingMode: "environment"
       };
-      
+
       const webcamRef = useRef(null);
       const [url, setUrl] = useState(null);
-    
+
       const capturePhoto = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
         setUrl(imageSrc);
         handleClose()
         setClicked(false)
-    
+
       }, [webcamRef]);
-    
+
       const onUserMedia = (e) => {
         console.log(e);
         setClicked(true)
       };
-  
+
   const fileInputRef = useRef(null);
-  
+
   const handleButtonClick = () => {
     // Trigger the file input when the button is clicked
     fileInputRef.current.click();
   };
+
+  //webcam validation
+  useEffect(() => {
+    const checkUserMedia = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        setIsCameraAvailable(true);
+      }
+      catch (error) {
+        console.error('Error accessing camera:', error);
+        setIsCameraAvailable(false);
+      }
+    };
+
+    checkUserMedia();
+  }, []);
 
   const handleFileChange = (e) => {
     // Handle the selected file here, you can upload it to a server or process it in some way
@@ -389,16 +412,23 @@ const FirebaseRegister = ({ ...others }) => {
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
         {
-        clicked ? 
+        clicked ?
         (
           <>
-      <Webcam
-       ref={webcamRef}
-       audio={true}
-       screenshotFormat="image/jpeg"
-       videoConstraints={videoConstraints}
-       onUserMedia={onUserMedia}
-     />
+          {isCameraAvailable ? (
+
+            <Webcam
+             ref={webcamRef}
+             audio={false}
+             screenshotFormat="image/jpeg"
+             videoConstraints={videoConstraints}
+             onUserMedia={onUserMedia}
+           />
+          ):
+          (
+            <Alert severity="error" sx={{m:2}}>Camera not available or access denied.</Alert>
+          )
+          }
      <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
      <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
      <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
