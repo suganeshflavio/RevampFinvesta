@@ -149,7 +149,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
   };
 
-// security question
+  // security question
   // const status = [
   //   {
   //     value: 'all',
@@ -234,7 +234,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
           //  touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: "column", xl: "row", lg: "row", md: "row", sm: "row" }}>
               <Grid item xs={12} sm={8}>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
@@ -245,7 +245,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                       name="fname"
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                    // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -260,7 +260,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                       required
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                    // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -371,16 +371,16 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                     sx={{
                       // display: 'flex',
                       // justifyContent: 'space-around',
-                      cursor:"pointer",
-                        width: 128,
-                        // height: 128
+                      cursor: "pointer",
+                      width: 128,
+                      // height: 128
                       // '& > :not(style)': {
                       //   m: 1,
                       // }
                     }}
                   >
-                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit:"cover", overflow:"hidden"}} onClick={handleClickOpen}>
-                      <img id="file-input" alt="ImageUpload" src={url?url:Upload?Upload:url} width="100%"/>
+                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit: "cover", overflow: "hidden" }} onClick={handleClickOpen}>
+                      <img id="file-input" alt="ImageUpload" src={url ? url : Upload ? Upload : url} width="100%" />
                     </Paper>
                   </Box>
                 </Grid>
@@ -397,8 +397,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() =>{
-                      window.location.href="dashboard/default"
+                    onClick={() => {
+                      window.location.href = "dashboard/default"
                     }}
                   >
                     Next
@@ -438,35 +438,35 @@ const Alert = React.forwardRef(function Alert(props, ref) {
          <img src={url} alt="Screenshot" />
        </div>
      )}  */}
-     </>
-     )
-       :
-      //  webcam access
-       (
-        <>
-         <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
-          <FiUserPlus style={{ fontSize: '3rem' }} />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
-            Upload
-          </Button>
-          <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-          <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
-            Capture
-          </Button>
-        </DialogActions>
-        </>
-        )
-     }
+              </>
+            )
+            :
+            //  webcam access
+            (
+              <>
+                <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
+                  <FiUserPlus style={{ fontSize: '3rem' }} />
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
+                </DialogContent>
+                <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
+                    Upload
+                  </Button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                  <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
+                    Capture
+                  </Button>
+                </DialogActions>
+              </>
+            )
+        }
       </Dialog>
     </>
   );

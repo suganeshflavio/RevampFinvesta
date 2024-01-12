@@ -9,6 +9,7 @@ export const initialState = {
   defaultId: 'default',
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
+  MDM:[],
   opened: true
 };
 
