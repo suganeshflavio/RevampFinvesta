@@ -1,7 +1,6 @@
-import { Button, TextField } from '@mui/material'
-import React, { useState, } from 'react'
+import {  Button, TextField,Snackbar } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@mui/material'
-import Swal from 'sweetalert2';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,13 +11,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import SubCard from 'ui-component/cards/SubCard';
+import MuiAlert from '@mui/material/Alert';
 
 const DataPoints = () => {
 
 
     const [Selected, setSelected] = useState()
 
-    // const [PostData,setPostData]=useState({})
+    const [PostData, setPostData] = useState({})
 
     const [Data, setData] = useState({
         Name: '',
@@ -27,6 +27,7 @@ const DataPoints = () => {
         Regex: '',
         minLength: '',
         maxLength: '',
+        unique:'',
         minValue: '',
         maxValue: '',
         options: [
@@ -39,21 +40,45 @@ const DataPoints = () => {
 
     console.log(Data);
 
-    const handlePost=()=>{
-        const filteredObject={}
-        for(const[key,value] of Object.entries(Data)){
-            if(value!==""){
-                filteredObject[key]=value
+
+    const [OpenAlert, setOpenAlert] = React.useState(false);
+
+    const handleClick = () => {
+        setOpenAlert(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpenAlert(false);
+    };
+
+
+    useEffect(() => {
+        handlePost()
+    }, [Data])
+
+    const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+      });
+
+    const handlePost = () => {
+        const filteredObject = {}
+        for (const [key, value] of Object.entries(Data)) {
+            if (value !== "") {
+                filteredObject[key] = value
+                setPostData(filteredObject)
             }
         }
         // if(Data.options.length<2){
-            
+
         // }
 
         console.log(filteredObject);
     }
 
-    handlePost()
 
     const dataType = [
         {
@@ -81,16 +106,16 @@ const DataPoints = () => {
             type: 'Number',
             fields: [
                 [
-                {
-                    id: 'minValue',
-                    name: "Min Value",
-                    type: "number"
-                },
-                {
-                    id: 'maxValue',
-                    name: "Max Value",
-                    type: "number"
-                },]
+                    {
+                        id: 'minValue',
+                        name: "Min Value",
+                        type: "number"
+                    },
+                    {
+                        id: 'maxValue',
+                        name: "Max Value",
+                        type: "number"
+                    },]
 
             ]
         },
@@ -158,8 +183,8 @@ const DataPoints = () => {
                     name: "Max Size",
                     type: "text"
                 },
-            
-            ]
+
+                ]
 
 
             ]
@@ -184,9 +209,9 @@ const DataPoints = () => {
                     type: "text"
                 },
 
-                
-            
-            ]
+
+
+                ]
 
 
             ]
@@ -231,23 +256,17 @@ const DataPoints = () => {
     // // delete
     const handleDelete = (index) => {
         let data = [...Selected];
-        
+
         data.splice(index, 1);
         setSelected(data)
         console.log(data);
 
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
-        Swal.fire({
-            title: "Field added!",
-            icon: "success",
-            timer:2000,
-            backdrop:false,
-            background:'#EDE7F6',
-            showConfirmButton:false
-          });
+        handleClick()
+                console.log(PostData);
     }
 
 
@@ -265,7 +284,7 @@ const DataPoints = () => {
             setData({ ...Data, Displayname: data })
         }
         if (id === "type") {
-            setData({ ...Data, type: dataType[data].type,Regex:'',minLength:'',maxLength:'',minValue:'',maxValue:'' })
+            setData({ ...Data, type: dataType[data].type, Regex: '', minLength: '', maxLength: '', minValue: '', maxValue: '' })
 
         }
         if (id === "Regex") {
@@ -276,6 +295,9 @@ const DataPoints = () => {
         }
         if (id === "maxLength") {
             setData({ ...Data, maxLength: data })
+        }
+        if (id === "unique") {
+            setData({ ...Data, unique: data==="True"?true:false })
         }
         if (id === "minValue") {
             setData({ ...Data, minValue: data })
@@ -303,101 +325,111 @@ const DataPoints = () => {
     }
     return (
         <form onSubmit={handleSubmit}>
-        <SubCard title='Add data point'>
+            <SubCard title='Add data point'>
 
-            <Grid container sx={{ mt: 1 }} xl={12} justifyContent='space-between'>
-                <Grid item xl={6} md={6} xs={12}>
-                    <TextField
-                        size='large'
-                        label='Name'
-                        fullWidth
-                        onChange={(e) => handleDataChange('Name', e.target.value, null)}
-                    />
+                <Snackbar anchorOrigin={{vertical: 'top',horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                        Field Added
+                    </Alert>
+                </Snackbar>
+
+
+                <Grid container sx={{ mt: 1 }} xl={12} justifyContent='space-between'>
+                    <Grid item xl={6} md={6} xs={12}>
+                        <TextField
+                            size='large'
+                            label='Name'
+                            
+                            fullWidth
+                            onChange={(e) => handleDataChange('Name', e.target.value, null)}
+                        />
+                    </Grid>
+
                 </Grid>
-                
-            </Grid>
-            <Grid container sx={{ mt: 3 }} xl={12}>
-                <Grid item xl={6} md={6} xs={12}>
-                    <TextField
-                        size='large'
-                        label='Display Name'
-                        fullWidth
-                        onChange={(e) => handleDataChange('Displayname', e.target.value, null)}
+                <Grid container sx={{ mt: 3 }} xl={12}>
+                    <Grid item xl={6} md={6} xs={12}>
+                        <TextField
+                            size='large'
+                            label='Display Name'
+                            fullWidth
+                            onChange={(e) => handleDataChange('Displayname', e.target.value, null)}
 
-                    />
+                        />
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            <Grid container sx={{ mt: 3 }} >
-                <Grid item xl={4} md={6} xs={12}>
-                    <FormControl fullWidth size='large'>
-                        <InputLabel id="demo-select-small-label">Type</InputLabel>
-                        <Select
-                            labelId="demo-select-small-label"
-                            id="demo-select-small"
-                            // value=""
-                            label="Type"
-                            onChange={
-                                (e) => {
-                                    handleDataChange('type', e.target.value, null);
-                                    handleChange(e)
-                                }}
-                        >
-                            {dataType.map((item, index) => (
+                <Grid container sx={{ mt: 3 }} >
+                    <Grid item xl={4} md={6} xs={12}>
+                        <FormControl fullWidth size='large'>
+                            <InputLabel id="demo-select-small-label">Type</InputLabel>
+                            <Select
+                                labelId="demo-select-small-label"
+                                id="demo-select-small"
+                                // value=""
+                                label="Type"
+                                onChange={
+                                    (e) => {
+                                        handleDataChange('type', e.target.value, null);
+                                        handleChange(e)
+                                    }}
+                            >
+                                {dataType.map((item, index) => (
 
-                                <MenuItem key={index} value={index}>{item.type}</MenuItem>
+                                    <MenuItem key={index} value={index}>{item.type}</MenuItem>
 
+                                ))}
+
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                </Grid>
+                <FormControl sx={{ mt: 3, display: Data.type === "Text" ? 'block' : 'none' }} >
+                    <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="True"
+                        name="radio-buttons-group"
+                        row
+                        onChange={(e) => {
+                            handleDataChange('unique', e.target.value, null)}}
+                    >
+                        <FormControlLabel value="True" control={<Radio />} label="True" />
+                        <FormControlLabel value="False" control={<Radio />} label="False" />
+                    </RadioGroup>
+                </FormControl>
+                <div style={{ width: '100%' }}>
+                    {Array.isArray(Selected) && Selected.map((subFields, subIndex) => (
+                        <Grid container justifyContent='space-between' xl={12} sx={{ mt: 3 }} key={subIndex}>
+                            {subFields.map((subItem, OptionIndex) => (
+                                <Grid item xl={3} key={OptionIndex}>
+                                    <TextField
+                                        key={subItem.id}
+                                        size='large'
+                                        label={subItem.name || ''}
+                                        fullWidth
+                                        sx={{ display: subItem.type === "button" ? 'none' : 'block', mt: 2 }}
+                                        onChange={(e) => handleDataChange(subItem.id, e.target.value, subIndex, OptionIndex)}
+                                    />
+
+                                    <Button onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)} size='small' variant='outlined' sx={{ display: subItem.type !== "button" ? 'none' : 'block', mt: 3 }}
+                                    >{subIndex == Selected.length - 1 ? subItem.name : <IconTrash />}</Button>
+
+                                </Grid>
                             ))}
 
-                        </Select>
-                    </FormControl>
-                </Grid>
+                        </Grid>
+                    ))}
+                </div>
 
-            </Grid>
-            <FormControl sx={{mt:3,display:Data.type==="Text"?'block':'none'}} >
-                <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="True"
-                    name="radio-buttons-group"
-                    row
-                >
-                    <FormControlLabel value="True" control={<Radio />} label="True" />
-                    <FormControlLabel value="False" control={<Radio />} label="False" />
-                </RadioGroup>
-            </FormControl>
-            <div style={{ width: '100%' }}>
-                {Array.isArray(Selected) && Selected.map((subFields, subIndex) => (
-                    <Grid container justifyContent='space-between' xl={12} sx={{ mt: 3 }} key={subIndex}>
-                        {subFields.map((subItem, OptionIndex) => (
-                            <Grid item xl={3} key={OptionIndex}>
-                                <TextField
-                                    key={subItem.id}
-                                    size='large'
-                                    label={subItem.name || ''}
-                                    fullWidth
-                                    sx={{ display: subItem.type === "button" ? 'none' : 'block' ,mt:2}}
-                                    onChange={(e) => handleDataChange(subItem.id, e.target.value, subIndex, OptionIndex)}
-                                />
-
-                                <Button onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)} size='small' variant='outlined' sx={{ display: subItem.type !== "button" ? 'none' : 'block' ,mt:3}}
-                                >{subIndex == Selected.length - 1 ? subItem.name : <IconTrash />}</Button>
-
-                            </Grid>
-                        ))}
-
+                <Grid container xl={12} justifyContent='flex-end' sx={{ mt: 3 }}>
+                    <Grid item>
+                        <Button color='secondary' variant='contained' type='submit' onClick={handleSubmit}>Submit</Button>
                     </Grid>
-                ))}
-            </div>
-
-            <Grid container xl={12} justifyContent='flex-end' sx={{mt:3}}>
-                <Grid item>
-                    <Button color='secondary' variant='contained' type='submit'>Submit</Button>
                 </Grid>
-            </Grid>
 
 
-        </SubCard>
+            </SubCard>
         </form>
     )
 }
