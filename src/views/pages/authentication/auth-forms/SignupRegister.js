@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
@@ -28,6 +28,7 @@ import {
   Typography,
   // useMediaQuery
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 // third party
 import * as Yup from 'yup';
@@ -58,60 +59,79 @@ const FirebaseRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
-    
-    // image upload dialog section
-    const [open, setOpen] = useState(false);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-      // setClicked(true)
-    };
-    
-    // webcam ui
-      const [clicked, setClicked] = useState(false);
-    
-      const onWebcam = () => {
-        setClicked(true);
-    
-      };
-    
-      const videoConstraints = {
-        width: 700,
-        height:1000,
-        facingMode: "environment"
-      };
-      
-      const webcamRef = useRef(null);
-      const [url, setUrl] = useState(null);
-    
-      const capturePhoto = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setUrl(imageSrc);
-        handleClose()
-        setClicked(false)
-    
-      }, [webcamRef]);
-    
-      const onUserMedia = (e) => {
-        console.log(e);
-        setClicked(true)
-      };
-  
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
+
+  // image upload dialog section
+  const [open, setOpen] = useState(false);
+  const [isCamerAvailable, setIsCamerAvailable] = useState(true)
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    // setClicked(true)
+  };
+
+  useEffect(() => {
+
+    const CheckUserMedia = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true })
+        setIsCamerAvailable(true)
+      }
+      catch (error) {
+        console.log("Error Accessing Camera:", error);
+        setIsCamerAvailable(false)
+
+      }
+    }
+    CheckUserMedia();
+  }, [])
+
+  // webcam ui
+  const [clicked, setClicked] = useState(false);
+
+  const onWebcam = () => {
+    setClicked(true);
+
+  };
+
+  const videoConstraints = {
+    width: 700,
+    height: 1000,
+    facingMode: "environment"
+  };
+
+  const webcamRef = useRef(null);
+  const [url, setUrl] = useState(null);
+
+  const capturePhoto = useCallback(async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setUrl(imageSrc);
+    handleClose()
+    setClicked(false)
+
+  }, [webcamRef]);
+
+  const onUserMedia = (e) => {
+    console.log(e);
+    setClicked(true)
+  };
+
   const fileInputRef = useRef(null);
-  
+
   const handleButtonClick = () => {
     // Trigger the file input when the button is clicked
     fileInputRef.current.click();
@@ -126,7 +146,7 @@ const FirebaseRegister = ({ ...others }) => {
 
   };
 
-// security question
+  // security question
   // const status = [
   //   {
   //     value: 'all',
@@ -211,7 +231,7 @@ const FirebaseRegister = ({ ...others }) => {
           //  touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: "column", xl: "row", lg: "row", md: "row", sm: "row" }}>
               <Grid item xs={12} sm={8}>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
@@ -222,7 +242,7 @@ const FirebaseRegister = ({ ...others }) => {
                       name="fname"
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                    // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -237,7 +257,7 @@ const FirebaseRegister = ({ ...others }) => {
                       required
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                    // sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -348,16 +368,16 @@ const FirebaseRegister = ({ ...others }) => {
                     sx={{
                       // display: 'flex',
                       // justifyContent: 'space-around',
-                      cursor:"pointer",
-                        width: 128,
-                        // height: 128
+                      cursor: "pointer",
+                      width: 128,
+                      // height: 128
                       // '& > :not(style)': {
                       //   m: 1,
                       // }
                     }}
                   >
-                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit:"cover", overflow:"hidden"}} onClick={handleClickOpen}>
-                      <img id="file-input" alt="ImageUpload" src={url?url:Upload?Upload:url} width="100%"/>
+                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit: "cover", overflow: "hidden" }} onClick={handleClickOpen}>
+                      <img id="file-input" alt="ImageUpload" src={url ? url : Upload ? Upload : url} width="100%" />
                     </Paper>
                   </Box>
                 </Grid>
@@ -374,8 +394,8 @@ const FirebaseRegister = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() =>{
-                      window.location.href="dashboard/default"
+                    onClick={() => {
+                      window.location.href = "dashboard/default"
                     }}
                   >
                     Next
@@ -389,54 +409,62 @@ const FirebaseRegister = ({ ...others }) => {
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
         {
-        clicked ? 
-        (
-          <>
-      <Webcam
-       ref={webcamRef}
-       audio={true}
-       screenshotFormat="image/jpeg"
-       videoConstraints={videoConstraints}
-       onUserMedia={onUserMedia}
-     />
-     <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
-     <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
-     <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
-     </Grid>
-     {/* {url && (
+          clicked ?
+            (
+              <>
+                {
+                  isCamerAvailable ? (
+                    <Webcam
+                      ref={webcamRef}
+                      audio={false}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={videoConstraints}
+                      onUserMedia={onUserMedia}
+                    />
+                  ) :
+                    (
+                      <Alert severity="error" sx={{ m: 2 }}>Camera not available or access denied</Alert>
+                    )
+                }
+
+                <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
+                  <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
+                  <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
+                </Grid>
+                {/* {url && (
        <div>
          <img src={url} alt="Screenshot" />
        </div>
      )}  */}
-     </>
-     )
-       :
-      //  webcam access
-       (
-        <>
-         <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
-          <FiUserPlus style={{ fontSize: '3rem' }} />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
-            Upload
-          </Button>
-          <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-          <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
-            Capture
-          </Button>
-        </DialogActions>
-        </>
-        )
-     }
+              </>
+            )
+            :
+            //  webcam access
+            (
+              <>
+                <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
+                  <FiUserPlus style={{ fontSize: '3rem' }} />
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
+                </DialogContent>
+                <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
+                    Upload
+                  </Button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                  <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
+                    Capture
+                  </Button>
+                </DialogActions>
+              </>
+            )
+        }
       </Dialog>
     </>
   );
