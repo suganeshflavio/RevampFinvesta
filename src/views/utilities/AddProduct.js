@@ -272,7 +272,7 @@ const AddProduct = () => {
               onChange={(e) => handleDataChange('displayName', e.target.value, null)}
             />
             <Stack direction='row' justifyContent='flex-end' width='100%'>
-              <Button sx={{ width: 'fit-content' }} onClick={handleOpen}>Add fields</Button>
+              <Button sx={{ width: 'fit-content' }} color="secondary" onClick={handleOpen}>Add fields</Button>
             </Stack>
           </Grid>
           <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
@@ -288,14 +288,7 @@ const AddProduct = () => {
         </Grid>
         {/* Product list start */}
         <Typography variant="h4" m={2}>Product List</Typography>
-        <Grid item style={{ height: 400, width: '100%' }}>
-          <Box
-            sx={{
-              borderBottom: 1,
-              borderColor: "divider",
-              p: 1,
-            }}
-          >
+          <Box p={1} >
             <Button
               onClick={handleClickedit}
               onMouseDown={handleMouseDown}
@@ -314,6 +307,7 @@ const AddProduct = () => {
               Cancel
             </Button>
           </Box>
+        <Grid item style={{ height: 400, width: '100%' }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -321,6 +315,7 @@ const AddProduct = () => {
             cellModesModel={cellModesModel}
             onCellEditStop={handleCellEditStop}
             onCellModesModelChange={(model) => setCellModesModel(model)}
+            // sx={{height: "92%"}}
             // slots={{
             //   toolbar: EditToolbar,
             // }}
@@ -350,9 +345,9 @@ const AddProduct = () => {
 
 
      {/* Edit Modal */}
-     
+
       <EditModal editOpen={editOpen} handleviewClose={handleviewClose} editrows={editrows} handleOpen={handleOpen}/>
-      
+
     </SubCard>
   );
 };
