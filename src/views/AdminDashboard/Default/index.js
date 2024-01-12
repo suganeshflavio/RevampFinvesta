@@ -16,7 +16,7 @@ import AccessIcon from 'assets/images/icons/accessIcon.png'
 import GroupIcon from 'assets/images/icons/groupIcon.png'
 import { useNavigate } from 'react-router';
 import { Stack } from '@mui/system';
- 
+
 
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -34,7 +34,7 @@ const Dashboard = () => {
   borderRadius:'20px',
   backgroundColor:'#fff',
   cursor:'pointer',
-  
+
  }
 
 
@@ -83,7 +83,7 @@ const Dashboard = () => {
           <Grid item xs={12} md={8}>
             {/* <TotalGrowthBarChart isLoading={isLoading} /> */}
           </Grid>
-          
+
         </Grid>
       </Grid>
     </Grid>

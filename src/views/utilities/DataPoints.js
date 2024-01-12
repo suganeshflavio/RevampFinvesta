@@ -274,9 +274,6 @@ const DataPoints = () => {
             console.log(err);
         }
 
-
-
-
     }
 
 
@@ -408,7 +405,7 @@ const DataPoints = () => {
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 ref={ref}
-                                
+
                                 label="Type"
                                 onChange={
                                     (e) => {
