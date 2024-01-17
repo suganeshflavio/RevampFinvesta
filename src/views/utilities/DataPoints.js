@@ -268,7 +268,7 @@ const DataPoints = () => {
       
 
     }
-  };
+  
 
   const handleChange = (event) => {
     setSelected(dataType[event.target.value].fields);
@@ -478,6 +478,7 @@ const DataPoints = () => {
       </SubCard>
     </form>
   );
-};
+}
+
 
 export default DataPoints;
