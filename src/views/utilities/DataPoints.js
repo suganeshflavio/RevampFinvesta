@@ -25,7 +25,7 @@ const DataPoints = () => {
     name: '',
     display_name: '',
     type: '',
-    options:[   ],
+    options: [],
     details: {}
   });
 
@@ -71,9 +71,8 @@ const DataPoints = () => {
 
     // }
 
-        //console.log(filteredObject);
-    }
-
+    //console.log(filteredObject);
+  };
 
   const dataType = [
     {
@@ -238,48 +237,44 @@ const DataPoints = () => {
 
     setSelected([...Selected, obj]);
 
-        setData({
-            ...Data,
-            options: [ ...Data.options,dataField],
-        });
-        //console.log("Options" + Selected);
-        //console.log(Data);
-    }
+    setData({
+      ...Data,
+      options: [...Data.options, dataField]
+    });
+    //console.log("Options" + Selected);
+    //console.log(Data);
+  };
 
   // // delete
   const handleDelete = (index) => {
     let data = [...Selected.slice(0, index), ...Selected.slice(index + 1)];
-    let mainData=[...Data.options.slice(0,index),...Data.options.slice(index+1)]
-    console.log("maindata",mainData);
-    setData({...Data,options:mainData})
+    let mainData = [...Data.options.slice(0, index), ...Data.options.slice(index + 1)];
+    console.log('maindata', mainData);
+    setData({ ...Data, options: mainData });
 
     setSelected(data);
-   // console.log(Selected);
+    // console.log(Selected);
     // setPostData(...PostData,options=[...PostData.options.slice(0, index),...PostData.options.slice(index + 1)])
     //console.log(data);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(Selected);
     console.log(Data);
-  },[Data])
+  }, [Data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(Selected);
     console.log(Data);
-  },[Data])
+  }, [Data]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-       PostApi(PostData,handleClick,setData,ref,handleErrOpen)
+    PostApi(PostData, handleClick, setData, ref, handleErrOpen);
 
-            console.log(PostData);
-
-
-
-    }
-
+    console.log(PostData);
+  };
 
   const handleChange = (event) => {
     setSelected(dataType[event.target.value].fields);
@@ -459,7 +454,6 @@ const DataPoints = () => {
                     <TextField
                       key={subItem.id}
                       size="large"
-
                       label={subItem.name || ''}
                       fullWidth
                       sx={{ display: subItem.type === 'button' ? 'none' : 'block', mt: 2 }}
