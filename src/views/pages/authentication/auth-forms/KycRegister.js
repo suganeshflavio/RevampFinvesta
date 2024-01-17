@@ -58,60 +58,60 @@ const KycRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
     //   if (event?.target.value) setPersonName(event?.target.value);
     //   console.log("dfghjk", personName);
     // };
-    
+
     // image upload dialog section
     const [open, setOpen] = useState(false);
     // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
+
     // const handleClickOpen = () => {
     //   setOpen(true);
     // };
-    
+
     const handleClose = () => {
       setOpen(false);
       // setClicked(true)
     };
-    
+
     // webcam ui
       const [clicked, setClicked] = useState(false);
-    
+
       const onWebcam = () => {
         setClicked(true);
-    
+
       };
-    
+
       const videoConstraints = {
         width: 700,
         height:1000,
         facingMode: "environment"
       };
-      
+
       const webcamRef = useRef(null);
       // const [url, setUrl] = useState(null);
-    
+
       const capturePhoto = useCallback(async () => {
         const imageSrc = webcamRef.current.getScreenshot();
         setUrl(imageSrc);
         handleClose()
         setClicked(false)
-    
+
       }, [webcamRef]);
-    
+
       const onUserMedia = (e) => {
         console.log(e);
         setClicked(true)
       };
-  
+
   const fileInputRef = useRef(null);
-  
+
   const handleButtonClick = () => {
     // Trigger the file input when the button is clicked
     fileInputRef.current.click();
@@ -226,7 +226,7 @@ const KycRegister = ({ ...others }) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
-                  
+
                   <Grid item xs={12} lg={6} md={4} sm={4}>
                     <TextField
                       fullWidth
@@ -370,7 +370,7 @@ const KycRegister = ({ ...others }) => {
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
         {
-        clicked ? 
+        clicked ?
         (
           <>
       <Webcam

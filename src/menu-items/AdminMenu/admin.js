@@ -1,15 +1,12 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet,IconFileCertificate } from '@tabler/icons';
+import { IconUsers, IconFileStack, IconSubtask, IconShield } from '@tabler/icons';
 
 // constant
 const icons = {
-  IconTypography,
-  IconPalette,
-  IconShadow,
-  IconWindmill,
-  IconBuildingBank,
-  IconWallet,
-  IconFileCertificate
+  IconFileStack,
+  IconSubtask,
+  IconUsers,
+  IconShield
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -20,22 +17,38 @@ const AdminUtils = {
   type: 'group',
   children: [
     {
-      id: 'util-color',
-      title: 'Add data point',
+      id: 'product master',
+      title: 'Product Master',
       type: 'item',
-      url: '/dashboard/AddDP',
-      icon: icons.IconBuildingBank,
+      url: '/Admin/AddProduct',
+      icon: icons.IconFileStack,
       breadcrumbs: false
     },
     {
-      id: 'util-typography',
-      title: 'Access groups',
+      id: 'field master',
+      title: 'Field Master',
       type: 'item',
-      url: '/dashboard/default',
-      icon: icons.IconWallet,
+      url: '/Admin/AddDP',
+      icon: icons.IconSubtask,
       breadcrumbs: false
     },
-  
+    {
+      id: 'access management',
+      title: 'Access Management',
+      type: 'item',
+      url: '/Admin/AccessManagement',
+      icon: icons.IconShield,
+      breadcrumbs: false
+    },
+    {
+      id: 'create group',
+      title: 'Create Group',
+      type: 'item',
+      url: '/Admin/CreateGroup',
+      icon: icons.IconUsers,
+      breadcrumbs: false
+    }
+
   ]
 };
 
