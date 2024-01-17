@@ -20,9 +20,9 @@ const PostApi =  async (PostData,handleClick,setData,ref,handleErrOpen) => {
                     },
                 })
                 
-                setTimeout(()=>{
-                    window.location.reload()
-                },2000)
+                // setTimeout(()=>{
+                //     window.location.reload()
+                // },2000)
             }
 
             else{
