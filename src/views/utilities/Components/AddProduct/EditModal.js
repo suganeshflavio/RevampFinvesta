@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,10 +20,10 @@ import { IconTrash } from '@tabler/icons';
 
 // eslint-disable-next-line react/prop-types
 const EditModal = ({ editOpen, handleviewClose, editrows, handleOpen }) => {
-  const [required, setRequired] = useState('');
-  const handleChange = (e) => {
-    setRequired(e.target.value);
-  };
+  // const [required, setRequired] = useState('');
+  // const handleChange = (e) => {
+  //   setRequired(e.target.value);
+  // };
 
   return (
     <Dialog open={editOpen} onClose={handleviewClose}>
@@ -61,13 +61,16 @@ const EditModal = ({ editOpen, handleviewClose, editrows, handleOpen }) => {
             <TableBody>
               {editrows.map((row) => (
                 <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
                   <TableCell component="th" scope="row" align="left">
                     {row.name}
                   </TableCell>
                   <TableCell align="left">{row.calories}</TableCell>
                   <TableCell>
-                    <Select value={required} sx={{ width: '80%' }} onChange={handleChange}>
-                      <MenuItem value={row.fat}>{row.fat}</MenuItem>
+                    <Select sx={{ width: '80%' }} >
+                      {row.fat.map((item,itemIndex)=>(
+                      <MenuItem value={item} key={itemIndex}>{item}</MenuItem>
+                      ))}
                     </Select>
                   </TableCell>
                   <TableCell align="center" sx={{ color: '#D84646' }}>

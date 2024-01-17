@@ -101,11 +101,11 @@ const AddProduct = () => {
   }
 
   const editrows = [
-    createTableData('Text', 'email', 'true'),
-    createTableData('Number', 'number', 'true'),
-    createTableData('Date', 'date', 'false'),
-    createTableData('Email', 'email', 'true'),
-    createTableData('Age', 'number', 'false')
+    createTableData('Text', 'email', ['false', 'true']),
+    createTableData('Number', 'number', ['false', 'true']),
+    createTableData('Date', 'date', ['false', 'true']),
+    createTableData('Email', 'email', ['false', 'true']),
+    createTableData('Age', 'number', ['false', 'true'])
   ];
 
   const columns = [
