@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import Modal from '@mui/material/Modal';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputLabel from '@mui/material/InputLabel';
@@ -17,18 +17,27 @@ import { Grid, Button, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconTrash } from '@tabler/icons';
+import { getApi } from 'API/MDM/apis';
 
 // eslint-disable-next-line react/prop-types
 const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handleClose, Data, dataref, TableRows }) => {
-  const top100Films = [
-    { id: 1, label: 'Name', type: 'Text' },
-    { id: 2, label: 'Email', type: 'email' },
-    { id: 3, label: 'Address', type: 'Text' },
-    { id: 4, label: 'Aadhar No', type: 'Text' },
-    { id: 5, label: 'Pan No', type: 'text' },
-    { id: 6, label: 'Phone Number', type: 'text' },
-    { id: 7, label: 'Age', type: 'text' }
-  ];
+  // const top100Films = [
+  //   { id: 1, label: 'Name', type: 'Text' },
+  //   { id: 2, label: 'Email', type: 'email' },
+  //   { id: 3, label: 'Address', type: 'Text' },
+  //   { id: 4, label: 'Aadhar No', type: 'Text' },
+  //   { id: 5, label: 'Pan No', type: 'text' },
+  //   { id: 6, label: 'Phone Number', type: 'text' },
+  //   { id: 7, label: 'Age', type: 'text' }
+  // ];
+
+
+  const[MdmData,setMDMData]=useState([])
+
+  useEffect(()=>{
+    getApi(setMDMData)
+  },[])
+  // console.log(MdmData);
 
   const style = {
     position: 'absolute',
@@ -65,11 +74,24 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
         <Grid container xl={12} mt={2} justifyContent="space-between">
           <Grid item xl={4} md={12} xs={12}>
             <Autocomplete
-              value={Data.field}
+              value={Data.name||""}
               ref={dataref}
               disablePortal
               id="combo-box-demo"
-              options={top100Films}
+              options={MdmData[0]}
+              getOptionSelected={(option, value) => option === value}
+              getOptionLabel={(option) => {
+                if (typeof option === 'string') {
+                  return option;
+                }
+                if (option.inputValue) {
+                  return option.inputValue;
+                }
+                if(option ===""){
+                  return ""
+                }
+                return option.name;
+              }}
               renderInput={(params) => <TextField {...params} label="Field" />}
               fullWidth
               onChange={(event, newValue) => {
@@ -96,7 +118,7 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
             </Button>
           </Grid>
           <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
-            <TableContainer component={Paper} sx={{ height: 400, overflowY: 'scroll' }}>
+            <TableContainer component={Paper} sx={{ height: {xl:400,sm:280,xs:280}, overflowY: 'scroll' }}>
               <Table sx={{ minWidth: 600 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -108,8 +130,8 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
                 </TableHead>
                 <TableBody>
                   {TableRows.map((row, index) => (
-                    <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell component="th" scope="row">
+                    <TableRow draggable onDrag={null} key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell  component="th" scope="row">
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.type}</TableCell>

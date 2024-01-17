@@ -5,7 +5,7 @@ axios.defaults.baseURL="http://192.168.100.181:8888"
 const PostApi =  async (PostData,handleClick,setData,ref,handleErrOpen) => {
 
     try {
-         await axios.post(`/fields`, PostData)
+         await axios.post(`/fields/`, PostData)
          .then(res =>{
             if(res.status===200){
 
@@ -36,6 +36,17 @@ const PostApi =  async (PostData,handleClick,setData,ref,handleErrOpen) => {
         handleErrOpen()
     }
 
+}
+
+export const getApi= async(setGetData)=>{
+    try{
+        await axios.get('/fields')
+        .then(res=>setGetData([res.data]))
+
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 export default PostApi
