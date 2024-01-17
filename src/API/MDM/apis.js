@@ -15,11 +15,14 @@ const PostApi =  async (PostData,handleClick,setData,ref,handleErrOpen) => {
                     name: '',
                     display_name: '',
                     type: '',
-    
                     details: {
     
                     },
                 })
+                
+                setTimeout(()=>{
+                    window.location.reload()
+                },2000)
             }
 
             else{

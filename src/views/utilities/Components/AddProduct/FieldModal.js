@@ -72,8 +72,9 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
           <CloseIcon />
         </IconButton>
         <Grid container xl={12} mt={2} justifyContent="space-between">
+        {MdmData.length>0?
           <Grid item xl={4} md={12} xs={12}>
-            <Autocomplete
+           <Autocomplete
               value={Data.name||""}
               ref={dataref}
               disablePortal
@@ -116,7 +117,9 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
             <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2 }} onClick={handleAddData}>
               Add
             </Button>
+             
           </Grid>
+          :<p>Loading.....</p>}
           <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
             <TableContainer component={Paper} sx={{ height: {xl:400,sm:280,xs:280}, overflowY: 'scroll' }}>
               <Table sx={{ minWidth: 600 }} aria-label="simple table">
