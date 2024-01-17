@@ -16,8 +16,6 @@ import { gridSpacing } from 'store/constant';
 // import GroupIcon from 'assets/images/icons/groupIcon.png'
 // import { useNavigate } from 'react-router';
 // import { Stack } from '@mui/system';
- 
-
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -29,14 +27,13 @@ const Dashboard = () => {
 
   // const navigate=useNavigate()
 
-//  const style={
-//   textAlign:'center',
-//   borderRadius:'20px',
-//   backgroundColor:'#fff',
-//   cursor:'pointer',
-  
-//  }
+  //  const style={
+  //   textAlign:'center',
+  //   borderRadius:'20px',
+  //   backgroundColor:'#fff',
+  //   cursor:'pointer',
 
+  //  }
 
   return (
     <Grid container spacing={gridSpacing}>
@@ -77,13 +74,11 @@ const Dashboard = () => {
         </Grid>
       </Grid> */}
 
-
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12} md={8}>
             {/* <TotalGrowthBarChart isLoading={isLoading} /> */}
           </Grid>
-
         </Grid>
       </Grid>
     </Grid>

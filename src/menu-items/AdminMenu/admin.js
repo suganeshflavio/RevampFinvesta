@@ -47,7 +47,15 @@ const AdminUtils = {
       url: '/Admin/CreateGroup',
       icon: icons.IconUsers,
       breadcrumbs: false
-    }
+    },
+    {
+      id: 'View add points',
+      title: 'View Add Points',
+      type: 'item',
+      url: '/Admin/ViewDatapoints',
+      icon: icons.IconUsers,
+      breadcrumbs: false
+    },
 
   ]
 };

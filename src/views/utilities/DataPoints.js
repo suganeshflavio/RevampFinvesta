@@ -1,6 +1,6 @@
-import { Button, TextField, Snackbar } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import { Grid } from '@mui/material'
+import { Button, TextField, Snackbar } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import { Grid } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -14,7 +14,6 @@ import SubCard from 'ui-component/cards/SubCard';
 import MuiAlert from '@mui/material/Alert';
 import PostApi from 'API/MDM/apis';
 
-
 const DataPoints = () => {
   const [Selected, setSelected] = useState();
 
@@ -26,171 +25,168 @@ const DataPoints = () => {
     name: '',
     display_name: '',
     type: '',
-    options:[   ],
+    options: [],
     details: {}
   });
 
   //console.log(Data);
 
-    const [OpenAlert, setOpenAlert] = useState(false);
-    const[OpenErrAlert,setErrAlert]=useState(false)
+  const [OpenAlert, setOpenAlert] = useState(false);
+  const [OpenErrAlert, setErrAlert] = useState(false);
 
-    const handleClick = () => {
-        setOpenAlert(true);
-    };
+  const handleClick = () => {
+    setOpenAlert(true);
+  };
 
-    const handleErrOpen=()=>{
-        setErrAlert(true)
-    }
+  const handleErrOpen = () => {
+    setErrAlert(true);
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-        setOpenAlert(false);
-        setErrAlert(false)
-    };
+    setOpenAlert(false);
+    setErrAlert(false);
+  };
 
+  useEffect(() => {
+    handlePost();
+  }, [Data]);
 
-    useEffect(() => {
-        handlePost()
-    }, [Data])
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
-    const Alert = React.forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
-
-    const handlePost = () => {
-        const filteredObject = {}
-        for (const [key, value] of Object.entries(Data)) {
-            if (value !== "") {
-                filteredObject[key] = value
-                setPostData(filteredObject)
-            }
-        }
-        // if(Data.options.length<2){
-
-        // }
-
-        //console.log(filteredObject);
+  const handlePost = () => {
+    const filteredObject = {};
+    for (const [key, value] of Object.entries(Data)) {
+      if (value !== '') {
+        filteredObject[key] = value;
+        setPostData(filteredObject);
+      }
     }
+    // if(Data.options.length<2){
 
+    // }
 
-    const dataType = [
-        {
-            type: 'Text',
-            fields: [
-                [{
-                    id: 'Regex',
-                    name: "Regex",
-                    type: "text"
-                },
-                {
-                    id: 'minLength',
-                    name: "Min Length",
-                    type: "number"
-                },
-                {
-                    id: 'maxLength',
-                    name: "Max Length",
-                    type: "number"
-                },]
+    //console.log(filteredObject);
+  };
 
-            ]
-        },
-        {
-            type: 'Number',
-            fields: [
-                [
-                    {
-                        id: 'Regex',
-                        name: "Regex",
-                        type: "text"
-                    },
-                    {
-                        id: 'minValue',
-                        name: "Min Value",
-                        type: "number"
-                    },
-                    {
-                        id: 'maxValue',
-                        name: "Max Value",
-                        type: "number"
-                    },]
-
-            ]
-        },
-        {
-            type: 'Yes/No',
-            fields: null
-        },
-        {
-            type: 'Option',
-            fields: [
-                [{
-                    id: 'optionDisplayName',
-                    name: "Option display name",
-                    type: "text"
-                },
-                {
-                    id: 'optionValue',
-                    name: "value",
-                    type: "text"
-                },
-                {
-                    name: "+",
-                    type: "button"
-                },]
-
-
-            ]
-        },
-        {
-            type: 'Select List',
-            fields: [
-                [{
-                    id: 'ListName',
-                    name: "Option display name",
-                    type: "text"
-                },
-                {
-                    id: 'List Value',
-                    name: "value",
-                    type: "file"
-                },
-                {
-                    name: "+",
-                    type: "button"
-                },]
-
-
-            ]
-        },
-        {
-            type: 'Documents',
-            fields: [
-                [{
-                    id: 'type',
-                    name: "Document type",
-                    type: "text"
-                },
-                {
-                    id: 'maxSize',
-                    name: "Min Size",
-                    type: "text"
-                },
-                {
-                    id: 'minSize',
-                    name: "Max Size",
-                    type: "text"
-                },
-
-                ]
-
-
-            ]
-        },
+  const dataType = [
+    {
+      type: 'Text',
+      fields: [
+        [
+          {
+            id: 'Regex',
+            name: 'Regex',
+            type: 'text'
+          },
+          {
+            id: 'minLength',
+            name: 'Min Length',
+            type: 'number'
+          },
+          {
+            id: 'maxLength',
+            name: 'Max Length',
+            type: 'number'
+          }
+        ]
+      ]
+    },
+    {
+      type: 'Number',
+      fields: [
+        [
+          {
+            id: 'Regex',
+            name: 'Regex',
+            type: 'text'
+          },
+          {
+            id: 'minValue',
+            name: 'Min Value',
+            type: 'number'
+          },
+          {
+            id: 'maxValue',
+            name: 'Max Value',
+            type: 'number'
+          }
+        ]
+      ]
+    },
+    {
+      type: 'Yes/No',
+      fields: null
+    },
+    {
+      type: 'Option',
+      fields: [
+        [
+          {
+            id: 'optionDisplayName',
+            name: 'Option display name',
+            type: 'text'
+          },
+          {
+            id: 'optionValue',
+            name: 'value',
+            type: 'text'
+          },
+          {
+            name: '+',
+            type: 'button'
+          }
+        ]
+      ]
+    },
+    {
+      type: 'Select List',
+      fields: [
+        [
+          {
+            id: 'ListName',
+            name: 'Option display name',
+            type: 'text'
+          },
+          {
+            id: 'List Value',
+            name: 'value',
+            type: 'file'
+          },
+          {
+            name: '+',
+            type: 'button'
+          }
+        ]
+      ]
+    },
+    {
+      type: 'Documents',
+      fields: [
+        [
+          {
+            id: 'type',
+            name: 'Document type',
+            type: 'text'
+          },
+          {
+            id: 'maxSize',
+            name: 'Min Size',
+            type: 'text'
+          },
+          {
+            id: 'minSize',
+            name: 'Max Size',
+            type: 'text'
+          }
+        ]
+      ]
+    },
 
     {
       type: 'Media(Image/Video/Audio)',
@@ -241,43 +237,44 @@ const DataPoints = () => {
 
     setSelected([...Selected, obj]);
 
-        setData({
-            ...Data,
-            options: [ ...Data.options,dataField],
-        });
-        //console.log("Options" + Selected);
-        //console.log(Data);
-    }
+    setData({
+      ...Data,
+      options: [...Data.options, dataField]
+    });
+    //console.log("Options" + Selected);
+    //console.log(Data);
+  };
 
   // // delete
   const handleDelete = (index) => {
     let data = [...Selected.slice(0, index), ...Selected.slice(index + 1)];
-    let mainData=[...Data.options.slice(0,index),...Data.options.slice(index+1)]
-    console.log("maindata",mainData);
-    setData({...Data,options:mainData})
-   
+    let mainData = [...Data.options.slice(0, index), ...Data.options.slice(index + 1)];
+    console.log('maindata', mainData);
+    setData({ ...Data, options: mainData });
+
     setSelected(data);
-   // console.log(Selected);
+    // console.log(Selected);
     // setPostData(...PostData,options=[...PostData.options.slice(0, index),...PostData.options.slice(index + 1)])
     //console.log(data);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(Selected);
     console.log(Data);
-  },[Data])
+  }, [Data]);
 
-    const handleSubmit =  async (e) => {
-        e.preventDefault()
+  useEffect(() => {
+    console.log(Selected);
+    console.log(Data);
+  }, [Data]);
 
-       PostApi(PostData,handleClick,setData,ref,handleErrOpen)
-            
-            //console.log(PostData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      
+    PostApi(PostData, handleClick, setData, ref, handleErrOpen);
 
-    }
-  
+    console.log(PostData);
+  };
 
   const handleChange = (event) => {
     setSelected(dataType[event.target.value].fields);
@@ -379,37 +376,34 @@ const DataPoints = () => {
           </Alert>
         </Snackbar>
 
-                <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenErrAlert} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                        Something went wrong!!!
-                    </Alert>
-                </Snackbar>
+        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenErrAlert} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            Something went wrong!!!
+          </Alert>
+        </Snackbar>
 
-
-                <Grid container sx={{ mt: 1 }} xl={12} justifyContent='space-between'>
-                    <Grid item xl={6} md={6} xs={12}>
-                        <TextField
-                            size='large'
-                            label='Name'
-                            value={Data.name}
-                            fullWidth
-                            onChange={(e) => handleDataChange('Name', e.target.value, null)}
-                        />
-                    </Grid>
-
-                </Grid>
-                <Grid container sx={{ mt: 3 }} xl={12}>
-                    <Grid item xl={6} md={6} xs={12}>
-                        <TextField
-                            size='large'
-                            label='Display Name'
-                            value={Data.display_name}
-                            fullWidth
-                            onChange={(e) => handleDataChange('Displayname', e.target.value, null)}
-
-                        />
-                    </Grid>
-                </Grid>
+        <Grid container sx={{ mt: 1 }} xl={12} justifyContent="space-between">
+          <Grid item xl={6} md={6} xs={12}>
+            <TextField
+              size="large"
+              label="Name"
+              value={Data.name}
+              fullWidth
+              onChange={(e) => handleDataChange('Name', e.target.value, null)}
+            />
+          </Grid>
+        </Grid>
+        <Grid container sx={{ mt: 3 }} xl={12}>
+          <Grid item xl={6} md={6} xs={12}>
+            <TextField
+              size="large"
+              label="Display Name"
+              value={Data.display_name}
+              fullWidth
+              onChange={(e) => handleDataChange('Displayname', e.target.value, null)}
+            />
+          </Grid>
+        </Grid>
 
         <Grid container sx={{ mt: 3 }}>
           <Grid item xl={4} md={6} xs={12}>
@@ -460,7 +454,6 @@ const DataPoints = () => {
                     <TextField
                       key={subItem.id}
                       size="large"
-                    
                       label={subItem.name || ''}
                       fullWidth
                       sx={{ display: subItem.type === 'button' ? 'none' : 'block', mt: 2 }}
@@ -491,7 +484,6 @@ const DataPoints = () => {
       </SubCard>
     </form>
   );
-}
-
+};
 
 export default DataPoints;

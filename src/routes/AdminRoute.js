@@ -14,9 +14,11 @@ const DashboardDefault = Loadable(lazy(() => import('views/AdminDashboard/Defaul
 // utilities routing
 const UtilsAccessManagement = Loadable(lazy(() => import('views/utilities/AccessManagement')));
 const UtilsCreateGroup = Loadable(lazy(() => import('views/utilities/CreateGroup')));
-
+const ViewGroup = Loadable(lazy(() => import('views/utilities/Components/ViewGroup')));
 const UtilsAddDataPoints = Loadable(lazy(() => import('views/utilities/DataPoints')));
+const ViewDatapoints = Loadable(lazy(() => import('views/utilities/ViewAddPoints')));
 const UtilsProductMaster = Loadable(lazy(() => import('views/utilities/ProductMaster')));
+
 const UtilsAddProduct = Loadable(lazy(() => import('views/utilities/AddProduct')));
 
 // const UtilsMoneyTransfer=Loadable(lazy(() => import('views/utilities/PopularServices')));
@@ -26,7 +28,6 @@ const UtilsAddProduct = Loadable(lazy(() => import('views/utilities/AddProduct')
 // ==============================|| MAIN ROUTING ||============================== //
 
 const AdminRoute = {
-
   path: '/',
   element: <AdminLayout />,
   children: [
@@ -51,7 +52,6 @@ const AdminRoute = {
           path: 'AddDP',
           element: <UtilsAddDataPoints />,
           breadcrumbs: true
-
         }
       ]
     },
@@ -60,9 +60,8 @@ const AdminRoute = {
       children: [
         {
           path: 'ProductMaster',
-          element: <UtilsProductMaster/>,
+          element: <UtilsProductMaster />,
           breadcrumbs: true
-
         }
       ]
     },
@@ -71,9 +70,8 @@ const AdminRoute = {
       children: [
         {
           path: 'AddProduct',
-          element: <UtilsAddProduct/>,
+          element: <UtilsAddProduct />,
           breadcrumbs: true
-
         }
       ]
     },
@@ -83,9 +81,8 @@ const AdminRoute = {
       children: [
         {
           path: 'AccessManagement',
-          element: <UtilsAccessManagement/>,
+          element: <UtilsAccessManagement />,
           breadcrumbs: true
-
         }
       ]
     },
@@ -95,13 +92,31 @@ const AdminRoute = {
       children: [
         {
           path: 'CreateGroup',
-          element: <UtilsCreateGroup/>,
+          element: <UtilsCreateGroup />,
           breadcrumbs: true
-
         }
       ]
     },
-    
+    {
+      path: 'Admin',
+      children: [
+        {
+          path: 'ViewGroup',
+          element: <ViewGroup />,
+          breadcrumbs: true
+        }
+      ]
+    },
+    {
+      path: 'Admin',
+      children: [
+        {
+          path: 'ViewDatapoints',
+          element: <ViewDatapoints />,
+          breadcrumbs: true
+        }
+      ]
+    }
   ]
 };
 

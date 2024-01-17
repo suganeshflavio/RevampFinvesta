@@ -20,11 +20,6 @@ import { IconTrash } from '@tabler/icons';
 
 // eslint-disable-next-line react/prop-types
 const EditModal = ({ editOpen, handleviewClose, editrows, handleOpen }) => {
-  // const [required, setRequired] = useState('');
-  // const handleChange = (e) => {
-  //   setRequired(e.target.value);
-  // };
-
   return (
     <Dialog open={editOpen} onClose={handleviewClose}>
       <DialogTitle variant="h3" sx={{ m: 0, p: 2 }} id="customized-dialog-title">
