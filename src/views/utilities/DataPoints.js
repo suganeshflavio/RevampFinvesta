@@ -1,5 +1,5 @@
 import { Button, TextField, Snackbar } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Grid } from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,7 +14,7 @@ import SubCard from 'ui-component/cards/SubCard';
 import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
 
-
+axios.defaults.baseURL="http://192.168.100.181:8888"
 
 const DataPoints = () => {
 
@@ -34,12 +34,15 @@ const DataPoints = () => {
 
         },
 
+
     })
+
+    // const[Options,setOptions]=useState([])
 
     console.log(Data);
 
 
-    const [OpenAlert, setOpenAlert] = React.useState(false);
+    const [OpenAlert, setOpenAlert] = useState(false);
 
     const handleClick = () => {
         setOpenAlert(true);
@@ -54,13 +57,28 @@ const DataPoints = () => {
     };
 
 
-    console.log(setPostData);
+    useEffect(() => {
+        handlePost()
+    }, [Data])
 
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
 
+    const handlePost = () => {
+        const filteredObject = {}
+        for (const [key, value] of Object.entries(Data)) {
+            if (value !== "") {
+                filteredObject[key] = value
+                setPostData(filteredObject)
+            }
+        }
+        // if(Data.options.length<2){
 
+        // }
+
+        console.log(filteredObject);
+    }
 
 
     const dataType = [
@@ -246,29 +264,30 @@ const DataPoints = () => {
 
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit =  async (e) => {
         e.preventDefault()
 
         try {
-            await axios.post(`${process.env.REACT_APP_API}/fields`, PostData)
-                .then(res => {
-                    if (res.status === 200) {
-                        handleClick()
-                        // window.location.reload()
-                        ref.current.value = null
-                        setData({
-                            name: '',
-                            display_name: '',
-                            type: '',
-                            details: {
-
-                            },
-                        })
-                    }
-                })
-
+             await axios.post(`/fields`, PostData)
+             .then(res =>{
+                if(res.status===200){
+                    handleClick()
+                    ref.current.value = null
+                    setData({
+                        name: '',
+                        display_name: '',
+                        type: '',
+        
+                        details: {
+        
+                        },
+                    })
+                }
+             })
+            
             console.log(PostData);
 
+          
         }
         catch (err) {
             console.log(err);
@@ -408,7 +427,6 @@ const DataPoints = () => {
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 ref={ref}
-                                
                                 label="Type"
                                 onChange={
                                     (e) => {
