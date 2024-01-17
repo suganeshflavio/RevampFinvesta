@@ -6,22 +6,17 @@ import IconButton from '@mui/material/IconButton';
 import { IconEye, IconPencil, IconTrash } from '@tabler/icons';
 import Box from '@mui/material/Box';
 
-
 import FieldModal from './Components/AddProduct/FieldModal';
 import EditModal from './Components/AddProduct/EditModal';
-
 
 function createData(name, type, required, icon) {
   return { name, type, required, icon };
 }
 
-
-
 const AddProduct = () => {
-
   const [open, setOpen] = useState(false);
-  const [post, setPost] = useState([])
-  const [TableRows, setTableRows] = useState([])
+  const [post, setPost] = useState([]);
+  const [TableRows, setTableRows] = useState([]);
   const [selectedCellParams, setSelectedCellParams] = useState(null);
   const [cellModesModel, setCellModesModel] = useState({});
   const [Data, setData] = useState({
@@ -29,12 +24,12 @@ const AddProduct = () => {
     field: '',
     type: '',
     required: ''
-  })
-  const dataref = useRef()
+  });
+  const dataref = useRef();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   //   edit Modal
-  const [editOpen, setEditOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false);
   const handleClickOpen = () => {
     setEditOpen(true);
   };
@@ -46,7 +41,7 @@ const AddProduct = () => {
     Name: '',
     display_name: '',
     fields: ''
-  })
+  });
 
   const handleCellEditStop = React.useCallback((params, event) => {
     event.defaultMuiPrevented = true;
@@ -54,24 +49,23 @@ const AddProduct = () => {
 
   const handleDataChange = (field, value) => {
     if (field === 'Name') {
-      setPostData({ ...PostData, Name: value })
+      setPostData({ ...PostData, Name: value });
+    } else if (field === 'displayName') {
+      setPostData({ ...PostData, display_name: value });
     }
-    else if (field === 'displayName') {
-      setPostData({ ...PostData, display_name: value })
-    }
-  }
+  };
 
   const cellMode = useMemo(() => {
     if (!selectedCellParams) {
-      return "view";
+      return 'view';
     }
     const { id, field } = selectedCellParams;
-    return cellModesModel[id]?.[field]?.mode || "view";
+    return cellModesModel[id]?.[field]?.mode || 'view';
   }, [cellModesModel, selectedCellParams]);
 
   const handleCellKeyDown = React.useCallback(
     (params, event) => {
-      if (cellMode === "edit") {
+      if (cellMode === 'edit') {
         // Prevents calling event.preventDefault() if Tab is pressed on a cell in edit mode
         event.defaultMuiPrevented = true;
       }
@@ -79,21 +73,20 @@ const AddProduct = () => {
     [cellMode]
   );
 
-
   const handleClickedit = () => {
     if (!selectedCellParams) {
       return;
     }
     const { id, field } = selectedCellParams;
-    if (cellMode === "edit") {
+    if (cellMode === 'edit') {
       setCellModesModel({
         ...cellModesModel,
-        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.View } },
+        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.View } }
       });
     } else {
       setCellModesModel({
         ...cellModesModel,
-        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.Edit } },
+        [id]: { ...cellModesModel[id], [field]: { mode: GridCellModes.Edit } }
       });
     }
   };
@@ -103,17 +96,16 @@ const AddProduct = () => {
     event.preventDefault();
   };
 
-
-  function createTableData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  function createTableData(name, calories, fat) {
+    return { name, calories, fat };
   }
 
   const editrows = [
-    createTableData('Text', 'email', 'true', 24, 4.0),
-    createTableData('Number', 'number', 'true', 37, 4.3),
-    createTableData('Date', 'date', 'false', 24, 6.0),
-    createTableData('Email', 'email', 'true', 67, 4.3),
-    createTableData('Age', 'number', 'false', 3.9,),
+    createTableData('Text', 'email', 'true'),
+    createTableData('Number', 'number', 'true'),
+    createTableData('Date', 'date', 'false'),
+    createTableData('Email', 'email', 'true'),
+    createTableData('Age', 'number', 'false')
   ];
 
   const columns = [
@@ -124,14 +116,16 @@ const AddProduct = () => {
       field: 'edit',
       headerName: '',
       type: 'number',
-      editable: "false",
+      editable: 'false',
       width: 30,
       renderCell: () => (
         <IconButton
           aria-label="edit"
           // onClick={handleClickedit}
           color="info"
-        > <IconPencil />
+        >
+          {' '}
+          <IconPencil />
         </IconButton>
       )
     },
@@ -141,11 +135,9 @@ const AddProduct = () => {
       type: 'number',
       width: 55,
       renderCell: () => (
-        <IconButton
-          aria-label="view"
-          onClick={handleClickOpen}
-          color="success"
-        >  <IconEye />
+        <IconButton aria-label="view" onClick={handleClickOpen} color="success">
+          {' '}
+          <IconEye />
         </IconButton>
       )
     },
@@ -155,14 +147,12 @@ const AddProduct = () => {
       type: 'number',
       width: 30,
       renderCell: () => (
-        <IconButton
-          aria-label="delete"
-          onClick={(params) => handleDelete(params.row.id)}
-          color='error'
-        >   <IconTrash />
+        <IconButton aria-label="delete" onClick={(params) => handleDelete(params.row.id)} color="error">
+          {' '}
+          <IconTrash />
         </IconButton>
       )
-    },
+    }
     // {
     //   field: 'fullName',
     //   headerName: 'Full name',
@@ -174,45 +164,41 @@ const AddProduct = () => {
   ];
 
   const rows = [
-    { id: 1, productName: 'Snow', displayName: 'Jon', },
-    { id: 2, productName: 'Lannister', displayName: 'Cersei', },
-    { id: 3, productName: 'Lannister', displayName: 'Jaime', },
-    { id: 4, productName: 'Stark', displayName: 'Arya', },
-    { id: 5, productName: 'Targaryen', displayName: 'Daenerys', },
-    { id: 6, productName: 'Melisandre', displayName: "Stark", },
-    { id: 7, productName: 'Clifford', displayName: 'Ferrara', },
-    { id: 8, productName: 'Frances', displayName: 'Rossini', },
-    { id: 9, productName: 'Roxie', displayName: 'Harvey', }
+    { id: 1, productName: 'Snow', displayName: 'Jon' },
+    { id: 2, productName: 'Lannister', displayName: 'Cersei' },
+    { id: 3, productName: 'Lannister', displayName: 'Jaime' },
+    { id: 4, productName: 'Stark', displayName: 'Arya' },
+    { id: 5, productName: 'Targaryen', displayName: 'Daenerys' },
+    { id: 6, productName: 'Melisandre', displayName: 'Stark' },
+    { id: 7, productName: 'Clifford', displayName: 'Ferrara' },
+    { id: 8, productName: 'Frances', displayName: 'Rossini' },
+    { id: 9, productName: 'Roxie', displayName: 'Harvey' }
   ];
 
   const handleChange = (type, value) => {
     if (type === 'field') {
       console.log(value);
-      setData({ ...Data, field: value.label, type: value.type, id: value.id })
+      setData({ ...Data, field: value.label, type: value.type, id: value.id });
       console.log(Data);
-    }
-    else {
+    } else {
       console.log(value);
 
-      setData({ ...Data, required: value })
+      setData({ ...Data, required: value });
       console.log(Data);
-
     }
-  }
+  };
 
   const deleteAddedData = (index) => {
     console.log(index);
 
-
-    const updatedPost = [...post.slice(0, index), ...post.slice(index + 1)]
+    const updatedPost = [...post.slice(0, index), ...post.slice(index + 1)];
     const updatedTable = [...TableRows.slice(0, index), ...TableRows.slice(index + 1)];
 
-
-    setPost(updatedPost)
-    setTableRows(updatedTable)
-    setPostData({ ...PostData, fields: post })
+    setPost(updatedPost);
+    setTableRows(updatedTable);
+    setPostData({ ...PostData, fields: post });
     console.log(PostData);
-  }
+  };
 
   const handleCellFocus = useCallback((event) => {
     const row = event.currentTarget.parentElement;
@@ -222,39 +208,39 @@ const AddProduct = () => {
   }, []);
 
   const handleAddData = (e) => {
-    e.preventDefault()
-    const updataedData = [...post, Data]
+    e.preventDefault();
+    const updataedData = [...post, Data];
 
-    setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')])
+    setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')]);
     console.log(TableRows);
 
-    setData({ ...Data, field: '', type: '', required: '' })
-    dataref.current.value = null
+    setData({ ...Data, field: '', type: '', required: '' });
+    dataref.current.value = null;
 
-    setPost(updataedData)
+    setPost(updataedData);
 
     console.log(post);
-  }
+  };
 
   useEffect(() => {
-
-    setPostData({ ...PostData, fields: post })
-  }, [post])
-
+    setPostData({ ...PostData, fields: post });
+  }, [PostData, post]);
 
   return (
     <SubCard title="Add Product">
-
       {/* Add field modal */}
 
-      <FieldModal open={open}
+      <FieldModal
+        open={open}
         handleChange={handleChange}
         deleteAddedData={deleteAddedData}
         handleAddData={handleAddData}
         handleClose={handleClose}
-        Data={Data} setData={setData}
+        Data={Data}
+        setData={setData}
         dataref={dataref}
-        TableRows={TableRows} />
+        TableRows={TableRows}
+      />
 
       {/* End of add field modal */}
 
@@ -271,8 +257,10 @@ const AddProduct = () => {
               fullWidth
               onChange={(e) => handleDataChange('displayName', e.target.value, null)}
             />
-            <Stack direction='row' justifyContent='flex-end' width='100%'>
-              <Button sx={{ width: 'fit-content' }} color="secondary" onClick={handleOpen}>Add fields</Button>
+            <Stack direction="row" justifyContent="flex-end" width="100%">
+              <Button sx={{ width: 'fit-content' }} color="secondary" onClick={handleOpen}>
+                Add fields
+              </Button>
             </Stack>
           </Grid>
           <Grid item xl={6} sx={{ width: { xl: 'fit-content', md: '100%' }, height: { md: '5vh', xl: '10vh', xs: '10vh' } }}>
@@ -283,30 +271,20 @@ const AddProduct = () => {
                 </Button>
               </Stack>
             </Stack>
-
           </Grid>
         </Grid>
         {/* Product list start */}
-        <Typography variant="h4" m={2}>Product List</Typography>
-          <Box p={1} >
-            <Button
-              onClick={handleClickedit}
-              onMouseDown={handleMouseDown}
-              disabled={!selectedCellParams}
-              variant="outlined"
-            >
-              {cellMode === "edit" ? "Save" : "Edit"}
-            </Button>
-            <Button
-              onClick={handleClose}
-              onMouseDown={handleMouseDown}
-              disabled={cellMode === "view"}
-              variant="outlined"
-              sx={{ ml: 1 }}
-            >
-              Cancel
-            </Button>
-          </Box>
+        <Typography variant="h4" m={2}>
+          Product List
+        </Typography>
+        <Box p={1}>
+          <Button onClick={handleClickedit} onMouseDown={handleMouseDown} disabled={!selectedCellParams} variant="outlined">
+            {cellMode === 'edit' ? 'Save' : 'Edit'}
+          </Button>
+          <Button onClick={handleClose} onMouseDown={handleMouseDown} disabled={cellMode === 'view'} variant="outlined" sx={{ ml: 1 }}>
+            Cancel
+          </Button>
+        </Box>
         <Grid item style={{ height: 400, width: '100%' }}>
           <DataGrid
             rows={rows}
@@ -332,22 +310,19 @@ const AddProduct = () => {
                 selectedCellParams,
                 setSelectedCellParams,
                 cellModesModel,
-                setCellModesModel,
+                setCellModesModel
               },
               cell: {
-                onFocus: handleCellFocus,
-              },
+                onFocus: handleCellFocus
+              }
             }}
           />
         </Grid>
       </Grid>
 
+      {/* Edit Modal */}
 
-
-     {/* Edit Modal */}
-
-      <EditModal editOpen={editOpen} handleviewClose={handleviewClose} editrows={editrows} handleOpen={handleOpen}/>
-
+      <EditModal editOpen={editOpen} handleviewClose={handleviewClose} editrows={editrows} handleOpen={handleOpen} />
     </SubCard>
   );
 };

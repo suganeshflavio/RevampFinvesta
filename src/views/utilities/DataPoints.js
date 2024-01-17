@@ -5,7 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { IconTrash } from '@tabler/icons-react'
+import { IconTrash } from '@tabler/icons-react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -16,30 +16,21 @@ import PostApi from 'API/MDM/apis';
 
 
 const DataPoints = () => {
+  const [Selected, setSelected] = useState();
 
+  const [PostData, setPostData] = useState({});
 
-    const [Selected, setSelected] = useState()
+  const ref = useRef();
 
-    const [PostData, setPostData] = useState({})
+  const [Data, setData] = useState({
+    name: '',
+    display_name: '',
+    type: '',
 
-    const ref = useRef()
+    details: {}
+  });
 
-    const [Data, setData] = useState({
-        name: '',
-        display_name: '',
-        type: '',
-
-        details: {
-
-        },
-
-
-    })
-
-    // const[Options,setOptions]=useState([])
-
-    console.log(Data);
-
+  console.log(Data);
 
     const [OpenAlert, setOpenAlert] = useState(false);
     const[OpenErrAlert,setErrAlert]=useState(false)
@@ -52,10 +43,10 @@ const DataPoints = () => {
         setErrAlert(true)
     }
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
         setOpenAlert(false);
         setErrAlert(false)
@@ -201,60 +192,54 @@ const DataPoints = () => {
             ]
         },
 
-        {
-            type: 'Media(Image/Video/Audio)',
-            fields: [
-                [{
-                    id: 'type',
-                    name: "Document type",
-                    type: "text"
-                },
-                {
-                    id: 'maxSize',
-                    name: "Min Size",
-                    type: "text"
-                },
-                {
-                    id: 'minSize',
-                    name: "Max Size",
-                    type: "text"
-                },
-
-
-
-                ]
-
-
-            ]
-        },
-    ]
-
-
-    const handleAdd = () => {
-        const obj = [
-            {
-                id: 'optionDisplayName',
-                name: "Option display name",
-                type: "text"
-            },
-            {
-                id: 'optionValue',
-                name: "value",
-                type: "text"
-            },
-            {
-                name: "+",
-                type: "button"
-            },
-
+    {
+      type: 'Media(Image/Video/Audio)',
+      fields: [
+        [
+          {
+            id: 'type',
+            name: 'Document type',
+            type: 'text'
+          },
+          {
+            id: 'maxSize',
+            name: 'Min Size',
+            type: 'text'
+          },
+          {
+            id: 'minSize',
+            name: 'Max Size',
+            type: 'text'
+          }
         ]
-        const dataField = {
-            Displayname: '',
-            type: '',
-        }
-        console.log(Selected);
+      ]
+    }
+  ];
 
-        setSelected([...Selected, obj])
+  const handleAdd = () => {
+    const obj = [
+      {
+        id: 'optionDisplayName',
+        name: 'Option display name',
+        type: 'text'
+      },
+      {
+        id: 'optionValue',
+        name: 'value',
+        type: 'text'
+      },
+      {
+        name: '+',
+        type: 'button'
+      }
+    ];
+    const dataField = {
+      Displayname: '',
+      type: ''
+    };
+    console.log(Selected);
+
+    setSelected([...Selected, obj]);
 
         setData({
             ...Data,
@@ -264,15 +249,14 @@ const DataPoints = () => {
         console.log(Data);
     }
 
-    // // delete
-    const handleDelete = (index) => {
-        let data = [...Selected];
+  // // delete
+  const handleDelete = (index) => {
+    let data = [...Selected];
 
-        data.splice(index, 1);
-        setSelected(data)
-        console.log(data);
-
-    }
+    data.splice(index, 1);
+    setSelected(data);
+    console.log(data);
+  };
 
     const handleSubmit =  async (e) => {
         e.preventDefault()
@@ -284,101 +268,104 @@ const DataPoints = () => {
       
 
     }
+  };
 
+  const handleChange = (event) => {
+    setSelected(dataType[event.target.value].fields);
+  };
+  console.log(Selected);
 
-    const handleChange = (event) => {
-        setSelected(dataType[(event.target.value)].fields);
-    };
-    console.log(Selected);
-
-    const handleDataChange = (id, data, index) => {
-        console.log(index, +" " + id);
-        if (id === "Name") {
-            setData({ ...Data, name: data })
-        }
-        if (id === "Displayname") {
-            setData({ ...Data, display_name: data })
-        }
-        if (id === "type") {
-            setData({ ...Data, type: dataType[data].type, Regex: '', minLength: '', maxLength: '', minValue: '', maxValue: '' })
-
-        }
-        if (id === "Regex") {
-            setData({
-                ...Data, details: {
-                    ...Data.details,
-                    Regex: data,
-                },
-            })
-        }
-        if (id === "minLength") {
-            setData({
-                ...Data, details: {
-                    ...Data.details,
-                    minLength: data,
-                },
-            })
-        }
-        if (id === "maxLength") {
-            setData({
-                ...Data, details: {
-                    ...Data.details,
-                    maxLength: data,
-                },
-            })
-        }
-        if (id === "unique") {
-            setData({
-                ...Data,
-                details: {
-                    ...Data.details,
-                    unique: data === "True" ? true : false,
-                },
-            })
-        }
-        if (id === "minValue") {
-            setData({
-                ...Data, details: {
-                    ...Data.details,
-                    minValue: data,
-                },
-            })
-        }
-        if (id === "maxValue") {
-            setData({
-                ...Data, details: {
-                    ...Data.details,
-                    maxValue: data,
-                },
-            })
-        }
-        if (id === "optionDisplayName" && index !== null) {
-            console.log(index);
-            setData((prevData) => {
-                const updatedOptions = [...prevData.options];
-                updatedOptions[index] = { ...updatedOptions[index], Displayname: data };
-                return { ...prevData, options: updatedOptions };
-            });
-        }
-        if (id === "optionValue" && index !== null) {
-            console.log(index);
-            setData((prevData) => {
-                const updatedOptions = [...prevData.options];
-                updatedOptions[index] = { ...updatedOptions[index], type: data };
-                return { ...prevData, options: updatedOptions };
-            });
-        }
-        // console.log(Data);
+  const handleDataChange = (id, data, index) => {
+    console.log(index, +' ' + id);
+    if (id === 'Name') {
+      setData({ ...Data, name: data });
     }
-    return (
-        <form onSubmit={handleSubmit}>
-            <SubCard title='Add data point'>
-
-                <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                        Field Added
-                    </Alert>
-                </Snackbar>
+    if (id === 'Displayname') {
+      setData({ ...Data, display_name: data });
+    }
+    if (id === 'type') {
+      setData({ ...Data, type: dataType[data].type, Regex: '', minLength: '', maxLength: '', minValue: '', maxValue: '' });
+    }
+    if (id === 'Regex') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          Regex: data
+        }
+      });
+    }
+    if (id === 'minLength') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          minLength: data
+        }
+      });
+    }
+    if (id === 'maxLength') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          maxLength: data
+        }
+      });
+    }
+    if (id === 'unique') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          unique: data === 'True' ? true : false
+        }
+      });
+    }
+    if (id === 'minValue') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          minValue: data
+        }
+      });
+    }
+    if (id === 'maxValue') {
+      setData({
+        ...Data,
+        details: {
+          ...Data.details,
+          maxValue: data
+        }
+      });
+    }
+    if (id === 'optionDisplayName' && index !== null) {
+      console.log(index);
+      setData((prevData) => {
+        const updatedOptions = [...prevData.options];
+        updatedOptions[index] = { ...updatedOptions[index], Displayname: data };
+        return { ...prevData, options: updatedOptions };
+      });
+    }
+    if (id === 'optionValue' && index !== null) {
+      console.log(index);
+      setData((prevData) => {
+        const updatedOptions = [...prevData.options];
+        updatedOptions[index] = { ...updatedOptions[index], type: data };
+        return { ...prevData, options: updatedOptions };
+      });
+    }
+    // console.log(Data);
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <SubCard title="Add data point">
+        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Field Added
+          </Alert>
+        </Snackbar>
 
                 <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenErrAlert} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
@@ -412,82 +399,85 @@ const DataPoints = () => {
                     </Grid>
                 </Grid>
 
-                <Grid container sx={{ mt: 3 }} >
-                    <Grid item xl={4} md={6} xs={12}>
-                        <FormControl fullWidth size='large'>
-                            <InputLabel id="demo-select-small-label">Type</InputLabel>
-                            <Select
-                                labelId="demo-select-small-label"
-                                id="demo-select-small"
-                                ref={ref}
+        <Grid container sx={{ mt: 3 }}>
+          <Grid item xl={4} md={6} xs={12}>
+            <FormControl fullWidth size="large">
+              <InputLabel id="demo-select-small-label">Type</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                ref={ref}
+                label="Type"
+                onChange={(e) => {
+                  handleDataChange('type', e.target.value, null);
+                  handleChange(e);
+                }}
+              >
+                {dataType.map((item, index) => (
+                  <MenuItem key={index} value={index}>
+                    {item.type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <FormControl sx={{ mt: 3, display: Data.type === 'Text' ? 'block' : 'none' }}>
+          <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="True"
+            name="radio-buttons-group"
+            row
+            onChange={(e) => {
+              handleDataChange('unique', e.target.value, null);
+            }}
+          >
+            <FormControlLabel value="True" control={<Radio />} label="True" />
+            <FormControlLabel value="False" control={<Radio />} label="False" />
+          </RadioGroup>
+        </FormControl>
+        <div style={{ width: '100%' }}>
+          {Data.type !== '' &&
+            Data.type !== null &&
+            Array.isArray(Selected) &&
+            Selected.map((subFields, subIndex) => (
+              <Grid container justifyContent="space-between" xl={12} sx={{ mt: 3 }} key={subIndex}>
+                {subFields.map((subItem, OptionIndex) => (
+                  <Grid item xl={3} key={OptionIndex}>
+                    <TextField
+                      key={subItem.id}
+                      size="large"
+                      label={subItem.name || ''}
+                      fullWidth
+                      sx={{ display: subItem.type === 'button' ? 'none' : 'block', mt: 2 }}
+                      onChange={(e) => handleDataChange(subItem.id, e.target.value, subIndex, OptionIndex)}
+                    />
 
-                                label="Type"
-                                onChange={
-                                    (e) => {
-                                        handleDataChange('type', e.target.value, null);
-                                        handleChange(e)
-                                    }}
-                            >
-                                {dataType.map((item, index) => (
-
-                                    <MenuItem key={index} value={index}>{item.type}</MenuItem>
-
-                                ))}
-
-                            </Select>
-                        </FormControl>
-                    </Grid>
-
-                </Grid>
-                <FormControl sx={{ mt: 3, display: Data.type === "Text" ? 'block' : 'none' }} >
-                    <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="True"
-                        name="radio-buttons-group"
-                        row
-                        onChange={(e) => {
-                            handleDataChange('unique', e.target.value, null)
-                        }}
+                    <Button
+                      onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)}
+                      size="small"
+                      variant="outlined"
+                      sx={{ display: subItem.type !== 'button' ? 'none' : 'block', mt: 3 }}
                     >
-                        <FormControlLabel value="True" control={<Radio />} label="True" />
-                        <FormControlLabel value="False" control={<Radio />} label="False" />
-                    </RadioGroup>
-                </FormControl>
-                <div style={{ width: '100%' }}>
-                    {(Data.type !== "" && Data.type !== null) && Array.isArray(Selected) && Selected.map((subFields, subIndex) => (
-                        <Grid container justifyContent='space-between' xl={12} sx={{ mt: 3 }} key={subIndex}>
-                            {subFields.map((subItem, OptionIndex) => (
-                                <Grid item xl={3} key={OptionIndex}>
-                                    <TextField
-                                        key={subItem.id}
-                                        size='large'
-                                        label={subItem.name || ''}
-                                        fullWidth
-                                        sx={{ display: subItem.type === "button" ? 'none' : 'block', mt: 2 }}
-                                        onChange={(e) => handleDataChange(subItem.id, e.target.value, subIndex, OptionIndex)}
-                                    />
+                      {subIndex == Selected.length - 1 ? subItem.name : <IconTrash />}
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            ))}
+        </div>
 
-                                    <Button onClick={subIndex == Selected.length - 1 ? handleAdd : () => handleDelete(subIndex)} size='small' variant='outlined' sx={{ display: subItem.type !== "button" ? 'none' : 'block', mt: 3 }}
-                                    >{subIndex == Selected.length - 1 ? subItem.name : <IconTrash />}</Button>
+        <Grid container xl={12} justifyContent="flex-end" sx={{ mt: 3 }}>
+          <Grid item>
+            <Button color="secondary" variant="contained" type="submit">
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </SubCard>
+    </form>
+  );
+};
 
-                                </Grid>
-                            ))}
-
-                        </Grid>
-                    ))}
-                </div>
-
-                <Grid container xl={12} justifyContent='flex-end' sx={{ mt: 3 }}>
-                    <Grid item>
-                        <Button color='secondary' variant='contained' type='submit'>Submit</Button>
-                    </Grid>
-                </Grid>
-
-
-            </SubCard>
-        </form>
-    )
-}
-
-export default DataPoints
+export default DataPoints;
