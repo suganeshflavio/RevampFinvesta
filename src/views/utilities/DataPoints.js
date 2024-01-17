@@ -12,9 +12,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import SubCard from 'ui-component/cards/SubCard';
 import MuiAlert from '@mui/material/Alert';
-import axios from 'axios';
+import PostApi from 'API/MDM/apis';
 
-axios.defaults.baseURL="http://192.168.100.181:8888"
 
 const DataPoints = () => {
 
@@ -43,10 +42,15 @@ const DataPoints = () => {
 
 
     const [OpenAlert, setOpenAlert] = useState(false);
+    const[OpenErrAlert,setErrAlert]=useState(false)
 
     const handleClick = () => {
         setOpenAlert(true);
     };
+
+    const handleErrOpen=()=>{
+        setErrAlert(true)
+    }
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -54,6 +58,7 @@ const DataPoints = () => {
         }
 
         setOpenAlert(false);
+        setErrAlert(false)
     };
 
 
@@ -108,6 +113,11 @@ const DataPoints = () => {
             fields: [
                 [
                     {
+                        id: 'Regex',
+                        name: "Regex",
+                        type: "text"
+                    },
+                    {
                         id: 'minValue',
                         name: "Min Value",
                         type: "number"
@@ -156,7 +166,7 @@ const DataPoints = () => {
                 {
                     id: 'List Value',
                     name: "value",
-                    type: "text"
+                    type: "file"
                 },
                 {
                     name: "+",
@@ -248,7 +258,7 @@ const DataPoints = () => {
 
         setData({
             ...Data,
-            options: [...Data.options, dataField],
+            options: [ dataField],
         });
         console.log("Options" + Selected);
         console.log(Data);
@@ -267,31 +277,11 @@ const DataPoints = () => {
     const handleSubmit =  async (e) => {
         e.preventDefault()
 
-        try {
-             await axios.post(`/fields`, PostData)
-             .then(res =>{
-                if(res.status===200){
-                    handleClick()
-                    ref.current.value = null
-                    setData({
-                        name: '',
-                        display_name: '',
-                        type: '',
-        
-                        details: {
-        
-                        },
-                    })
-                }
-             })
+       PostApi(PostData,handleClick,setData,ref,handleErrOpen)
             
             console.log(PostData);
 
-          
-        }
-        catch (err) {
-            console.log(err);
-        }
+      
 
     }
 
@@ -387,6 +377,12 @@ const DataPoints = () => {
                 <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenAlert} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                         Field Added
+                    </Alert>
+                </Snackbar>
+
+                <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={OpenErrAlert} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                        Something went wrong!!!
                     </Alert>
                 </Snackbar>
 
