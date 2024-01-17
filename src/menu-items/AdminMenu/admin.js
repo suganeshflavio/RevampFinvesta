@@ -1,12 +1,14 @@
 // assets
-import { IconUsers, IconFileStack, IconSubtask, IconShield } from '@tabler/icons';
+import { IconUsers, IconFileStack, IconSubtask, IconPlaylistAdd, IconUserSearch, IconFileDatabase } from '@tabler/icons';
 
 // constant
 const icons = {
   IconFileStack,
   IconSubtask,
   IconUsers,
-  IconShield
+  IconPlaylistAdd,
+  IconUserSearch,
+  IconFileDatabase
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -37,7 +39,7 @@ const AdminUtils = {
       title: 'Access Management',
       type: 'item',
       url: '/Admin/AccessManagement',
-      icon: icons.IconShield,
+      icon: icons.IconPlaylistAdd,
       breadcrumbs: false
     },
     {
@@ -49,11 +51,19 @@ const AdminUtils = {
       breadcrumbs: false
     },
     {
+      id: 'View groups',
+      title: 'View Groups',
+      type: 'item',
+      url: '/Admin/ViewGroup',
+      icon: icons.IconUserSearch,
+      breadcrumbs: false
+    },
+    {
       id: 'View add points',
       title: 'View Add Points',
       type: 'item',
       url: '/Admin/ViewDatapoints',
-      icon: icons.IconUsers,
+      icon: icons.IconFileDatabase,
       breadcrumbs: false
     },
 

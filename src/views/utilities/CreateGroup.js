@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import SubCard from 'ui-component/cards/SubCard';
 import { Grid, TextField, Button, Snackbar } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 function CreateGroup() {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
   const columns = [
     { field: 'id', headerName: 'Sno', width: 70 },
     { field: 'firstName', headerName: 'First name', width: 130 },
@@ -66,7 +66,7 @@ function CreateGroup() {
         </Grid>
         {/* <Grid item xl={4} ml={1} sx={{ display: 'flex', alignItems: 'center' }}>
           <Button variant="outlined" color="secondary" onClick={handleClick}>
-            View Group
+            Create Group
           </Button>
         </Grid> */}
         <Grid item xl={12} mt={2}>
@@ -84,7 +84,7 @@ function CreateGroup() {
         </Grid>
         <Grid container xl={12} justifyContent="flex-end">
           <Grid item xl={2} mt={1} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button
+            {/* <Button
               variant="outlined"
               color="secondary"
               onClick={() => {
@@ -92,9 +92,9 @@ function CreateGroup() {
               }}
             >
               view Group
-            </Button>
+            </Button> */}
             <Button variant="contained" color="secondary" onClick={handleClick}>
-              Create
+              Create group
             </Button>
           </Grid>
         </Grid>
