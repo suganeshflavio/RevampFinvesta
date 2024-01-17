@@ -25,11 +25,11 @@ const DataPoints = () => {
     name: '',
     display_name: '',
     type: '',
-
+    options:[   ],
     details: {}
   });
 
-  console.log(Data);
+  //console.log(Data);
 
   const [OpenAlert, setOpenAlert] = useState(false);
   const [OpenErrAlert, setErrAlert] = useState(false);
@@ -71,8 +71,9 @@ const DataPoints = () => {
 
     // }
 
-    console.log(filteredObject);
-  };
+        //console.log(filteredObject);
+    }
+
 
   const dataType = [
     {
@@ -233,42 +234,60 @@ const DataPoints = () => {
       Displayname: '',
       type: ''
     };
-    console.log(Selected);
+    //console.log(Selected);
 
     setSelected([...Selected, obj]);
 
-    setData({
-      ...Data,
-      options: [dataField]
-    });
-    console.log('Options' + Selected);
-    console.log(Data);
-  };
+        setData({
+            ...Data,
+            options: [ ...Data.options,dataField],
+        });
+        //console.log("Options" + Selected);
+        //console.log(Data);
+    }
 
   // // delete
   const handleDelete = (index) => {
-    let data = [...Selected];
+    let data = [...Selected.slice(0, index), ...Selected.slice(index + 1)];
+    let mainData=[...Data.options.slice(0,index),...Data.options.slice(index+1)]
+    console.log("maindata",mainData);
+    setData({...Data,options:mainData})
 
-    data.splice(index, 1);
     setSelected(data);
-    console.log(data);
+   // console.log(Selected);
+    // setPostData(...PostData,options=[...PostData.options.slice(0, index),...PostData.options.slice(index + 1)])
+    //console.log(data);
   };
+
+  useEffect(()=>{
+    console.log(Selected);
+    console.log(Data);
+  },[Data])
+
+  useEffect(()=>{
+    console.log(Selected);
+    console.log(Data);
+  },[Data])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    PostApi(PostData, handleClick, setData, ref, handleErrOpen);
+       PostApi(PostData,handleClick,setData,ref,handleErrOpen)
 
-    console.log(PostData);
-  };
+            console.log(PostData);
+
+
+
+    }
+
 
   const handleChange = (event) => {
     setSelected(dataType[event.target.value].fields);
   };
-  console.log(Selected);
+  //console.log(Selected);
 
   const handleDataChange = (id, data, index) => {
-    console.log(index, +' ' + id);
+    //console.log(index, +' ' + id);
     if (id === 'Name') {
       setData({ ...Data, name: data });
     }
@@ -333,22 +352,25 @@ const DataPoints = () => {
       });
     }
     if (id === 'optionDisplayName' && index !== null) {
-      console.log(index);
+      //console.log(index);
       setData((prevData) => {
+        console.log(prevData);
         const updatedOptions = [...prevData.options];
+        //console.log(updatedOptions);
         updatedOptions[index] = { ...updatedOptions[index], Displayname: data };
         return { ...prevData, options: updatedOptions };
       });
     }
     if (id === 'optionValue' && index !== null) {
-      console.log(index);
+      //console.log(index);
       setData((prevData) => {
+        console.log(prevData);
         const updatedOptions = [...prevData.options];
         updatedOptions[index] = { ...updatedOptions[index], type: data };
         return { ...prevData, options: updatedOptions };
       });
     }
-    // console.log(Data);
+    // //console.log(Data);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -437,6 +459,7 @@ const DataPoints = () => {
                     <TextField
                       key={subItem.id}
                       size="large"
+
                       label={subItem.name || ''}
                       fullWidth
                       sx={{ display: subItem.type === 'button' ? 'none' : 'block', mt: 2 }}

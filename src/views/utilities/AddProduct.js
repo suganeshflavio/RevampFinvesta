@@ -21,10 +21,12 @@ const AddProduct = () => {
   const [cellModesModel, setCellModesModel] = useState({});
   const [Data, setData] = useState({
     id: '',
-    field: '',
+    name: '',
     type: '',
+    
     required: ''
   });
+  // const[getData,setGetData]=useState([])
   const dataref = useRef();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,6 +44,8 @@ const AddProduct = () => {
     display_name: '',
     fields: ''
   });
+
+ 
 
   const handleCellEditStop = React.useCallback((params, event) => {
     event.defaultMuiPrevented = true;
@@ -178,7 +182,8 @@ const AddProduct = () => {
   const handleChange = (type, value) => {
     if (type === 'field') {
       console.log(value);
-      setData({ ...Data, field: value.label, type: value.type, id: value.id });
+      console.log(value.name);
+      setData({ ...Data, name: value.name, type: value.type, _id: value._id ,display_name:value.display_name});
       console.log(Data);
     } else {
       console.log(value);
@@ -211,10 +216,10 @@ const AddProduct = () => {
     e.preventDefault();
     const updataedData = [...post, Data];
 
-    setTableRows([...TableRows, createData(Data.field, Data.type, Data.required, 'x')]);
+    setTableRows([...TableRows, createData(Data.name, Data.type, Data.required, 'x')]);
     console.log(TableRows);
 
-    setData({ ...Data, field: '', type: '', required: '' });
+    setData({ ...Data, name: '', type: '', required: '' });
     dataref.current.value = null;
 
     setPost(updataedData);
@@ -225,6 +230,9 @@ const AddProduct = () => {
   useEffect(() => {
     setPostData({ ...PostData, fields: post });
   }, [PostData, post]);
+
+
+  
 
   return (
     <SubCard title="Add Product">
