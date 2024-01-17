@@ -17,8 +17,8 @@ const LogoSection = () => {
   return (
     <ButtonBase disableRipple onClick={() => dispatch({ type: MENU_OPEN, id: defaultId })} component={Link} to={config.defaultPath}>
       {/* <Logo /> */}
-      <Typography variant="h3">
-      Finvesta</Typography>
+      <Typography variant="h3" align='center'>
+      Network <br></br>Manager</Typography>
     </ButtonBase>
   );
 };
