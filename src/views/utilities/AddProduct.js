@@ -248,6 +248,7 @@ const AddProduct = () => {
         setData={setData}
         dataref={dataref}
         TableRows={TableRows}
+        setTableRows={setTableRows}
       />
 
       {/* End of add field modal */}

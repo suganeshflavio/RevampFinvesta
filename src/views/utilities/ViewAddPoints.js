@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { getApi } from 'API/MDM/apis';
+import { deleteAPI, getApi } from 'API/MDM/apis';
 import { CircularProgress, Typography, Button } from '@mui/material';
 import { Stack } from '@mui/system';
 import { FaPen ,FaTrash} from 'react-icons/fa';
 import EditModal from './Components/ViewMDM/EditModal';
+import SubCard from 'ui-component/cards/SubCard';
 
 // const ro.ws = [
 //   {id:1, type: 1, displayname: 'Snow', name: 'Jon', Unique: true },
@@ -23,12 +24,15 @@ export default function ViewAddPoints() {
   const [data, setData] = useState([]);
   const [unique, setUnique] = useState([]);
   const [Error, setError] = useState(false);
+  const[id, setId] = useState("")
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () =>{ 
+    setOpen(false) 
+     getApi(setData, setError);};
 
-
+// console.log(id);
 
 
   useEffect(() => {
@@ -54,10 +58,12 @@ export default function ViewAddPoints() {
       sortable: false,
       renderCell: ({ row }) => (
         <Stack direction='row'>
-          <Button color="secondary" onClick={() => handleOpen()}>
+          <Button color="secondary" onClick={() => {
+          handleOpen()
+          setId(row._id)}}>
             <FaPen />
           </Button>
-          <Button color="error" onClick={() => yourActionFunction(row)}>
+          <Button color="error" onClick={() => deleteAPI(row._id,getApi,setData,setError)}>
             <FaTrash />
           </Button>
         </Stack>
@@ -68,8 +74,9 @@ export default function ViewAddPoints() {
   
 
   return (
+    <SubCard title="MDM Data">
     <div style={{ height: 550, wTypeth: '100%' }}>
-      <EditModal open={open} handleClose={handleClose} />
+      <EditModal open={open} handleClose={handleClose} id={id}/>
       {data.length > 0 ? (
         <DataGrid
           rows={data[0]}
@@ -91,5 +98,6 @@ export default function ViewAddPoints() {
         <p>Some thing went wrong!!!</p>
       )}
     </div>
+    </SubCard>
   );
 }

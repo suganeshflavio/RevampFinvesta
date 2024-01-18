@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +20,7 @@ import { IconTrash } from '@tabler/icons';
 import { getApi } from 'API/MDM/apis';
 
 // eslint-disable-next-line react/prop-types
-const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handleClose, Data, dataref, TableRows }) => {
+const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handleClose, Data, dataref, TableRows ,setTableRows}) => {
   // const top100Films = [
   //   { id: 1, label: 'Name', type: 'Text' },
   //   { id: 2, label: 'Email', type: 'email' },
@@ -31,13 +31,33 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
   //   { id: 7, label: 'Age', type: 'text' }
   // ];
 
+  const [MdmData, setMDMData] = useState([]);
 
-  const[MdmData,setMDMData]=useState([])
-
-  useEffect(()=>{
-    getApi(setMDMData)
-  },[])
+  useEffect(() => {
+    getApi(setMDMData);
+  }, []);
   // console.log(MdmData);
+
+
+  const handleDragStart = (index) => (e) => {
+    e.dataTransfer.setData('text/plain', index.toString());
+  };
+
+  const handleDragOver = () => (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (index) => (e) => {
+    e.preventDefault();
+    const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+
+    // Swap the items at the dragged index and the drop index
+    const newItems = [...TableRows];
+    [newItems[index], newItems[draggedIndex]] = [newItems[draggedIndex], newItems[index]];
+
+    // Update the state with the new order of items
+    setTableRows(newItems);
+  };
 
   const style = {
     position: 'absolute',
@@ -72,56 +92,57 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
           <CloseIcon />
         </IconButton>
         <Grid container xl={12} mt={2} justifyContent="space-between">
-        {MdmData.length>0?
-          <Grid item xl={4} md={12} xs={12}>
-           <Autocomplete
-              value={Data.name||""}
-              ref={dataref}
-              disablePortal
-              id="combo-box-demo"
-              options={MdmData[0]}
-              getOptionSelected={(option, value) => option === value}
-              getOptionLabel={(option) => {
-                if (typeof option === 'string') {
-                  return option;
-                }
-                if (option.inputValue) {
-                  return option.inputValue;
-                }
-                if(option ===""){
-                  return ""
-                }
-                return option.name;
-              }}
-              renderInput={(params) => <TextField {...params} label="Field" />}
-              fullWidth
-              onChange={(event, newValue) => {
-                handleChange('field', newValue);
-              }}
-            />
-            <FormControl sx={{ mt: 2, minWidth: '100%' }} size="large">
-              <InputLabel id="demo-select-label">Mandatory</InputLabel>
-              <Select
-                value={Data.required}
+          {MdmData.length > 0 ? (
+            <Grid item xl={4} md={12} xs={12}>
+              <Autocomplete
+                value={Data.name || ''}
                 ref={dataref}
-                labelId="demo-select-label"
-                id="demo-select"
-                label="Mandatory"
-                onChange={(e) => handleChange('mandatory', e.target.value)}
-              >
-                <MenuItem value={true}>Yes</MenuItem>
+                disablePortal
+                id="combo-box-demo"
+                options={MdmData[0]}
+                getOptionSelected={(option, value) => option === value}
+                getOptionLabel={(option) => {
+                  if (typeof option === 'string') {
+                    return option;
+                  }
+                  if (option.inputValue) {
+                    return option.inputValue;
+                  }
+                  if (option === '') {
+                    return '';
+                  }
+                  return option.name;
+                }}
+                renderInput={(params) => <TextField {...params} label="Field" />}
+                fullWidth
+                onChange={(event, newValue) => {
+                  handleChange('field', newValue);
+                }}
+              />
+              <FormControl sx={{ mt: 2, minWidth: '100%' }} size="large">
+                <InputLabel id="demo-select-label">Mandatory</InputLabel>
+                <Select
+                  value={Data.required}
+                  ref={dataref}
+                  labelId="demo-select-label"
+                  id="demo-select"
+                  label="Mandatory"
+                  onChange={(e) => handleChange('mandatory', e.target.value)}
+                >
+                  <MenuItem value={true}>Yes</MenuItem>
 
-                <MenuItem value={false}>No</MenuItem>
-              </Select>
-            </FormControl>
-            <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2 }} onClick={handleAddData}>
-              Add
-            </Button>
-             
-          </Grid>
-          :<p>Loading.....</p>}
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+              <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2 }} onClick={handleAddData}>
+                Add
+              </Button>
+            </Grid>
+          ) : (
+            <p>Loading.....</p>
+          )}
           <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
-            <TableContainer component={Paper} sx={{ height: {xl:400,sm:280,xs:280}, overflowY: 'scroll' }}>
+            <TableContainer component={Paper} sx={{ height: { xl: 400, sm: 280, xs: 280 }, overflowY: 'scroll' }}>
               <Table sx={{ minWidth: 600 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -133,8 +154,15 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
                 </TableHead>
                 <TableBody>
                   {TableRows.map((row, index) => (
-                    <TableRow draggable onDrag={null} key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell  component="th" scope="row">
+                    <TableRow
+                      draggable
+                      onDragStart={handleDragStart(index)}
+                      onDragOver={handleDragOver(index)}
+                      onDrop={handleDrop(index)}
+                      key={row.name}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } ,cursor: 'pointer'}}
+                    >
+                      <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.type}</TableCell>
