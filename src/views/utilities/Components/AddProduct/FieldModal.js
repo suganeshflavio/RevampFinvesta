@@ -5,9 +5,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Grid, Button, TextField, Typography,CircularProgress } from '@mui/material';
 import Box from '@mui/material/Box';
-import { Grid, Button, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconTrash } from '@tabler/icons';
@@ -133,11 +132,17 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
             </Button>
 
           </Grid>
-          :<p>Loading.....</p>}
+          )
+          :
+          (
+        <Stack alignItems="center" justifyContent="center" height="50vh">
+          <CircularProgress />
+          <Typography color="grey">Loading....</Typography>
+        </Stack>          )}
           <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
             <TableContainer component={Paper} sx={{ height: { xl: 400, sm: 280, xs: 280 }, overflowY: 'scroll' }}>
               <Table sx={{ minWidth: 600 }} aria-label="simple table">
-                <TableHead>
+                <TableHead >
                   <TableRow>
                     <TableCell>Field</TableCell>
                     <TableCell align="right">Type</TableCell>
@@ -153,7 +158,7 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
                       onDragOver={handleDragOver(index)}
                       onDrop={handleDrop(index)}
                       key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } ,cursor: 'pointer'}}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } ,cursor: 'grabbing'}}
                     >
                       <TableCell component="th" scope="row">
                         {row.name}
