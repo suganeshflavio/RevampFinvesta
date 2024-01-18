@@ -95,7 +95,9 @@ export default function ViewAddPoints() {
           <Typography color="grey">Loading....</Typography>
         </Stack>
       ) : (
-        <p>Some thing went wrong!!!</p>
+        <Stack alignItems="center" justifyContent="center" height="50vh">
+        <h4 style={{color:'red'}}>Some thing went wrong!!!</h4>
+        </Stack>
       )}
     </div>
     </SubCard>
