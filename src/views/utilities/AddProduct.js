@@ -23,7 +23,6 @@ const AddProduct = () => {
     id: '',
     name: '',
     type: '',
-    
     required: ''
   });
   // const[getData,setGetData]=useState([])
@@ -44,8 +43,6 @@ const AddProduct = () => {
     display_name: '',
     fields: ''
   });
-
- 
 
   const handleCellEditStop = React.useCallback((params, event) => {
     event.defaultMuiPrevented = true;
@@ -232,12 +229,11 @@ const AddProduct = () => {
   }, [PostData, post]);
 
 
-  
+
 
   return (
     <SubCard title="Add Product">
       {/* Add field modal */}
-
       <FieldModal
         open={open}
         handleChange={handleChange}
@@ -249,7 +245,6 @@ const AddProduct = () => {
         dataref={dataref}
         TableRows={TableRows}
       />
-
       {/* End of add field modal */}
 
       <Grid container xl={12}>
