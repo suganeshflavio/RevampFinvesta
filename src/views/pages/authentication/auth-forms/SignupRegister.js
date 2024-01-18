@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
@@ -25,14 +25,15 @@ import {
   // InputLabel,
   // OutlinedInput,
   TextField,
-  Typography,
+  Typography
   // useMediaQuery
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import Webcam from "react-webcam";
+import Webcam from 'react-webcam';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -58,75 +59,92 @@ const FirebaseRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
-    
-    // image upload dialog section
-    const [open, setOpen] = useState(false);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-      // setClicked(true)
-    };
-    
-    // webcam ui
-      const [clicked, setClicked] = useState(false);
-    
-      const onWebcam = () => {
-        setClicked(true);
-    
-      };
-    
-      const videoConstraints = {
-        width: 700,
-        height:1000,
-        facingMode: "environment"
-      };
-      
-      const webcamRef = useRef(null);
-      const [url, setUrl] = useState(null);
-    
-      const capturePhoto = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setUrl(imageSrc);
-        handleClose()
-        setClicked(false)
-    
-      }, [webcamRef]);
-    
-      const onUserMedia = (e) => {
-        console.log(e);
-        setClicked(true)
-      };
-  
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
+
+  // image upload dialog section
+  const [open, setOpen] = useState(false);
+  const [isCameraAvailable, setIsCameraAvailable] = useState(true);
+
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    // setClicked(true)
+  };
+
+  // webcam ui
+  const [clicked, setClicked] = useState(false);
+
+  const onWebcam = () => {
+    setClicked(true);
+  };
+
+  const videoConstraints = {
+    width: 700,
+    height: 1000,
+    facingMode: 'environment'
+  };
+
+  const webcamRef = useRef(null);
+  const [url, setUrl] = useState(null);
+
+  const capturePhoto = useCallback(async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setUrl(imageSrc);
+    handleClose();
+    setClicked(false);
+  }, [webcamRef]);
+
+  const onUserMedia = (e) => {
+    console.log(e);
+    setClicked(true);
+  };
+
   const fileInputRef = useRef(null);
-  
+
   const handleButtonClick = () => {
     // Trigger the file input when the button is clicked
     fileInputRef.current.click();
   };
 
+  //webcam validation
+  useEffect(() => {
+    const checkUserMedia = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        setIsCameraAvailable(true);
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+        setIsCameraAvailable(false);
+      }
+    };
+
+    checkUserMedia();
+  }, []);
+
   const handleFileChange = (e) => {
     // Handle the selected file here, you can upload it to a server or process it in some way
-    const selectedFile = (e.target.files[0]);
+    const selectedFile = e.target.files[0];
     console.log('Selected File:', selectedFile);
-    setUrl(selectedFile)
+    setUrl(selectedFile);
     setOpen(false);
-
   };
 
-// security question
+  // security question
   // const status = [
   //   {
   //     value: 'all',
@@ -211,7 +229,7 @@ const FirebaseRegister = ({ ...others }) => {
           //  touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={8}>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
@@ -341,29 +359,35 @@ const FirebaseRegister = ({ ...others }) => {
                 <Grid item xs={3} sm={3}>
                   <Grid container direction="column" spacing={1}>
                     <Box sx={{ m: 2 }}>
-                      <Typography variant="h4" width="100px">Upload Photo</Typography>
+                      <Typography variant="h4" width="100px">
+                        Upload Photo
+                      </Typography>
                     </Box>
                   </Grid>
                   <Box
                     sx={{
                       // display: 'flex',
                       // justifyContent: 'space-around',
-                      cursor:"pointer",
-                        width: 128,
-                        // height: 128
+                      cursor: 'pointer',
+                      width: 128
+                      // height: 128
                       // '& > :not(style)': {
                       //   m: 1,
                       // }
                     }}
                   >
-                    <Paper elevation={0} sx={{ bgcolor: url ? '#ffff' : "#AD9FD6", objectFit:"cover", overflow:"hidden"}} onClick={handleClickOpen}>
-                      <img id="file-input" alt="ImageUpload" src={url?url:Upload?Upload:url} width="100%"/>
+                    <Paper
+                      elevation={0}
+                      sx={{ bgcolor: url ? '#ffff' : '#AD9FD6', objectFit: 'cover', overflow: 'hidden' }}
+                      onClick={handleClickOpen}
+                    >
+                      <img id="file-input" alt="ImageUpload" src={url ? url : Upload ? Upload : url} width="100%" />
                     </Paper>
                   </Box>
                 </Grid>
               </Grid>
             </Stack>
-            <Grid item sm={6} xs={6} >
+            <Grid item sm={6} xs={6}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
@@ -374,8 +398,8 @@ const FirebaseRegister = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() =>{
-                      window.location.href="dashboard/default"
+                    onClick={() => {
+                      window.location.href = 'dashboard/default';
                     }}
                   >
                     Next
@@ -388,55 +412,55 @@ const FirebaseRegister = ({ ...others }) => {
       </Formik>
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
-        {
-        clicked ? 
-        (
+        {clicked ? (
           <>
-      <Webcam
-       ref={webcamRef}
-       audio={true}
-       screenshotFormat="image/jpeg"
-       videoConstraints={videoConstraints}
-       onUserMedia={onUserMedia}
-     />
-     <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
-     <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
-     <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
-     </Grid>
-     {/* {url && (
+            {isCameraAvailable ? (
+              <Webcam
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                onUserMedia={onUserMedia}
+              />
+            ) : (
+              <Alert severity="error" sx={{ m: 2 }}>
+                Camera access denied, Please enable the access.
+              </Alert>
+            )}
+            <Grid item m={2} sx={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Button variant="contained" color="secondary" onClick={capturePhoto}>
+                Capture
+              </Button>
+              <Button variant="contained" color="secondary" onClick={() => setUrl(null)}>
+                Refresh
+              </Button>
+            </Grid>
+            {/* {url && (
        <div>
          <img src={url} alt="Screenshot" />
        </div>
      )}  */}
-     </>
-     )
-       :
-      //  webcam access
-       (
-        <>
-         <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
-          <FiUserPlus style={{ fontSize: '3rem' }} />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
-            Upload
-          </Button>
-          <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-          <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
-            Capture
-          </Button>
-        </DialogActions>
-        </>
-        )
-     }
+          </>
+        ) : (
+          //  webcam access
+          <>
+            <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
+              <FiUserPlus style={{ fontSize: '3rem' }} />
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
+                Upload
+              </Button>
+              <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+              <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
+                Capture
+              </Button>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </>
   );
