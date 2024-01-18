@@ -117,7 +117,7 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
             <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2 }} onClick={handleAddData}>
               Add
             </Button>
-             
+
           </Grid>
           :<p>Loading.....</p>}
           <Grid item xl={6} md={12} xs={12} sx={{ mt: { xl: 0, xs: 1 } }}>
@@ -139,7 +139,7 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
                       </TableCell>
                       <TableCell align="right">{row.type}</TableCell>
                       <TableCell align="right">{row.required === true ? 'true' : 'false'}</TableCell>
-                      <TableCell align="right" onClick={() => deleteAddedData(index)} sx={{ color: 'red' }}>
+                      <TableCell align="right" onClick={() => deleteAddedData(index)} sx={{ color: 'red', cursor:"pointer" }}>
                         {<IconTrash />}
                       </TableCell>
                     </TableRow>
