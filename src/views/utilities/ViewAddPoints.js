@@ -30,7 +30,8 @@ export default function ViewAddPoints() {
   const handleOpen = () => setOpen(true);
   const handleClose = () =>{ 
     setOpen(false) 
-     getApi(setData, setError);};
+     getApi(setData, setError);
+    };
 
 // console.log(id);
 

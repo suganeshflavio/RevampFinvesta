@@ -20,7 +20,7 @@ import { IconTrash } from '@tabler/icons';
 import { getApi } from 'API/MDM/apis';
 
 // eslint-disable-next-line react/prop-types
-const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handleClose, Data, dataref, TableRows ,setTableRows}) => {
+const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handleClose, Data, dataref, TableRows ,setTableRows,Error,setError}) => {
   // const top100Films = [
   //   { id: 1, label: 'Name', type: 'Text' },
   //   { id: 2, label: 'Email', type: 'email' },
@@ -34,7 +34,8 @@ const FieldModal = ({ open, handleChange, deleteAddedData, handleAddData, handle
   const [MdmData, setMDMData] = useState([]);
 
   useEffect(() => {
-    getApi(setMDMData);
+    getApi(setMDMData,setError);
+    console.log(Error);
   }, []);
   // console.log(MdmData);
 
