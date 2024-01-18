@@ -1,12 +1,13 @@
 // assets
-import { IconUsers, IconFileStack, IconSubtask, IconShield } from '@tabler/icons';
+import { IconUsers, IconFileStack, IconSubtask, IconShield,IconDatabase } from '@tabler/icons';
 
 // constant
 const icons = {
   IconFileStack,
   IconSubtask,
   IconUsers,
-  IconShield
+  IconShield,
+  IconDatabase
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -53,7 +54,7 @@ const AdminUtils = {
       title: 'View Add Points',
       type: 'item',
       url: '/Admin/ViewDatapoints',
-      icon: icons.IconUsers,
+      icon: icons.IconDatabase,
       breadcrumbs: false
     },
 

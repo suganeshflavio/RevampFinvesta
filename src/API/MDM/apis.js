@@ -41,7 +41,7 @@ const PostApi =  async (PostData,handleClick,setData,ref,handleErrOpen) => {
 
 }
 
-export const getApi= async(setGetData)=>{
+export const getApi= async(setGetData,setError)=>{
     try{
         await axios.get('/fields')
         .then(res=>setGetData([res.data]))
@@ -49,6 +49,7 @@ export const getApi= async(setGetData)=>{
     }
     catch (err) {
         console.log(err);
+        setError(true)
     }
 }
 
