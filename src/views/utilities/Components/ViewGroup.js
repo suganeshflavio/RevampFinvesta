@@ -8,7 +8,6 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -42,7 +41,9 @@ const AccordionSummary = styled((props) => (
     transform: 'rotate(90deg)'
   },
   '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }));
 
@@ -119,11 +120,13 @@ const ViewGroup = () => {
               </Grid>
             </SubCard> */}
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-              <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+              <AccordionSummary
+                aria-controls="panel1d-content"
+                id="panel1d-header"
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
                 <Typography variant="h4">Group Name</Typography>
-                <Stack color="#2196F3">
-                  <IconPencil onClick={handleClickOpen} />
-                </Stack>
+                <IconPencil color="#2196F3" onClick={handleClickOpen} />
               </AccordionSummary>
               <AccordionDetails>
                 <DataGrid
@@ -152,6 +155,7 @@ const ViewGroup = () => {
             <Accordion onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                 <Typography variant="h4">Group Name</Typography>
+                <IconPencil color="#2196F3" onClick={handleClickOpen} />
               </AccordionSummary>
               <AccordionDetails>
                 <DataGrid
@@ -180,6 +184,7 @@ const ViewGroup = () => {
             <Accordion onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                 <Typography variant="h4">Group Name</Typography>
+                <IconPencil color="#2196F3" onClick={handleClickOpen} />
               </AccordionSummary>
               <AccordionDetails>
                 <DataGrid
@@ -208,6 +213,7 @@ const ViewGroup = () => {
             <Accordion onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                 <Typography variant="h4">Group Name</Typography>
+                <IconPencil color="#2196F3" onClick={handleClickOpen} />
               </AccordionSummary>
               <AccordionDetails>
                 <DataGrid
@@ -236,6 +242,7 @@ const ViewGroup = () => {
             <Accordion onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                 <Typography variant="h4">Group Name</Typography>
+                <IconPencil color="#2196F3" onClick={handleClickOpen} />
               </AccordionSummary>
               <AccordionDetails>
                 <DataGrid
@@ -261,7 +268,7 @@ const ViewGroup = () => {
       {/* edit group name */}
       <Dialog
         open={open}
-        onClose={handleClose}
+        // onClose={handleClose}
         PaperProps={{
           component: 'form',
           onSubmit: (event) => {
@@ -274,11 +281,9 @@ const ViewGroup = () => {
           }
         }}
       >
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent >
-          <DialogContentText>
-            To change the group name, please enter the group name here
-          </DialogContentText>
+        <DialogTitle variant='h3'>Edit Group Name</DialogTitle>
+        <DialogContent>
+          <DialogContentText variant='h4'>To change the group name, please enter the group name here</DialogContentText>
           <TextField
             autoFocus
             required
