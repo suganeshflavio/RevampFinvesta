@@ -273,11 +273,18 @@ const DataPoints = () => {
 
     PostApi(PostData, handleClick, setData, ref, handleErrOpen);
 
+    
+
     console.log(PostData);
   };
 
   const handleChange = (event) => {
-    setSelected(dataType[event.target.value].fields);
+    console.log(dataType);
+    const sel=dataType.find(data =>  {
+      return data.type===event
+    })
+    console.log(sel);
+     setSelected(sel.fields);
   };
   //console.log(Selected);
 
@@ -290,7 +297,7 @@ const DataPoints = () => {
       setData({ ...Data, display_name: data });
     }
     if (id === 'type') {
-      setData({ ...Data, type: dataType[data].type});
+      setData({ ...Data, type: data });
     }
     if (id === 'Regex') {
       setData({
@@ -414,13 +421,14 @@ const DataPoints = () => {
                 id="demo-select-small"
                 ref={ref}
                 label="Type"
+                value={Data.type}
                 onChange={(e) => {
                   handleDataChange('type', e.target.value, null);
-                  handleChange(e);
+                  handleChange(e.target.value);
                 }}
               >
                 {dataType.map((item, index) => (
-                  <MenuItem key={index} value={index}>
+                  <MenuItem key={index} value={item.type}>
                     {item.type}
                   </MenuItem>
                 ))}
