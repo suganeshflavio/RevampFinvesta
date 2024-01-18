@@ -61,7 +61,7 @@ const AdminUtils = {
     },
     {
       id: 'View add points',
-      title: 'View Add Points',
+      title: 'View MDM',
       type: 'item',
       url: '/Admin/ViewDatapoints',
       icon: icons.IconDatabase,

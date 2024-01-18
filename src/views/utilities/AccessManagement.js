@@ -160,8 +160,8 @@ const AccessManagement = () => {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Product</TableCell>
-                  <TableCell align="left">Group</TableCell>
+                  <TableCell>Group</TableCell>
+                  <TableCell align="left">Product</TableCell>
                   <TableCell align="left">Field</TableCell>
                   <TableCell align="left">Access Type</TableCell>
                 </TableRow>

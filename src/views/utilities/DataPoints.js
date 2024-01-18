@@ -290,7 +290,7 @@ const DataPoints = () => {
       setData({ ...Data, display_name: data });
     }
     if (id === 'type') {
-      setData({ ...Data, type: dataType[data].type, Regex: '', minLength: '', maxLength: '', minValue: '', maxValue: '' });
+      setData({ ...Data, type: dataType[data].type});
     }
     if (id === 'Regex') {
       setData({
@@ -432,7 +432,7 @@ const DataPoints = () => {
           <FormLabel id="demo-radio-buttons-group-label">Unique</FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="True"
+            
             name="radio-buttons-group"
             row
             onChange={(e) => {
