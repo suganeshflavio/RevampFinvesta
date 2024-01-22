@@ -22,7 +22,7 @@ import {
   // IconButton,
   // InputAdornment,
   InputLabel,
-  OutlinedInput,
+  OutlinedInput
   // TextField,
   // Typography,
   // useMediaQuery
@@ -31,7 +31,7 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import Webcam from "react-webcam";
+import Webcam from 'react-webcam';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -62,52 +62,50 @@ const KycRegister = ({ ...others }) => {
   // const [personName, setPersonName] = React.useState([]);
 
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
 
-    // image upload dialog section
-    const [open, setOpen] = useState(false);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // image upload dialog section
+  const [open, setOpen] = useState(false);
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-    const handleClose = () => {
-      setOpen(false);
-      // setClicked(true)
-    };
+  const handleClose = () => {
+    setOpen(false);
+    // setClicked(true)
+  };
 
-    // webcam ui
-      const [clicked, setClicked] = useState(false);
+  // webcam ui
+  const [clicked, setClicked] = useState(false);
 
-      const onWebcam = () => {
-        setClicked(true);
+  const onWebcam = () => {
+    setClicked(true);
+  };
 
-      };
+  const videoConstraints = {
+    width: 700,
+    height: 1000,
+    facingMode: 'environment'
+  };
 
-      const videoConstraints = {
-        width: 700,
-        height:1000,
-        facingMode: "environment"
-      };
+  const webcamRef = useRef(null);
+  // const [url, setUrl] = useState(null);
 
-      const webcamRef = useRef(null);
-      // const [url, setUrl] = useState(null);
+  const capturePhoto = useCallback(async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setUrl(imageSrc);
+    handleClose();
+    setClicked(false);
+  }, [webcamRef]);
 
-      const capturePhoto = useCallback(async () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        setUrl(imageSrc);
-        handleClose()
-        setClicked(false)
-
-      }, [webcamRef]);
-
-      const onUserMedia = (e) => {
-        console.log(e);
-        setClicked(true)
-      };
+  const onUserMedia = (e) => {
+    console.log(e);
+    setClicked(true);
+  };
 
   const fileInputRef = useRef(null);
 
@@ -118,11 +116,10 @@ const KycRegister = ({ ...others }) => {
 
   const handleFileChange = (e) => {
     // Handle the selected file here, you can upload it to a server or process it in some way
-    const selectedFile = (e.target.files[0]);
+    const selectedFile = e.target.files[0];
     console.log('Selected File:', selectedFile);
-    setUrl(selectedFile)
+    setUrl(selectedFile);
     setOpen(false);
-
   };
 
   // const [strength, setStrength] = useState(0);
@@ -157,8 +154,8 @@ const KycRegister = ({ ...others }) => {
           address: '',
           pincode: '',
           cityorvillage: '',
-          district:'',
-          state:'',
+          district: '',
+          state: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -166,8 +163,7 @@ const KycRegister = ({ ...others }) => {
           pincode: Yup.string().max(6).required('pincode is required'),
           cityorvillage: Yup.string().required('cityorvillage is required'),
           district: Yup.string().required('district is required'),
-          state: Yup.string().required('state is required'),
-
+          state: Yup.string().required('state is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -185,15 +181,9 @@ const KycRegister = ({ ...others }) => {
           }
         }}
       >
-        {({
-          errors,
-          handleBlur, handleChange,
-          handleSubmit,
-          isSubmitting,
-           touched, values
-        }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={12}>
                 {/* <Grid container spacing={1}>
                   <Grid item xs={12} lg={12} md={8} sm={8}>
@@ -258,139 +248,143 @@ const KycRegister = ({ ...others }) => {
                 </Grid> */}
                 {/* Address section end */}
                 <Grid container spacing={1}>
-                <Grid item xs={12} lg={12} md={8} sm={8}>
-                <FormControl fullWidth error={Boolean(touched.address && errors.address)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">House Address&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="text"
-                value={values.address}
-                name="address"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.address && errors.address && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.address}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={4} sm={4}>
-                <FormControl fullWidth error={Boolean(touched.pincode && errors.pincode)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-pincode-register">Pincode&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-pincode-register"
-                type="number"
-                value={values.pincode}
-                name="pincode"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.pincode && errors.pincode && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.pincode}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={4} sm={4}>
-                <FormControl fullWidth error={Boolean(touched.cityorvillage && errors.cityorvillage)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-cityorvillage-register">City/Village&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-cityorvillage-register"
-                type="text"
-                value={values.cityorvillage}
-                name="cityorvillage"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.cityorvillage && errors.cityorvillage && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.cityorvillage}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            </Grid>
-            <Grid container spacing={1}>
-            <Grid item xs={12} lg={6} md={4} sm={4}>
-            <FormControl fullWidth error={Boolean(touched.district && errors.district)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-district-register">District&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-district-register"
-                type="text"
-                value={values.district}
-                name="district"
-                label="district"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                // endAdornment={
-                //   <InputAdornment position="end">
-                //     <IconButton
-                //       aria-label="toggle password visibility"
-                //       onClick={handleClickShowPassword}
-                //       onMouseDown={handleMouseDownPassword}
-                //       edge="end"
-                //       size="large"
-                //     >
-                //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                //     </IconButton>
-                //   </InputAdornment>
-                // }
-                inputProps={{}}
-              />
-              {touched.district && errors.district && (
-                <FormHelperText error id="standard-weight-helper-text-district-register">
-                  {errors.district}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={4} sm={4}>
-            <FormControl fullWidth error={Boolean(touched.state && errors.state)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-state-register">State&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-state-register"
-                type="text"
-                value={values.state}
-                name="state"
-                label="state"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                // endAdornment={
-                //   <InputAdornment position="end">
-                //     <IconButton
-                //       aria-label="toggle password visibility"
-                //       onClick={handleClickShowPassword}
-                //       onMouseDown={handleMouseDownPassword}
-                //       edge="end"
-                //       size="large"
-                //     >
-                //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                //     </IconButton>
-                //   </InputAdornment>
-                // }
-                inputProps={{}}
-              />
-              {touched.state && errors.state && (
-                <FormHelperText error id="standard-weight-helper-text-state-register">
-                  {errors.state}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            </Grid>
-            {/* {strength !== 0 && (
+                  <Grid item xs={12} lg={12} md={8} sm={8}>
+                    <FormControl fullWidth error={Boolean(touched.address && errors.address)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-email-register">House Address&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-email-register"
+                        type="text"
+                        value={values.address}
+                        name="address"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.address && errors.address && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.address}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <FormControl fullWidth error={Boolean(touched.pincode && errors.pincode)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-pincode-register">Pincode&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-pincode-register"
+                        type="number"
+                        value={values.pincode}
+                        name="pincode"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.pincode && errors.pincode && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.pincode}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <FormControl
+                      fullWidth
+                      error={Boolean(touched.cityorvillage && errors.cityorvillage)}
+                      sx={{ ...theme.typography.customInput }}
+                    >
+                      <InputLabel htmlFor="outlined-adornment-cityorvillage-register">City/Village&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-cityorvillage-register"
+                        type="text"
+                        value={values.cityorvillage}
+                        name="cityorvillage"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.cityorvillage && errors.cityorvillage && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.cityorvillage}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <FormControl fullWidth error={Boolean(touched.district && errors.district)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-district-register">District&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-district-register"
+                        type="text"
+                        value={values.district}
+                        name="district"
+                        label="district"
+                        onBlur={handleBlur}
+                        onChange={(e) => {
+                          handleChange(e);
+                          changePassword(e.target.value);
+                        }}
+                        // endAdornment={
+                        //   <InputAdornment position="end">
+                        //     <IconButton
+                        //       aria-label="toggle password visibility"
+                        //       onClick={handleClickShowPassword}
+                        //       onMouseDown={handleMouseDownPassword}
+                        //       edge="end"
+                        //       size="large"
+                        //     >
+                        //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                        //     </IconButton>
+                        //   </InputAdornment>
+                        // }
+                        inputProps={{}}
+                      />
+                      {touched.district && errors.district && (
+                        <FormHelperText error id="standard-weight-helper-text-district-register">
+                          {errors.district}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                    <FormControl fullWidth error={Boolean(touched.state && errors.state)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-state-register">State&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-state-register"
+                        type="text"
+                        value={values.state}
+                        name="state"
+                        label="state"
+                        onBlur={handleBlur}
+                        onChange={(e) => {
+                          handleChange(e);
+                          changePassword(e.target.value);
+                        }}
+                        // endAdornment={
+                        //   <InputAdornment position="end">
+                        //     <IconButton
+                        //       aria-label="toggle password visibility"
+                        //       onClick={handleClickShowPassword}
+                        //       onMouseDown={handleMouseDownPassword}
+                        //       edge="end"
+                        //       size="large"
+                        //     >
+                        //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                        //     </IconButton>
+                        //   </InputAdornment>
+                        // }
+                        inputProps={{}}
+                      />
+                      {touched.state && errors.state && (
+                        <FormHelperText error id="standard-weight-helper-text-state-register">
+                          {errors.state}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -430,7 +424,7 @@ const KycRegister = ({ ...others }) => {
                 )}
               </Grid>
             </Stack>
-            <Grid item sm={12} xs={12} >
+            <Grid item sm={12} xs={12}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
@@ -455,55 +449,49 @@ const KycRegister = ({ ...others }) => {
       </Formik>
       {/* image upload Dialog start */}
       <Dialog open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
-        {
-        clicked ?
-        (
+        {clicked ? (
           <>
-      <Webcam
-       ref={webcamRef}
-       audio={true}
-       screenshotFormat="image/jpeg"
-       videoConstraints={videoConstraints}
-       onUserMedia={onUserMedia}
-     />
-     <Grid item m={2} sx={{ display: 'flex', justifyContent: "space-around" }}>
-     <Button variant="contained" color='secondary' onClick={capturePhoto}>Capture</Button>
-     <Button variant="contained" color='secondary' onClick={() => setUrl(null)}>Refresh</Button>
-     </Grid>
-     {/* {url && (
+            <Webcam
+              ref={webcamRef}
+              audio={true}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+              onUserMedia={onUserMedia}
+            />
+            <Grid item m={2} sx={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Button variant="contained" color="secondary" onClick={capturePhoto}>
+                Capture
+              </Button>
+              <Button variant="contained" color="secondary" onClick={() => setUrl(null)}>
+                Refresh
+              </Button>
+            </Grid>
+            {/* {url && (
        <div>
          <img src={url} alt="Screenshot" />
        </div>
      )}  */}
-     </>
-     )
-       :
-      //  webcam access
-       (
-        <>
-         <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
-          <FiUserPlus style={{ fontSize: '3rem' }} />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
-            Upload
-          </Button>
-          <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-          <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
-            Capture
-          </Button>
-        </DialogActions>
-        </>
-        )
-     }
+          </>
+        ) : (
+          //  webcam access
+          <>
+            <DialogTitle id="responsive-dialog-title" sx={{ textAlign: 'center' }}>
+              <FiUserPlus style={{ fontSize: '3rem' }} />
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText sx={{ fontSize: '16px' }}>Supported formats: JPEG, JPG, PDF, Word and Max Size 10MB</DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Button autoFocus variant="contained" color="secondary" onClick={handleButtonClick}>
+                Upload
+              </Button>
+              <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+              <Button autoFocus variant="contained" color="secondary" onClick={onWebcam}>
+                Capture
+              </Button>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </>
   );

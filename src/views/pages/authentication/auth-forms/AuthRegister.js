@@ -19,7 +19,7 @@ import {
   // OutlinedInput,
   TextField,
   // TextField,
-  Typography,
+  Typography
 
   // useMediaQuery
 } from '@mui/material';
@@ -48,21 +48,19 @@ const FirebaseRegister = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(true);
-  const [otpState,setotpState]=useState({
-    mobile:'none',
-    email:'none'
-  })
+  const [otpState, setotpState] = useState({
+    mobile: 'none',
+    email: 'none'
+  });
 
-  const handleStateChange=(e)=>{
-    if(e==='Otp'){
-      setotpState({...otpState,mobile:'flex'})
-      console.log(scriptedRef.current.valueOf("phone"));
+  const handleStateChange = (e) => {
+    if (e === 'Otp') {
+      setotpState({ ...otpState, mobile: 'flex' });
+      console.log(scriptedRef.current.valueOf('phone'));
+    } else {
+      setotpState({ ...otpState, email: 'flex' });
     }
-    else{
-      setotpState({...otpState,email:'flex'})
-    }
-  }
-
+  };
 
   // const [strength, setStrength] = useState(0);
   // const [level, setLevel] = useState();
@@ -135,22 +133,24 @@ const FirebaseRegister = ({ ...others }) => {
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
           </Box>
         </Grid> */}
-
       </Grid>
 
       <Formik
         initialValues={{
           email: '',
           phone: '',
-          otp:'',
-          code:'',
+          otp: '',
+          code: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          phone: Yup.string('Must be a number').min(10,'Phone number must have min 10 digit ').max(10,'Phone number must have max 10 digit').required('Phone number is required'),
-          otp:Yup.string().required('Otp is required'),
-          code:Yup.string().required('Code is required')
+          phone: Yup.string('Must be a number')
+            .min(10, 'Phone number must have min 10 digit ')
+            .max(10, 'Phone number must have max 10 digit')
+            .required('Phone number is required'),
+          otp: Yup.string().required('Otp is required'),
+          code: Yup.string().required('Code is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -168,7 +168,7 @@ const FirebaseRegister = ({ ...others }) => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values}) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             {/* <Grid container spacing={matchDownSM ? 0 : 2}>
               <Grid item xs={12} sm={6}>
@@ -194,121 +194,114 @@ const FirebaseRegister = ({ ...others }) => {
                 />
               </Grid>
             </Grid> */}
-              <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} sx={{marginTop:'25px'}}>
-                {/* <InputLabel htmlFor="outlined-adornment-email-register">Mobile Number</InputLabel> */}
-                <TextField
-                  error={touched.phone&&errors.phone}
-                  id="outlined-error"
-                  type="text"
-                  label='Mobile Number&#42;'
-                  value={values.phone}
-                  size='small'
-                  name="phone"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-
-                  inputProps={{}}
-
-                />
-                {touched.phone && errors.phone && (
-                  <FormHelperText error id="standard-weight-helper-text--register">
-                    {errors.phone}
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-              <Stack direction='row'>
-                <Box width='100%'>
-
-                </Box>
-                <Box width='100%' display='flex' flexDirection='row' alignItems='end' >
-                  <div style={{width:'50%'}}></div>
-                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('Otp')}>Send Otp</Button>
-                </Box>
-              </Stack>
-
-              <FormControl  fullWidth error={Boolean(touched.otp && errors.otp)} sx={{marginBottom:'30px',display:otpState.mobile}}>
-                <TextField
-                  error={errors.otp&&touched.otp}
-                  id="outlined-error"
-                  type='text'
-                  size='small'
-                  value={values.otp}
-                  name="otp"
-                  label="Otp&#42;"
-                  onBlur={handleBlur}
-                  onChange={(e) => {
-                    handleChange(e);
-                  }}
-
-                  inputProps={{}}
-                />
-                {touched.otp && errors.otp && (
-                  <FormHelperText error id="standard-weight-helper-text-password-register">
-                    {errors.otp}
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-              <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
-                {/* <InputLabel htmlFor="outlined-adornment-password-register">Email</InputLabel> */}
-                <TextField
-                error={errors.email&&touched.email}
+            <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} sx={{ marginTop: '25px' }}>
+              {/* <InputLabel htmlFor="outlined-adornment-email-register">Mobile Number</InputLabel> */}
+              <TextField
+                error={touched.phone && errors.phone}
                 id="outlined-error"
-                  type='email'
-                  value={values.email}
-                  name="email"
-                  size='small'
-                  label="Email&#42;"
-                  onBlur={handleBlur}
-                  onChange={(e) => {
-                    handleChange(e);
-                    changePassword(e.target.value);
-                  }}
+                type="text"
+                label="Mobile Number&#42;"
+                value={values.phone}
+                size="small"
+                name="phone"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {touched.phone && errors.phone && (
+                <FormHelperText error id="standard-weight-helper-text--register">
+                  {errors.phone}
+                </FormHelperText>
+              )}
+            </FormControl>
 
-                  inputProps={{}}
-                />
-                {touched.email && errors.email && (
-                  <FormHelperText error id="standard-weight-helper-text-password-register">
-                    {errors.email}
-                  </FormHelperText>
-                )}
-              </FormControl>
+            <Stack direction="row">
+              <Box width="100%"></Box>
+              <Box width="100%" display="flex" flexDirection="row" alignItems="end">
+                <div style={{ width: '50%' }}></div>
+                <Button variant="text" size="small" sx={{ width: '50%', marginBlock: '3px' }} onClick={() => handleStateChange('Otp')}>
+                  Send Otp
+                </Button>
+              </Box>
+            </Stack>
 
-              <Stack direction='row'>
-                <Box width={{xl:'100%',xs:'30%'}}>
+            <FormControl fullWidth error={Boolean(touched.otp && errors.otp)} sx={{ marginBottom: '30px', display: otpState.mobile }}>
+              <TextField
+                error={errors.otp && touched.otp}
+                id="outlined-error"
+                type="text"
+                size="small"
+                value={values.otp}
+                name="otp"
+                label="Otp&#42;"
+                onBlur={handleBlur}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                inputProps={{}}
+              />
+              {touched.otp && errors.otp && (
+                <FormHelperText error id="standard-weight-helper-text-password-register">
+                  {errors.otp}
+                </FormHelperText>
+              )}
+            </FormControl>
 
-                </Box>
-                <Box width={{xl:'100%',xs:'70%'}} display='flex' flexDirection='row' alignItems='end' >
-                  <div style={{width:'50%'}}></div>
-                    <Button variant='text' size='small' sx={{width:'50%',marginBlock:'3px'}} onClick={()=>handleStateChange('email')}>Send Code</Button>
-                </Box>
-              </Stack>
+            <FormControl fullWidth error={Boolean(touched.email && errors.email)}>
+              {/* <InputLabel htmlFor="outlined-adornment-password-register">Email</InputLabel> */}
+              <TextField
+                error={errors.email && touched.email}
+                id="outlined-error"
+                type="email"
+                value={values.email}
+                name="email"
+                size="small"
+                label="Email&#42;"
+                onBlur={handleBlur}
+                onChange={(e) => {
+                  handleChange(e);
+                  changePassword(e.target.value);
+                }}
+                inputProps={{}}
+              />
+              {touched.email && errors.email && (
+                <FormHelperText error id="standard-weight-helper-text-password-register">
+                  {errors.email}
+                </FormHelperText>
+              )}
+            </FormControl>
 
-              <FormControl fullWidth error={Boolean(touched.code && errors.code)} sx={{display:otpState.email}}>
-                <TextField
-                  error={errors.code&&touched.code}
-                  id="outlined-error"
-                  type='text'
-                  value={values.code}
-                  name="code"
-                  size='small'
-                  label="code&#42;"
-                  onBlur={handleBlur}
-                  onChange={(e) => {
-                    handleChange(e);
+            <Stack direction="row">
+              <Box width={{ xl: '100%', xs: '30%' }}></Box>
+              <Box width={{ xl: '100%', xs: '70%' }} display="flex" flexDirection="row" alignItems="end">
+                <div style={{ width: '50%' }}></div>
+                <Button variant="text" size="small" sx={{ width: '50%', marginBlock: '3px' }} onClick={() => handleStateChange('email')}>
+                  Send Code
+                </Button>
+              </Box>
+            </Stack>
 
-                  }}
-
-                  inputProps={{}}
-                />
-                {touched.code && errors.code && (
-                  <FormHelperText error id="standard-weight-helper-text-password-register">
-                    {errors.code}
-                  </FormHelperText>
-                )}
-              </FormControl>
-
+            <FormControl fullWidth error={Boolean(touched.code && errors.code)} sx={{ display: otpState.email }}>
+              <TextField
+                error={errors.code && touched.code}
+                id="outlined-error"
+                type="text"
+                value={values.code}
+                name="code"
+                size="small"
+                label="code&#42;"
+                onBlur={handleBlur}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                inputProps={{}}
+              />
+              {touched.code && errors.code && (
+                <FormHelperText error id="standard-weight-helper-text-password-register">
+                  {errors.code}
+                </FormHelperText>
+              )}
+            </FormControl>
 
             {/* {strength !== 0 && (
               <FormControl fullWidth>

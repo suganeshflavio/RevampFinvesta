@@ -198,8 +198,7 @@ const FirebaseRegister = ({ ...others }) => {
         initialValues={{
           Aadhar: '',
           Pan: '',
-          submit: null,
-
+          submit: null
         }}
         validationSchema={Yup.object().shape({
           Aadhar: Yup.string().max(255).required('Aadhar is required'),
@@ -221,13 +220,7 @@ const FirebaseRegister = ({ ...others }) => {
           }
         }}
       >
-        {({
-          errors,
-          handleBlur, handleChange,
-          handleSubmit,
-          isSubmitting,
-           touched, values
-        }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={8}>
@@ -263,63 +256,63 @@ const FirebaseRegister = ({ ...others }) => {
                   </Grid>
                 </Grid> */}
                 <FormControl fullWidth error={Boolean(touched.Aadhar && errors.Aadhar)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-Aadhar-register">Aadhaar Card Number&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-Aadhar-register"
-                type="number"
-                value={values.Aadhar}
-                name="Aadhar"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.Aadhar && errors.Aadhar && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.Aadhar}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <Button variant="outlined" color="secondary" size="small">
-                      Verify
-                    </Button>
-            <FormControl fullWidth error={Boolean(touched.Pan && errors.Pan)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-Pan-register">Pan Card Number&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-Pan-register"
-                type="text"
-                value={values.Pan}
-                name="Pan"
-                label="Pan Card Number"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                // endAdornment={
-                //   <InputAdornment position="end">
-                //     <IconButton
-                //       aria-label="toggle password visibility"
-                //       onClick={handleClickShowPassword}
-                //       onMouseDown={handleMouseDownPassword}
-                //       edge="end"
-                //       size="large"
-                //     >
-                //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                //     </IconButton>
-                //   </InputAdornment>
-                // }
-                inputProps={{}}
-              />
-              {touched.Pan && errors.Pan && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.Pan}
-                </FormHelperText>
-              )}
-            </FormControl>
-            <Button variant="outlined" color="secondary" size="small">
-                      Verify
-                    </Button>
-            {/* {strength !== 0 && (
+                  <InputLabel htmlFor="outlined-adornment-Aadhar-register">Aadhaar Card Number&#42;</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-Aadhar-register"
+                    type="number"
+                    value={values.Aadhar}
+                    name="Aadhar"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    inputProps={{}}
+                  />
+                  {touched.Aadhar && errors.Aadhar && (
+                    <FormHelperText error id="standard-weight-helper-text--register">
+                      {errors.Aadhar}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <Button variant="outlined" color="secondary" size="small">
+                  Verify
+                </Button>
+                <FormControl fullWidth error={Boolean(touched.Pan && errors.Pan)} sx={{ ...theme.typography.customInput }}>
+                  <InputLabel htmlFor="outlined-adornment-Pan-register">Pan Card Number&#42;</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-Pan-register"
+                    type="text"
+                    value={values.Pan}
+                    name="Pan"
+                    label="Pan Card Number"
+                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      handleChange(e);
+                      changePassword(e.target.value);
+                    }}
+                    // endAdornment={
+                    //   <InputAdornment position="end">
+                    //     <IconButton
+                    //       aria-label="toggle password visibility"
+                    //       onClick={handleClickShowPassword}
+                    //       onMouseDown={handleMouseDownPassword}
+                    //       edge="end"
+                    //       size="large"
+                    //     >
+                    //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                    //     </IconButton>
+                    //   </InputAdornment>
+                    // }
+                    inputProps={{}}
+                  />
+                  {touched.Pan && errors.Pan && (
+                    <FormHelperText error id="standard-weight-helper-text-password-register">
+                      {errors.Pan}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <Button variant="outlined" color="secondary" size="small">
+                  Verify
+                </Button>
+                {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">

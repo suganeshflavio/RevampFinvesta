@@ -31,8 +31,8 @@ const Register = () => {
                     <Link to="#">
                       {/* <Logo /> */}
                       <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Finvesta
-                          </Typography>
+                        Finvesta
+                      </Typography>
                     </Link>
                   </Grid>
                   <Grid item xs={12}>
@@ -40,7 +40,7 @@ const Register = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                          Hi, Welcome to Fia network
+                            Hi, Welcome to Fia network
                           </Typography>
                           {/* <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Enter your credentials to continue
@@ -56,7 +56,7 @@ const Register = () => {
                     <Divider />
                   </Grid>
                   <Grid item xs={8}>
-                    <Grid item container direction="column" xs={12} textAlign='center'>
+                    <Grid item container direction="column" xs={12} textAlign="center">
                       <Typography component={Link} to="/Login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                         Already have an account?
                       </Typography>

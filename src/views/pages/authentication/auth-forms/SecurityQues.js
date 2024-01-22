@@ -24,7 +24,7 @@ import {
   // InputAdornment,
   // InputLabel,
   // OutlinedInput,
-  TextField,
+  TextField
   // Typography,
   // useMediaQuery
 } from '@mui/material';
@@ -58,60 +58,60 @@ const SecurityQues = ({ ...others }) => {
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
-    
-    // image upload dialog section
-    // const [open, setOpen] = useState(false);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
-    
-    // const handleClose = () => {
-    //   setOpen(false);
-    //   // setClicked(true)
-    // };
-    
-    // webcam ui
-      // const [clicked, setClicked] = useState(false);
-    
-      // const onWebcam = () => {
-      //   setClicked(true);
-    
-      // };
-    
-      // const videoConstraints = {
-      //   width: 700,
-      //   height:1000,
-      //   facingMode: "environment"
-      // };
-      
-      // const webcamRef = useRef(null);
-      // const [url, setUrl] = useState(null);
-    
-      // const capturePhoto = useCallback(async () => {
-      //   const imageSrc = webcamRef.current.getScreenshot();
-      //   setUrl(imageSrc);
-      //   handleClose()
-      //   setClicked(false)
-    
-      // }, [webcamRef]);
-    
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
+
+  // image upload dialog section
+  // const [open, setOpen] = useState(false);
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   // setClicked(true)
+  // };
+
+  // webcam ui
+  // const [clicked, setClicked] = useState(false);
+
+  // const onWebcam = () => {
+  //   setClicked(true);
+
+  // };
+
+  // const videoConstraints = {
+  //   width: 700,
+  //   height:1000,
+  //   facingMode: "environment"
+  // };
+
+  // const webcamRef = useRef(null);
+  // const [url, setUrl] = useState(null);
+
+  // const capturePhoto = useCallback(async () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setUrl(imageSrc);
+  //   handleClose()
+  //   setClicked(false)
+
+  // }, [webcamRef]);
+
   //     const onUserMedia = (e) => {
   //       console.log(e);
   //       setClicked(true)
   //     };
-  
+
   // const fileInputRef = useRef(null);
-  
+
   // const handleButtonClick = () => {
   //   // Trigger the file input when the button is clicked
   //   fileInputRef.current.click();
@@ -126,7 +126,7 @@ const SecurityQues = ({ ...others }) => {
 
   // };
 
-// security question
+  // security question
   const status = [
     {
       value: 'all',
@@ -211,7 +211,7 @@ const SecurityQues = ({ ...others }) => {
           //  touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={12}>
                 {/* identity section end */}
                 <Grid item xs={12} md={8} lg={12} xl={12} sm={12}>
@@ -333,9 +333,8 @@ const SecurityQues = ({ ...others }) => {
                   </Box>
                 )}
               </Grid>
-
             </Stack>
-            <Grid item sm={6} xs={6} >
+            <Grid item sm={6} xs={6}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
@@ -346,8 +345,8 @@ const SecurityQues = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() =>{
-                      window.location.href="dashboard/default"
+                    onClick={() => {
+                      window.location.href = 'dashboard/default';
                     }}
                   >
                     Next

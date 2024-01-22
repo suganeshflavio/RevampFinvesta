@@ -23,7 +23,7 @@ import {
   // InputAdornment,
   InputLabel,
   OutlinedInput,
-  Stack,
+  Stack
   // TextField,
   // Typography,
   // useMediaQuery
@@ -62,53 +62,53 @@ const Address = ({ ...others }) => {
   // const [personName, setPersonName] = React.useState([]);
 
   // const handleChange = (event) => {
-    //   if (event?.target.value) setPersonName(event?.target.value);
-    //   console.log("dfghjk", personName);
-    // };
+  //   if (event?.target.value) setPersonName(event?.target.value);
+  //   console.log("dfghjk", personName);
+  // };
 
-    // image upload dialog section
-    // const [open, setOpen] = useState(false);
-    // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  // image upload dialog section
+  // const [open, setOpen] = useState(false);
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-    // const handleClose = () => {
-    //   setOpen(false);
-    //   // setClicked(true)
-    // };
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   // setClicked(true)
+  // };
 
-    // webcam ui
-      // const [clicked, setClicked] = useState(false);
+  // webcam ui
+  // const [clicked, setClicked] = useState(false);
 
-      // const onWebcam = () => {
-      //   setClicked(true);
+  // const onWebcam = () => {
+  //   setClicked(true);
 
-      // };
+  // };
 
-      // const videoConstraints = {
-      //   width: 700,
-      //   height:1000,
-      //   facingMode: "environment"
-      // };
+  // const videoConstraints = {
+  //   width: 700,
+  //   height:1000,
+  //   facingMode: "environment"
+  // };
 
-      // const webcamRef = useRef(null);
-      // const [url, setUrl] = useState(null);
+  // const webcamRef = useRef(null);
+  // const [url, setUrl] = useState(null);
 
-      // const capturePhoto = useCallback(async () => {
-      //   const imageSrc = webcamRef.current.getScreenshot();
-      //   setUrl(imageSrc);
-      //   handleClose()
-      //   setClicked(false)
-      //   console.log("dfghjkl",url);
+  // const capturePhoto = useCallback(async () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setUrl(imageSrc);
+  //   handleClose()
+  //   setClicked(false)
+  //   console.log("dfghjkl",url);
 
-      // }, [webcamRef]);
+  // }, [webcamRef]);
 
-      // const onUserMedia = (e) => {
-      //   console.log(e);
-      //   setClicked(true)
-      // };
+  // const onUserMedia = (e) => {
+  //   console.log(e);
+  //   setClicked(true)
+  // };
 
   // const fileInputRef = useRef(null);
 
@@ -157,9 +157,9 @@ const Address = ({ ...others }) => {
         initialValues={{
           fname: '',
           lname: '',
-          dob:'',
-          gender:'',
-          fathername:'',
+          dob: '',
+          gender: '',
+          fathername: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -190,15 +190,9 @@ const Address = ({ ...others }) => {
           }
         }}
       >
-        {({
-          errors,
-          handleBlur, handleChange,
-          handleSubmit,
-          isSubmitting,
-           touched, values
-        }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
+            <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={12}>
                 {/* <Grid container spacing={1}>
                   <Grid item xs={12} lg={6} md={6} sm={6}>
@@ -273,140 +267,144 @@ const Address = ({ ...others }) => {
                 {/* General section end */}
                 <Grid container spacing={1}>
                   <Grid item xs={12} lg={6} md={6} sm={6}>
-                <FormControl fullWidth error={Boolean(touched.fname && errors.fname)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-fname-register">First Name&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-fname-register"
-                type="text"
-                value={values.fname}
-                name="fname"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.fname && errors.fname && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.fname}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={6} sm={6}>
-            <FormControl fullWidth error={Boolean(touched.mname && errors.mname)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-mname-register">Middle Name</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-mname-register"
-                type="text"
-                value={values.mname}
-                name="mname"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {/* {touched.mname && errors.mname && (
+                    <FormControl fullWidth error={Boolean(touched.fname && errors.fname)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-fname-register">First Name&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-fname-register"
+                        type="text"
+                        value={values.fname}
+                        name="fname"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.fname && errors.fname && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.fname}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                    <FormControl fullWidth error={Boolean(touched.mname && errors.mname)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-mname-register">Middle Name</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-mname-register"
+                        type="text"
+                        value={values.mname}
+                        name="mname"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {/* {touched.mname && errors.mname && (
                 <FormHelperText error id="standard-weight-helper-text--register">
                   {errors.mname}
                 </FormHelperText>
               )} */}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={6} sm={6}>
-            <FormControl fullWidth error={Boolean(touched.lname && errors.lname)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-lname-register">Last Name&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-lname-register"
-                type="text"
-                value={values.lname}
-                name="lname"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.lname && errors.lname && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.lname}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={6} sm={6}>
-            <FormControl fullWidth error={Boolean(touched.dob && errors.dob)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Date of Birth&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="text"
-                value={values.dob}
-                name="dob"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.dob && errors.dob && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.dob}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            </Grid>
-            <Grid container spacing={1}>
-            <Grid item xs={12} lg={6} md={6} sm={6}>
-            <FormControl fullWidth error={Boolean(touched.gender && errors.gender)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-gender-register">Gender&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-Gender-register"
-                type="text"
-                value={values.gender}
-                name="gender"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.gender && errors.gender && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.gender}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            <Grid item xs={12} lg={6} md={6} sm={6}>
-            <FormControl fullWidth error={Boolean(touched.fathername && errors.fathername)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-fathername-register">Father&apos;s Name&#42;</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-fathername-register"
-                type="name"
-                value={values.fathername}
-                name="fathername"
-                label="fathername"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                // endAdornment={
-                //   <InputAdornment position="end">
-                //     <IconButton
-                //       aria-label="toggle password visibility"
-                //       onClick={handleClickShowPassword}
-                //       onMouseDown={handleMouseDownPassword}
-                //       edge="end"
-                //       size="large"
-                //     >
-                //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                //     </IconButton>
-                //   </InputAdornment>
-                // }
-                inputProps={{}}
-              />
-              {touched.fathername && errors.fathername && (
-                <FormHelperText error id="standard-weight-helper-text-fathername-register">
-                  {errors.fathername}
-                </FormHelperText>
-              )}
-            </FormControl>
-            </Grid>
-            </Grid>
-            {/* {strength !== 0 && (
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                    <FormControl fullWidth error={Boolean(touched.lname && errors.lname)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-lname-register">Last Name&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-lname-register"
+                        type="text"
+                        value={values.lname}
+                        name="lname"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.lname && errors.lname && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.lname}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                    <FormControl fullWidth error={Boolean(touched.dob && errors.dob)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-email-register">Date of Birth&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-email-register"
+                        type="text"
+                        value={values.dob}
+                        name="dob"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.dob && errors.dob && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.dob}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                    <FormControl fullWidth error={Boolean(touched.gender && errors.gender)} sx={{ ...theme.typography.customInput }}>
+                      <InputLabel htmlFor="outlined-adornment-gender-register">Gender&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-Gender-register"
+                        type="text"
+                        value={values.gender}
+                        name="gender"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        inputProps={{}}
+                      />
+                      {touched.gender && errors.gender && (
+                        <FormHelperText error id="standard-weight-helper-text--register">
+                          {errors.gender}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                    <FormControl
+                      fullWidth
+                      error={Boolean(touched.fathername && errors.fathername)}
+                      sx={{ ...theme.typography.customInput }}
+                    >
+                      <InputLabel htmlFor="outlined-adornment-fathername-register">Father&apos;s Name&#42;</InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-fathername-register"
+                        type="name"
+                        value={values.fathername}
+                        name="fathername"
+                        label="fathername"
+                        onBlur={handleBlur}
+                        onChange={(e) => {
+                          handleChange(e);
+                          changePassword(e.target.value);
+                        }}
+                        // endAdornment={
+                        //   <InputAdornment position="end">
+                        //     <IconButton
+                        //       aria-label="toggle password visibility"
+                        //       onClick={handleClickShowPassword}
+                        //       onMouseDown={handleMouseDownPassword}
+                        //       edge="end"
+                        //       size="large"
+                        //     >
+                        //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                        //     </IconButton>
+                        //   </InputAdornment>
+                        // }
+                        inputProps={{}}
+                      />
+                      {touched.fathername && errors.fathername && (
+                        <FormHelperText error id="standard-weight-helper-text-fathername-register">
+                          {errors.fathername}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -447,7 +445,7 @@ const Address = ({ ...others }) => {
               </Grid>
               {/* <br/> */}
             </Stack>
-            <Grid item sm={12} xs={12} >
+            <Grid item sm={12} xs={12}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button

@@ -32,8 +32,8 @@ const CreditScore = () => {
                     <Link to="#">
                       {/* <Logo /> */}
                       <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Finvesta
-                          </Typography>
+                        Finvesta
+                      </Typography>
                     </Link>
                   </Grid>
                   <Grid item xs={12}>
@@ -41,7 +41,7 @@ const CreditScore = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                          Check Your Credit Score
+                            Check Your Credit Score
                           </Typography>
                           {/* <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Enter your credentials to continue
