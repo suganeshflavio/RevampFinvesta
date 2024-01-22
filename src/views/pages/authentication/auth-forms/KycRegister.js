@@ -248,7 +248,7 @@ const KycRegister = ({ ...others }) => {
                 </Grid> */}
                 {/* Address section end */}
                 <Grid container spacing={1}>
-                  <Grid item xs={12} lg={12} md={8} sm={8}>
+                  <Grid item xs={12} lg={12} md={12} sm={12}>
                     <FormControl fullWidth error={Boolean(touched.address && errors.address)} sx={{ ...theme.typography.customInput }}>
                       <InputLabel htmlFor="outlined-adornment-email-register">House Address&#42;</InputLabel>
                       <OutlinedInput
@@ -267,7 +267,7 @@ const KycRegister = ({ ...others }) => {
                       )}
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <FormControl fullWidth error={Boolean(touched.pincode && errors.pincode)} sx={{ ...theme.typography.customInput }}>
                       <InputLabel htmlFor="outlined-adornment-pincode-register">Pincode&#42;</InputLabel>
                       <OutlinedInput
@@ -286,7 +286,7 @@ const KycRegister = ({ ...others }) => {
                       )}
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <FormControl
                       fullWidth
                       error={Boolean(touched.cityorvillage && errors.cityorvillage)}
@@ -311,7 +311,7 @@ const KycRegister = ({ ...others }) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <FormControl fullWidth error={Boolean(touched.district && errors.district)} sx={{ ...theme.typography.customInput }}>
                       <InputLabel htmlFor="outlined-adornment-district-register">District&#42;</InputLabel>
                       <OutlinedInput
@@ -347,7 +347,7 @@ const KycRegister = ({ ...others }) => {
                       )}
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <FormControl fullWidth error={Boolean(touched.state && errors.state)} sx={{ ...theme.typography.customInput }}>
                       <InputLabel htmlFor="outlined-adornment-state-register">State&#42;</InputLabel>
                       <OutlinedInput

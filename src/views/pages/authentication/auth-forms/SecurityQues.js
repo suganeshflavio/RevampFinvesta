@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 // import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
 // material-ui
-// import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -14,17 +14,19 @@ import {
   // DialogTitle,
   // Checkbox,
   // Divider,
-  // FormControl,
+  FormControl,
   // FormControlLabel,
   FormHelperText,
   Grid,
   // Paper,
-  // Paper,
   // IconButton,
   // InputAdornment,
-  // InputLabel,
-  // OutlinedInput,
-  TextField
+  InputLabel,
+  OutlinedInput,
+  // NativeSelect,
+  Select,
+  MenuItem,
+  // TextField
   // Typography,
   // useMediaQuery
 } from '@mui/material';
@@ -52,8 +54,14 @@ import { Stack } from '@mui/system';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const SecurityQues = ({ ...others }) => {
-  // const theme = useTheme();
+  const theme = useTheme();
   const scriptedRef = useScriptRef();
+  const [click, setClick] = useState(false)
+
+const Agent = () => {
+  setClick(true)
+}
+
   // const matchDownSM = useMediaQuery(theme.breakpoints.down('md','sm','lg','xs','xl'));
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
@@ -150,6 +158,74 @@ const SecurityQues = ({ ...others }) => {
     }
   ];
 
+  const DS = [
+    {
+      value: 'all',
+      label: 'Questions'
+    },
+    {
+      value: 'new',
+      label: 'What is your 1st school name?'
+    },
+    {
+      value: 'unread',
+      label: 'What is your pet name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your mothers Hometown name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your 10th percentage?'
+    }
+  ];
+
+  const service = [
+    {
+      value: 'all',
+      label: 'Questions'
+    },
+    {
+      value: 'new',
+      label: 'What is your 1st school name?'
+    },
+    {
+      value: 'unread',
+      label: 'What is your pet name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your mothers Hometown name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your 10th percentage?'
+    }
+  ];
+
+  const bank = [
+    {
+      value: 'all',
+      label: 'Questions'
+    },
+    {
+      value: 'new',
+      label: 'What is your 1st school name?'
+    },
+    {
+      value: 'unread',
+      label: 'What is your pet name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your mothers Hometown name?'
+    },
+    {
+      value: 'other',
+      label: 'What is your 10th percentage?'
+    }
+  ];
   // const [strength, setStrength] = useState(0);
   // const [level, setLevel] = useState();
 
@@ -179,13 +255,20 @@ const SecurityQues = ({ ...others }) => {
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          question: '',
+          answer: '',
+          dsname:'',
+          service:'',
+          bank:'',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          question: Yup.string().max(255).required('Select any one of the question'),
+          answer: Yup.string().max(255).required('answer is required'),
+          dsname: Yup.string().max(255).required('dsname is required'),
+          service: Yup.string().max(255).required('service is required'),
+          bank: Yup.string().max(255).required('bank is required')
+
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -205,22 +288,20 @@ const SecurityQues = ({ ...others }) => {
       >
         {({
           errors,
-          // handleBlur, handleChange,
+          handleBlur, handleChange,
           handleSubmit,
-          isSubmitting
-          //  touched, values
+          isSubmitting,
+           touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={12}>
                 {/* identity section end */}
-                <Grid item xs={12} md={8} lg={12} xl={12} sm={12}>
+                {/* <Grid item xs={12} md={8} lg={12} xl={12} sm={12}>
                   <TextField
                     id="outlined-select-currency-native"
                     select
                     fullWidth
-                    // value={value}
-                    // onChange={handleChange}
                     SelectProps={{
                       native: true
                     }}
@@ -238,63 +319,152 @@ const SecurityQues = ({ ...others }) => {
                     name="fname"
                     type="text"
                     defaultValue=""
-                    // sx={{ ...theme.typography.customInput }}
                   />
-                </Grid>
-                {/* <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="email"
-                value={values.email}
-                name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                inputProps={{}}
-              />
-              {touched.email && errors.email && (
-                <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.email}
-                </FormHelperText>
-              )}
-            </FormControl>
+                </Grid> */}
 
-            <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password-register"
-                type={showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                label="Password"
-                onBlur={handleBlur}
-                onChange={(e) => {
-                  handleChange(e);
-                  changePassword(e.target.value);
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                inputProps={{}}
-              />
-              {touched.password && errors.password && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.password}
-                </FormHelperText>
-              )}
-            </FormControl>
+            {click ?
+            <>
+             <Grid container spacing={1}>
+             <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
+                     <FormControl fullWidth error={Boolean(touched.dsname && errors.dsname)} sx={{ ...theme.typography.customInput }}>
+                       <InputLabel htmlFor="outlined-adornment-dsname-register">DS Name&#42;</InputLabel>
+                       <Select
+                         id="outlined-adornment-dsname-register"
+                         type="text"
+                         value={values.dsname}
+                         name="dsname"
+                         onBlur={handleBlur}
+                         onChange={handleChange}
+                         inputProps={{}}
+                       >
+                         {DS.map((option, index) => (
+                       <MenuItem key={index} value={MenuItem .value}>
+                         {option.label}
+                       </MenuItem>
+                     ))}
+                         </Select>
+                       {touched.dsname && errors.dsname && (
+                         <FormHelperText error id="standard-weight-helper-text--register">
+                           {errors.dsname}
+                         </FormHelperText>
+                       )}
+                     </FormControl>
+                   </Grid>
+                   <Grid item xs={12} lg={6} md={6} sm={6} xl={6}>
+                     <FormControl fullWidth error={Boolean(touched.service && errors.service)} sx={{ ...theme.typography.customInput }}>
+                       <InputLabel htmlFor="outlined-adornment-service-register">Selection of Services&#42;</InputLabel>
+                       <Select
+                         id="outlined-adornment-service-register"
+                         type="text"
+                         value={values.service}
+                         name="service"
+                         onBlur={handleBlur}
+                         onChange={handleChange}
+                         inputProps={{}}
+                       >
+                         {service.map((option, index) => (
+                       <MenuItem key={index} value={MenuItem .value}>
+                         {option.label}
+                       </MenuItem>
+                     ))}
+                         </Select>
+                       {touched.service && errors.service && (
+                         <FormHelperText error id="standard-weight-helper-text--register">
+                           {errors.service}
+                         </FormHelperText>
+                       )}
+                     </FormControl>
+                   </Grid>
+                   </Grid>
+                   <Grid item xs={12} lg={12} md={12} sm={12} xl={12}>
+                     <FormControl fullWidth error={Boolean(touched.bank && errors.bank)} sx={{ ...theme.typography.customInput }}>
+                       <InputLabel htmlFor="outlined-adornment-bank-register">Selection of Bank&#42;</InputLabel>
+                       <Select
+                         id="outlined-adornment-bank-register"
+                         type="text"
+                         value={values.bank}
+                         name="bank"
+                         onBlur={handleBlur}
+                         onChange={handleChange}
+                         inputProps={{}}
+                       >
+                         {bank.map((option, index) => (
+                       <MenuItem key={index} value={MenuItem .value}>
+                         {option.label}
+                       </MenuItem>
+                     ))}
+                         </Select>
+                       {touched.bank && errors.bank && (
+                         <FormHelperText error id="standard-weight-helper-text--register">
+                           {errors.bank}
+                         </FormHelperText>
+                       )}
+                     </FormControl>
+                   </Grid> </>
+            :
+            <>
+            <FormControl fullWidth error={Boolean(touched.question && errors.question)} sx={{ ...theme.typography.customInput }}>
+            <InputLabel htmlFor="outlined-adornment-question-register" >Question</InputLabel>
+            <Select
+              id="outlined-adornment-question-register"
+              type="name"
+              value={values.question}
+              name="question"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              inputProps={{}}
+            >
+            {status.map((option, index) => (
+                    <MenuItem key={index} value={MenuItem .value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                  </Select>
+            {touched.question && errors.question && (
+              <FormHelperText error id="standard-weight-helper-text--register">
+                {errors.question}
+              </FormHelperText>
+            )}
+          </FormControl>
 
-            {strength !== 0 && (
+          <FormControl fullWidth error={Boolean(touched.answer && errors.answer)} sx={{ ...theme.typography.customInput }}>
+            <InputLabel htmlFor="outlined-adornment-answer-register">Enter the Answer&#42;</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-answer-register"
+              type="text"
+              value={values.answer}
+              name="answer"
+              label="answer"
+              onBlur={handleBlur}
+              onChange={(e) => {
+                handleChange(e);
+                changePassword(e.target.value);
+              }}
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <IconButton
+              //       aria-label="toggle password visibility"
+              //       onClick={handleClickShowPassword}
+              //       onMouseDown={handleMouseDownPassword}
+              //       edge="end"
+              //       size="large"
+              //     >
+              //       {showPassword ? <Visibility /> : <VisibilityOff />}
+              //     </IconButton>
+              //   </InputAdornment>
+              // }
+              inputProps={{}}
+            />
+            {touched.answer && errors.answer && (
+              <FormHelperText error id="standard-weight-helper-text-answer-register">
+                {errors.answer}
+              </FormHelperText>
+            )}
+          </FormControl>
+          </>
+            }
+
+            {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -345,9 +515,7 @@ const SecurityQues = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() => {
-                      window.location.href = 'dashboard/default';
-                    }}
+                    onClick={Agent}
                   >
                     Next
                   </Button>
