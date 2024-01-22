@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 
 
 const CardWrapper = styled(MainCard)(() => ({
-  backgroundColor: '#EDE7F6',
+  backgroundColor: '#bedef7',
   color: '#252525',
   overflow: 'hidden',
   position: 'relative',
@@ -48,7 +48,7 @@ const ServiceCard = ({ item, isLoading }) => {
               <Grid container direction="column" justifyContent='space-between'>
                 <Grid item>
                   <Grid container >
-                    <Grid item  sx={{ width: '100%', display: 'flex', justifyContent: 'center', color: '#8460cc' }}>
+                    <Grid item  sx={{ width: '100%', display: 'flex', justifyContent: 'center', color: '#2196F3' }}>
                       {item.Icon}
                     </Grid>
                   </Grid>
@@ -56,7 +56,7 @@ const ServiceCard = ({ item, isLoading }) => {
                 <Grid item>
                   <Grid container alignItems="center">
                     <Grid item >
-                      <Typography variant='h3' component='div' fontSize={{ xs: '12px', sm: '18px', md: '18px', xl:'15px' }} marginTop={{ xl: '20px', md: '15px', sm: '20px', xs: '15px' }} color='#252525'> {item.name}</Typography>
+                      <Typography variant='h3' component='div' fontSize={{ xs: '12px', sm: '14px', md: '14px', xl: '16px' }} marginTop={{ xl: '20px', md: '15px', sm: '20px', xs: '15px' }} > {item.name}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -3,7 +3,7 @@ import React from 'react';
 // import { useSelector } from 'react-redux';
 
 // material-ui
-// import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -14,17 +14,17 @@ import {
   // DialogTitle,
   // Checkbox,
   // Divider,
-  // FormControl,
+  FormControl,
   // FormControlLabel,
   FormHelperText,
   Grid,
   // Paper,
-  // Paper,
   // IconButton,
   // InputAdornment,
-  // InputLabel,
-  // OutlinedInput,
-  TextField,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+  // TextField,
   // Typography,
   // useMediaQuery
 } from '@mui/material';
@@ -39,7 +39,6 @@ import useScriptRef from 'hooks/useScriptRef';
 // import Upload from 'assets/images/Image upload-bro.svg';
 // import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import { Stack } from '@mui/system';
 // import { IconUserPlus } from '@tabler/icons';
 // import { FiUserPlus } from 'react-icons/fi';
 // import { Image } from '@mui/icons-material';
@@ -52,67 +51,67 @@ import { Stack } from '@mui/system';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const Address = ({ ...others }) => {
-  // const theme = useTheme();
+  const theme = useTheme();
   const scriptedRef = useScriptRef();
   // const matchDownSM = useMediaQuery(theme.breakpoints.down('md','sm','lg','xs','xl'));
   // const customization = useSelector((state) => state.customization);
   // const [showPassword, setShowPassword] = useState(false);
   // const [checked, setChecked] = useState(true);
-  
+
   // security section
   // const [personName, setPersonName] = React.useState([]);
-  
+
   // const handleChange = (event) => {
     //   if (event?.target.value) setPersonName(event?.target.value);
     //   console.log("dfghjk", personName);
     // };
-    
+
     // image upload dialog section
     // const [open, setOpen] = useState(false);
     // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
+
     // const handleClickOpen = () => {
     //   setOpen(true);
     // };
-    
+
     // const handleClose = () => {
     //   setOpen(false);
     //   // setClicked(true)
     // };
-    
+
     // webcam ui
       // const [clicked, setClicked] = useState(false);
-    
+
       // const onWebcam = () => {
       //   setClicked(true);
-    
+
       // };
-    
+
       // const videoConstraints = {
       //   width: 700,
       //   height:1000,
       //   facingMode: "environment"
       // };
-      
+
       // const webcamRef = useRef(null);
       // const [url, setUrl] = useState(null);
-    
+
       // const capturePhoto = useCallback(async () => {
       //   const imageSrc = webcamRef.current.getScreenshot();
       //   setUrl(imageSrc);
       //   handleClose()
       //   setClicked(false)
       //   console.log("dfghjkl",url);
-    
+
       // }, [webcamRef]);
-    
+
       // const onUserMedia = (e) => {
       //   console.log(e);
       //   setClicked(true)
       // };
-  
+
   // const fileInputRef = useRef(null);
-  
+
   // const handleButtonClick = () => {
   //   // Trigger the file input when the button is clicked
   //   fileInputRef.current.click();
@@ -156,13 +155,24 @@ const Address = ({ ...others }) => {
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          fname: '',
+          lname: '',
+          dob:'',
+          gender:'',
+          fathername:'',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          fname: Yup.string().max(255).required('first name is required'),
+          lname: Yup.string().max(255).required('last name is required'),
+          dob: Yup.string().required('Dob is required'),
+          gender: Yup.string().required('gender is required'),
+          fathername: Yup.string().required('father name is required')
+          // dob: Yup.date()
+          // .nullable().required("Dob is required")
+          // .test("dob", "Should be greater than 18", function (value) {
+          //   return differenceInYears(value, new Date()) >= 18;
+          // })
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -182,16 +192,16 @@ const Address = ({ ...others }) => {
       >
         {({
           errors,
-          // handleBlur, handleChange,
+          handleBlur, handleChange,
           handleSubmit,
-          isSubmitting
-          //  touched, values
+          isSubmitting,
+           touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{xs:"column", xl:"row", lg:"row", md:"row", sm:"row"}}>
               <Grid item xs={12} sm={12}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                {/* <Grid container spacing={1}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="First Name*"
@@ -202,7 +212,7 @@ const Address = ({ ...others }) => {
                       // sx={{ ...theme.typography.customInput }}
                     />
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="Middle Name"
@@ -213,7 +223,7 @@ const Address = ({ ...others }) => {
                       // sx={{ ...theme.typography.customInput }}
                     />
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="Last Name*"
@@ -224,7 +234,7 @@ const Address = ({ ...others }) => {
                       // sx={{ ...theme.typography.customInput }}
                     />
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="Date of Birth*"
@@ -237,7 +247,7 @@ const Address = ({ ...others }) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="Gender*"
@@ -248,7 +258,7 @@ const Address = ({ ...others }) => {
                       // sx={{ ...theme.typography.customInput }}
                     />
                   </Grid>
-                  <Grid item xs={12} lg={6} md={4} sm={4}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
                     <TextField
                       fullWidth
                       label="Father's Name*"
@@ -259,80 +269,144 @@ const Address = ({ ...others }) => {
                       // sx={{ ...theme.typography.customInput }}
                     />
                   </Grid>
-                  {/* <Grid item xs={3} sm={3}>
-              <Box
-      sx={{
-        display: 'flex',
-        justifyContent:"space-around",
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
-      }}
-    >
-      <Paper elevation={0} sx={{bgcolor:"#AD9FD6"}}>
-        sdfghjkl
-      </Paper>
-    </Box>
-              </Grid> */}
-                </Grid>
+                </Grid> */}
                 {/* General section end */}
-              
-                {/* <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} lg={6} md={6} sm={6}>
+                <FormControl fullWidth error={Boolean(touched.fname && errors.fname)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-fname-register">First Name&#42;</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="email"
-                value={values.email}
-                name="email"
+                id="outlined-adornment-fname-register"
+                type="text"
+                value={values.fname}
+                name="fname"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 inputProps={{}}
               />
-              {touched.email && errors.email && (
+              {touched.fname && errors.fname && (
                 <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.email}
+                  {errors.fname}
                 </FormHelperText>
               )}
             </FormControl>
-
-            <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+            </Grid>
+            <Grid item xs={12} lg={6} md={6} sm={6}>
+            <FormControl fullWidth error={Boolean(touched.mname && errors.mname)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-mname-register">Middle Name</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password-register"
-                type={showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                label="Password"
+                id="outlined-adornment-mname-register"
+                type="text"
+                value={values.mname}
+                name="mname"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {/* {touched.mname && errors.mname && (
+                <FormHelperText error id="standard-weight-helper-text--register">
+                  {errors.mname}
+                </FormHelperText>
+              )} */}
+            </FormControl>
+            </Grid>
+            <Grid item xs={12} lg={6} md={6} sm={6}>
+            <FormControl fullWidth error={Boolean(touched.lname && errors.lname)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-lname-register">Last Name&#42;</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-lname-register"
+                type="text"
+                value={values.lname}
+                name="lname"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {touched.lname && errors.lname && (
+                <FormHelperText error id="standard-weight-helper-text--register">
+                  {errors.lname}
+                </FormHelperText>
+              )}
+            </FormControl>
+            </Grid>
+            <Grid item xs={12} lg={6} md={6} sm={6}>
+            <FormControl fullWidth error={Boolean(touched.dob && errors.dob)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-email-register">Date of Birth&#42;</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-email-register"
+                type="text"
+                value={values.dob}
+                name="dob"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {touched.dob && errors.dob && (
+                <FormHelperText error id="standard-weight-helper-text--register">
+                  {errors.dob}
+                </FormHelperText>
+              )}
+            </FormControl>
+            </Grid>
+            </Grid>
+            <Grid container spacing={1}>
+            <Grid item xs={12} lg={6} md={6} sm={6}>
+            <FormControl fullWidth error={Boolean(touched.gender && errors.gender)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-gender-register">Gender&#42;</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-Gender-register"
+                type="text"
+                value={values.gender}
+                name="gender"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {touched.gender && errors.gender && (
+                <FormHelperText error id="standard-weight-helper-text--register">
+                  {errors.gender}
+                </FormHelperText>
+              )}
+            </FormControl>
+            </Grid>
+            <Grid item xs={12} lg={6} md={6} sm={6}>
+            <FormControl fullWidth error={Boolean(touched.fathername && errors.fathername)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-fathername-register">Father&apos;s Name&#42;</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-fathername-register"
+                type="name"
+                value={values.fathername}
+                name="fathername"
+                label="fathername"
                 onBlur={handleBlur}
                 onChange={(e) => {
                   handleChange(e);
                   changePassword(e.target.value);
                 }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                // endAdornment={
+                //   <InputAdornment position="end">
+                //     <IconButton
+                //       aria-label="toggle password visibility"
+                //       onClick={handleClickShowPassword}
+                //       onMouseDown={handleMouseDownPassword}
+                //       edge="end"
+                //       size="large"
+                //     >
+                //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                //     </IconButton>
+                //   </InputAdornment>
+                // }
                 inputProps={{}}
               />
-              {touched.password && errors.password && (
-                <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.password}
+              {touched.fathername && errors.fathername && (
+                <FormHelperText error id="standard-weight-helper-text-fathername-register">
+                  {errors.fathername}
                 </FormHelperText>
               )}
             </FormControl>
-
-            {strength !== 0 && (
+            </Grid>
+            </Grid>
+            {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -384,9 +458,9 @@ const Address = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() =>{
-                      window.location.href="dashboard/default"
-                    }}
+                    // onClick={() =>{
+                    //   window.location.href="dashboard/default"
+                    // }}
                   >
                     Next
                   </Button>

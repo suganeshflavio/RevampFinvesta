@@ -10,13 +10,13 @@ import AuthCardWrapper from '../AuthCardWrapper';
 // import Logo from 'ui-component/Logo';
 // import AuthRegister from '../auth-forms/AuthRegister';
 import AuthFooter from 'ui-component/cards/AuthFooter';
-import KycRegister from '../auth-forms/KycRegister';
+import CreditForm from '../auth-forms/CreditForm';
 
 // assets
 
 // ===============================|| AUTH3 - REGISTER ||=============================== //
 
-const Register = () => {
+const CreditScore = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -41,7 +41,7 @@ const Register = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                          Enter your Address
+                          Check Your Credit Score
                           </Typography>
                           {/* <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Enter your credentials to continue
@@ -51,7 +51,7 @@ const Register = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <KycRegister />
+                    <CreditForm />
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -76,4 +76,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CreditScore;

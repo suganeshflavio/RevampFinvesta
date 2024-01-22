@@ -37,7 +37,7 @@ const PopularCard = ({ isLoading }) => {
       {isLoading ? (
         <SkeletonPopularCard />
       ) : (
-        <MainCard content={false}>
+        <MainCard content={false} title="Transcation">
           <CardContent>
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12}>
@@ -149,7 +149,7 @@ const PopularCard = ({ isLoading }) => {
                                 height: 30,
                                 borderRadius: '5px',
                                 backgroundColor: theme.palette.error.light,
-                                color: theme.palette.error.dark,  
+                                color: theme.palette.error.dark,
                                 ml: 2
                               }}
                             >

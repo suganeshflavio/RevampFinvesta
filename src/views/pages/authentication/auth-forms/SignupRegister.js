@@ -3,7 +3,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 
 // material-ui
-// import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -14,17 +14,16 @@ import {
   DialogTitle,
   // Checkbox,
   // Divider,
-  // FormControl,
+  FormControl,
   // FormControlLabel,
   FormHelperText,
   Grid,
   Paper,
-  // Paper,
   // IconButton,
   // InputAdornment,
-  // InputLabel,
-  // OutlinedInput,
-  TextField,
+  InputLabel,
+  OutlinedInput,
+  // TextField,
   Typography
   // useMediaQuery
 } from '@mui/material';
@@ -53,7 +52,7 @@ import { FiUserPlus } from 'react-icons/fi';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
-  // const theme = useTheme();
+  const theme = useTheme();
   const scriptedRef = useScriptRef();
   // const matchDownSM = useMediaQuery(theme.breakpoints.down('md','sm','lg','xs','xl'));
   // const customization = useSelector((state) => state.customization);
@@ -183,7 +182,7 @@ const FirebaseRegister = ({ ...others }) => {
   //   event.preventDefault();
   // };
 
-  // const changePassword = (value) => {
+  // const changePassword = () => {
   //   const temp = strengthIndicator(value);
   //   setStrength(temp);
   //   setLevel(strengthColor(temp));
@@ -194,16 +193,17 @@ const FirebaseRegister = ({ ...others }) => {
   // }, []);
 
   return (
-    <>
+    <div>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
-          submit: null
+          Aadhar: '',
+          Pan: '',
+          submit: null,
+
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          Aadhar: Yup.string().max(255).required('Aadhar is required'),
+          Pan: Yup.string().max(255).required('Pan is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -223,15 +223,15 @@ const FirebaseRegister = ({ ...others }) => {
       >
         {({
           errors,
-          // handleBlur, handleChange,
+          handleBlur, handleChange,
           handleSubmit,
-          isSubmitting
-          //  touched, values
+          isSubmitting,
+           touched, values
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={8}>
-                <Grid container spacing={1}>
+                {/* <Grid container spacing={1}>
                   <Grid item xs={12} sm={12}>
                     <TextField
                       fullWidth
@@ -240,7 +240,7 @@ const FirebaseRegister = ({ ...others }) => {
                       name="fname"
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                      sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
@@ -255,67 +255,71 @@ const FirebaseRegister = ({ ...others }) => {
                       required
                       type="text"
                       defaultValue=""
-                      // sx={{ ...theme.typography.customInput }}
+                      sx={{ ...theme.typography.customInput }}
                     />
                     <Button variant="outlined" color="secondary" size="small">
                       Verify
                     </Button>
                   </Grid>
-                </Grid>
-                {/* <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                </Grid> */}
+                <FormControl fullWidth error={Boolean(touched.Aadhar && errors.Aadhar)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-Aadhar-register">Aadhaar Card Number&#42;</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-email-register"
-                type="email"
-                value={values.email}
-                name="email"
+                id="outlined-adornment-Aadhar-register"
+                type="number"
+                value={values.Aadhar}
+                name="Aadhar"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 inputProps={{}}
               />
-              {touched.email && errors.email && (
+              {touched.Aadhar && errors.Aadhar && (
                 <FormHelperText error id="standard-weight-helper-text--register">
-                  {errors.email}
+                  {errors.Aadhar}
                 </FormHelperText>
               )}
             </FormControl>
-
-            <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+            <Button variant="outlined" color="secondary" size="small">
+                      Verify
+                    </Button>
+            <FormControl fullWidth error={Boolean(touched.Pan && errors.Pan)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-Pan-register">Pan Card Number&#42;</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password-register"
-                type={showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                label="Password"
+                id="outlined-adornment-Pan-register"
+                type="text"
+                value={values.Pan}
+                name="Pan"
+                label="Pan Card Number"
                 onBlur={handleBlur}
                 onChange={(e) => {
                   handleChange(e);
                   changePassword(e.target.value);
                 }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                      size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                // endAdornment={
+                //   <InputAdornment position="end">
+                //     <IconButton
+                //       aria-label="toggle password visibility"
+                //       onClick={handleClickShowPassword}
+                //       onMouseDown={handleMouseDownPassword}
+                //       edge="end"
+                //       size="large"
+                //     >
+                //       {showPassword ? <Visibility /> : <VisibilityOff />}
+                //     </IconButton>
+                //   </InputAdornment>
+                // }
                 inputProps={{}}
               />
-              {touched.password && errors.password && (
+              {touched.Pan && errors.Pan && (
                 <FormHelperText error id="standard-weight-helper-text-password-register">
-                  {errors.password}
+                  {errors.Pan}
                 </FormHelperText>
               )}
             </FormControl>
-
-            {strength !== 0 && (
+            <Button variant="outlined" color="secondary" size="small">
+                      Verify
+                    </Button>
+            {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>
                   <Grid container spacing={2} alignItems="center">
@@ -398,9 +402,9 @@ const FirebaseRegister = ({ ...others }) => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() => {
-                      window.location.href = 'dashboard/default';
-                    }}
+                    // onClick={() => {
+                    //   window.location.href = 'dashboard/default';
+                    // }}
                   >
                     Next
                   </Button>
@@ -462,7 +466,7 @@ const FirebaseRegister = ({ ...others }) => {
           </>
         )}
       </Dialog>
-    </>
+    </div>
   );
 };
 

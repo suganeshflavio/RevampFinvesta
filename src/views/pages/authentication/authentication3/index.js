@@ -6,30 +6,31 @@ import SignIn from './SignIn'
 import Address from './Address';
 import KycRegister from './KycRegister';
 import SecurityQues from './SecurityQues';
+import CreditScore from './CreditScore';
 
 
 const Index = () => {
-    const steps = ['', '', '', '', ''];
+    const steps = ['', '', '', '', '',''];
 
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState({});
 
-    const totalSteps = () => {  
+    const totalSteps = () => {
         return steps.length;
       };
-    
+
       const completedSteps = () => {
         return Object.keys(completed).length;
       };
-      
+
     //   const isLastStep = () => {
     //     return activeStep === totalSteps() - 1;
     //   };
-    
+
       const allStepsCompleted = () => {
         return completedSteps() === totalSteps();
       };
-    
+
     //   const handleNext = () => {
     //     const newActiveStep =
     //       isLastStep() && !allStepsCompleted()
@@ -39,22 +40,22 @@ const Index = () => {
     //         : activeStep + 1;
     //     setActiveStep(newActiveStep);
     //   };
-    
+
     //   const handleBack = () => {
     //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     //   };
-    
+
       const handleStep = (step) => () => {
         setActiveStep(step);
       };
-    
+
     //   const handleComplete = () => {
     //     const newCompleted = completed;
     //     newCompleted[activeStep] = true;
     //     setCompleted(newCompleted);
     //     handleNext();
     //   };
-    
+
       const handleReset = () => {
         setActiveStep(0);
         setCompleted({});
@@ -80,7 +81,7 @@ const Index = () => {
       </Stepper>
       </Box>
       {/* stepper end */}
-             
+
             <>
         {allStepsCompleted() ? (
           <>
@@ -94,9 +95,9 @@ const Index = () => {
           </>
         ) : (
           <>
-          {activeStep==0?<SignUp/>:activeStep==1?<Address/>:activeStep==2?<KycRegister/>:activeStep==3?<SignIn/>:<SecurityQues/>}
+          {activeStep==0?<SignUp/>:activeStep==1?<SignIn/>:activeStep==2?<CreditScore/>:activeStep==3?<Address/>:activeStep==4?<KycRegister/>:<SecurityQues/>}
 
-{/*             
+{/*
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button
                 color="inherit"

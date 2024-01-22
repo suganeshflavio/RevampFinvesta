@@ -20,7 +20,7 @@ import {
   TextField,
   // TextField,
   Typography,
-  
+
   // useMediaQuery
 } from '@mui/material';
 
@@ -62,7 +62,7 @@ const FirebaseRegister = ({ ...others }) => {
       setotpState({...otpState,email:'flex'})
     }
   }
-  
+
 
   // const [strength, setStrength] = useState(0);
   // const [level, setLevel] = useState();
@@ -135,7 +135,7 @@ const FirebaseRegister = ({ ...others }) => {
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
           </Box>
         </Grid> */}
-        
+
       </Grid>
 
       <Formik
@@ -200,15 +200,15 @@ const FirebaseRegister = ({ ...others }) => {
                   error={touched.phone&&errors.phone}
                   id="outlined-error"
                   type="text"
-                  label='Mobile Number'
+                  label='Mobile Number&#42;'
                   value={values.phone}
                   size='small'
                   name="phone"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  
+
                   inputProps={{}}
-                  
+
                 />
                 {touched.phone && errors.phone && (
                   <FormHelperText error id="standard-weight-helper-text--register">
@@ -235,7 +235,7 @@ const FirebaseRegister = ({ ...others }) => {
                   size='small'
                   value={values.otp}
                   name="otp"
-                  label="Otp"
+                  label="Otp&#42;"
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
@@ -249,7 +249,7 @@ const FirebaseRegister = ({ ...others }) => {
                   </FormHelperText>
                 )}
               </FormControl>
-              
+
               <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
                 {/* <InputLabel htmlFor="outlined-adornment-password-register">Email</InputLabel> */}
                 <TextField
@@ -259,7 +259,7 @@ const FirebaseRegister = ({ ...others }) => {
                   value={values.email}
                   name="email"
                   size='small'
-                  label="Email"
+                  label="Email&#42;"
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
@@ -293,11 +293,11 @@ const FirebaseRegister = ({ ...others }) => {
                   value={values.code}
                   name="code"
                   size='small'
-                  label="code"
+                  label="code&#42;"
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
-                    
+
                   }}
 
                   inputProps={{}}
@@ -309,7 +309,7 @@ const FirebaseRegister = ({ ...others }) => {
                 )}
               </FormControl>
 
-            
+
             {/* {strength !== 0 && (
               <FormControl fullWidth>
                 <Box sx={{ mb: 2 }}>

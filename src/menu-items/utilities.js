@@ -1,5 +1,5 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet,IconFileCertificate } from '@tabler/icons';
+import { IconTypography, IconPalette, IconShadow, IconWindmill, IconBuildingBank, IconWallet,IconFileCertificate, IconUserPlus } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -9,7 +9,8 @@ const icons = {
   IconWindmill,
   IconBuildingBank,
   IconWallet,
-  IconFileCertificate
+  IconFileCertificate,
+  IconUserPlus
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -40,7 +41,7 @@ const utilities = {
       title: 'Add New',
       type: 'item',
       url: '/dashboard/default',
-      icon: icons.IconBuildingBank,
+      icon: icons.IconUserPlus,
       breadcrumbs: false
     },
     {

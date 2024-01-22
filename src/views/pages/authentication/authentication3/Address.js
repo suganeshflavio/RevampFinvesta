@@ -57,11 +57,11 @@ const Register = () => {
                     <Divider />
                   </Grid>
                   <Grid item xs={8}>
-                    <Grid item container direction="column" xs={12} sx={{textAlign:"center"}}>
+                    {/* <Grid item container direction="column" xs={12} sx={{textAlign:"center"}}>
                       <Typography component={Link} to="/Login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                         Already have an account?
                       </Typography>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
               </AuthCardWrapper>

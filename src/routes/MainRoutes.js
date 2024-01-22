@@ -15,6 +15,7 @@ const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
 const UtilsServicerequest = Loadable(lazy(() => import('views/utilities/Servicerequest')));
+const UtilsServicelist = Loadable(lazy(() => import('views/utilities/ServiceList')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 const UtilsServices=Loadable(lazy(() => import('views/utilities/MoneyTransfer')));
 // const UtilsMoneyTransfer=Loadable(lazy(() => import('views/utilities/PopularServices')));
@@ -25,7 +26,7 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  
+
   path: '/',
   element: <MainLayout />,
   children: [
@@ -106,6 +107,17 @@ const MainRoutes = {
       path: 'dashboard',
       children: [
         {
+          path: 'Servicelist',
+          element: <UtilsServicelist />,
+          breadcrumbs: true
+
+        }
+      ]
+    },
+    {
+      path: 'dashboard',
+      children: [
+        {
           path: 'Services/:id',
           element: <UtilsServices/>,
           breadcrumbs: true
@@ -124,7 +136,7 @@ const MainRoutes = {
         }
       ]
     },
-    
+
   ]
 };
 
