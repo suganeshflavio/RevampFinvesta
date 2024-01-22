@@ -161,69 +161,65 @@ const Agent = () => {
   const DS = [
     {
       value: 'all',
-      label: 'Questions'
+      label: 'Select DS'
     },
     {
       value: 'new',
-      label: 'What is your 1st school name?'
+      label: 'XXxxx'
     },
     {
       value: 'unread',
-      label: 'What is your pet name?'
+      label: 'YYyy'
     },
     {
       value: 'other',
-      label: 'What is your mothers Hometown name?'
-    },
-    {
-      value: 'other',
-      label: 'What is your 10th percentage?'
+      label: 'ZZZzzz'
     }
   ];
 
   const service = [
     {
       value: 'all',
-      label: 'Questions'
+      label: 'select the services'
     },
     {
       value: 'new',
-      label: 'What is your 1st school name?'
+      label: 'FI'
     },
     {
       value: 'unread',
-      label: 'What is your pet name?'
+      label: 'Non FI'
     },
     {
       value: 'other',
-      label: 'What is your mothers Hometown name?'
+      label: 'ATBC'
     },
     {
       value: 'other',
-      label: 'What is your 10th percentage?'
+      label: 'Aecs'
     }
   ];
 
   const bank = [
     {
       value: 'all',
-      label: 'Questions'
+      label: 'Select the Bank'
     },
     {
       value: 'new',
-      label: 'What is your 1st school name?'
+      label: 'Axis Bank'
     },
     {
       value: 'unread',
-      label: 'What is your pet name?'
+      label: 'HDFC Bank'
     },
     {
       value: 'other',
-      label: 'What is your mothers Hometown name?'
+      label: 'IOB'
     },
     {
       value: 'other',
-      label: 'What is your 10th percentage?'
+      label: 'CUB'
     }
   ];
   // const [strength, setStrength] = useState(0);

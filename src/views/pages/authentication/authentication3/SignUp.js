@@ -57,7 +57,7 @@ const Register = () => {
                   </Grid>
                   <Grid item xs={8}>
                     <Grid item container direction="column" xs={12} textAlign="center">
-                      <Typography component={Link} to="/Login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
+                      <Typography component={Link} to="/dashboard/default" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                         Already have an account?
                       </Typography>
                     </Grid>

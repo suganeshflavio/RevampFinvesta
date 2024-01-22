@@ -37,13 +37,13 @@ const PopularCard = ({ isLoading }) => {
       {isLoading ? (
         <SkeletonPopularCard />
       ) : (
-        <MainCard content={false} title="Transcation">
+        <MainCard content={false}>
           <CardContent>
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12}>
                 <Grid container alignContent="center" justifyContent="space-between">
                   <Grid item>
-                    <Typography variant="h4">Transcation</Typography>
+                    <Typography variant="h3">Transcation</Typography>
                   </Grid>
                   <Grid item>
                     <MoreHorizOutlinedIcon
@@ -83,7 +83,7 @@ const PopularCard = ({ isLoading }) => {
                 <BajajAreaChartCard />
               </Grid>
               <Grid item xs={12}>
-                <Grid container direction="column">
+                <Grid container direction="column" >
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item xs={8} sx={{display:"flex"}}>
