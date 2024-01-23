@@ -325,19 +325,6 @@ const KycRegister = ({ ...others }) => {
                           handleChange(e);
                           changePassword(e.target.value);
                         }}
-                        // endAdornment={
-                        //   <InputAdornment position="end">
-                        //     <IconButton
-                        //       aria-label="toggle password visibility"
-                        //       onClick={handleClickShowPassword}
-                        //       onMouseDown={handleMouseDownPassword}
-                        //       edge="end"
-                        //       size="large"
-                        //     >
-                        //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                        //     </IconButton>
-                        //   </InputAdornment>
-                        // }
                         inputProps={{}}
                       />
                       {touched.district && errors.district && (
@@ -361,19 +348,6 @@ const KycRegister = ({ ...others }) => {
                           handleChange(e);
                           changePassword(e.target.value);
                         }}
-                        // endAdornment={
-                        //   <InputAdornment position="end">
-                        //     <IconButton
-                        //       aria-label="toggle password visibility"
-                        //       onClick={handleClickShowPassword}
-                        //       onMouseDown={handleMouseDownPassword}
-                        //       edge="end"
-                        //       size="large"
-                        //     >
-                        //       {showPassword ? <Visibility /> : <VisibilityOff />}
-                        //     </IconButton>
-                        //   </InputAdornment>
-                        // }
                         inputProps={{}}
                       />
                       {touched.state && errors.state && (

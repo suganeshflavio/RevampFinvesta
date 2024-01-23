@@ -6,17 +6,16 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
-import AuthCardWrapper from '../AuthCardWrapper';
+import AuthCardWrapper from '../SignupCardWrapper';
 // import Logo from 'ui-component/Logo';
-// import AuthRegister from '../auth-forms/AuthRegister';
 import AuthFooter from 'ui-component/cards/AuthFooter';
-import SecurityQues from '../auth-forms/SecurityQues';
+import SigninForm from '../auth-forms/SigninForm';
 
 // assets
 
 // ===============================|| AUTH3 - REGISTER ||=============================== //
 
-const Register = () => {
+const AgentSignin = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -41,7 +40,7 @@ const Register = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Select your security questions
+                            Hi, Welcome to Fia network
                           </Typography>
                           {/* <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Enter your credentials to continue
@@ -51,17 +50,17 @@ const Register = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <SecurityQues />
+                    <SigninForm />
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
                   </Grid>
                   <Grid item xs={8}>
-                    {/* <Grid item container direction="column" xs={12} sx={{textAlign:"center"}}>
-                      <Typography component={Link} to="/Login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
+                    <Grid item container direction="column" xs={12} textAlign="center">
+                      <Typography component={Link} to="/dashboard/default" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                         Already have an account?
                       </Typography>
-                    </Grid> */}
+                    </Grid>
                   </Grid>
                 </Grid>
               </AuthCardWrapper>
@@ -76,4 +75,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default AgentSignin;

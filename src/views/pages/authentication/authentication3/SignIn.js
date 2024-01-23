@@ -21,7 +21,7 @@ const Register = () => {
 
   return (
     <AuthWrapper1>
-     
+
       <Grid  container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
         <Grid item xs={12} xl={10}>
           <Grid  container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -43,7 +43,7 @@ const Register = () => {
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h4' : 'h3'}>
                             Enter your KYC details
                           </Typography>
-                          
+
                         </Stack>
                       </Grid>
                     </Grid>

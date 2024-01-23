@@ -7,6 +7,7 @@ import Address from './Address';
 import KycRegister from './KycRegister';
 import SecurityQues from './SecurityQues';
 import CreditScore from './CreditScore';
+// import SigninForm from '../auth-forms/SigninForm';
 
 
 const Index = () => {
