@@ -220,7 +220,7 @@ const FirebaseRegister = ({ ...others }) => {
           }
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, isValid }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
               <Grid item xs={12} sm={8}>
@@ -389,7 +389,7 @@ const FirebaseRegister = ({ ...others }) => {
                 <AnimateButton>
                   <Button
                     disableElevation
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !isValid}
                     fullWidth
                     size="large"
                     type="submit"

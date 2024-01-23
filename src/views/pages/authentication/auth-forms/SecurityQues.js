@@ -287,7 +287,7 @@ const Agent = () => {
           handleBlur, handleChange,
           handleSubmit,
           isSubmitting,
-           touched, values
+           touched, values, isValid
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <Stack direction={{ xs: 'column', xl: 'row', lg: 'row', md: 'row', sm: 'row' }}>
@@ -500,12 +500,37 @@ const Agent = () => {
                 )}
               </Grid>
             </Stack>
+            {click ?
+            <>
             <Grid item sm={6} xs={6}>
               <Box sx={{ mt: 2 }}>
                 <AnimateButton>
                   <Button
                     disableElevation
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !isValid}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      window.location.href="dashboard/default"
+                    }}
+                  >
+                    register
+                  </Button>
+                </AnimateButton>
+              </Box>
+            </Grid>
+            </>
+            :
+             <>
+            <Grid item sm={6} xs={6}>
+              <Box sx={{ mt: 2 }}>
+                <AnimateButton>
+                  <Button
+                    disableElevation
+                    disabled={isSubmitting || !isValid}
                     fullWidth
                     size="large"
                     type="submit"
@@ -518,6 +543,7 @@ const Agent = () => {
                 </AnimateButton>
               </Box>
             </Grid>
+            </>}
           </form>
         )}
       </Formik>
