@@ -74,7 +74,7 @@ const Index = () => {
        <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} >
-            <StepButton color="success" onClick={handleStep(index)}>
+            <StepButton color="error" onClick={handleStep(index)}>
               {label}
             </StepButton>
           </Step>
